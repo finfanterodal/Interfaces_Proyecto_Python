@@ -1,6 +1,7 @@
 import gi
 
 from App import Main
+from SQLiteBD import SQLiteMetodos
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -232,6 +233,18 @@ class GridWindow(Gtk.Window):
             :param widget: Widget
             :return: none
             """
+        dni = self.entryDni.get_text()
+        nombre = self.entryNombre.get_text()
+        apellidos = self.entryApellidos.get_text()
+        if (self.sexoH.get_active()):
+            sexo = "H"
+        else:
+            sexo = "M"
+
+        direccion = self.entryDireccion.get_text()
+        telefono = self.entryTelefono.get_text()
+        SQLiteMetodos.insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono)
+        self.cargar_dni_cliente()
 
     # 2.Metodo que consulta usuarios
     def on_buttonModificar_clicked(self, widget):
@@ -239,6 +252,17 @@ class GridWindow(Gtk.Window):
                     :param widget: Widget
                     :return: none
                     """
+        dni = self.comboAux
+        nombre = self.entryNombre2.get_text()
+        apellidos = self.entryApellidos2.get_text()
+        if (self.sexoH2.get_active()):
+            sexo = "H"
+        else:
+            sexo = "M"
+
+        direccion = self.entryDireccion2.get_text()
+        telefono = self.entryTelefono2.get_text()
+        SQLiteMetodos.updateTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono)
 
     # 3. Metodo que borra usuarios
     def on_buttonEliminar_clicked(self, widget):
@@ -246,6 +270,8 @@ class GridWindow(Gtk.Window):
                 :param widget: Widget
                 :return: none
         """
+        SQLiteMetodos.deleteTablaClientes(self.comboAux2)
+        self.cargar_dni_cliente()
 
     # Recoge la señal del combo para cagar los datos actuales del cliente en función del dni seleccionado
     def on_comboModificar_changed(self, combo):
@@ -258,6 +284,13 @@ class GridWindow(Gtk.Window):
             model = combo.get_model()
             dniCliente = model[tree_iter][0]
             self.comboAux = dniCliente
+
+            datos = SQLiteMetodos.selectTablaClientesDni(dniCliente)
+            for clientes in datos:
+                self.entryNombre2.set_text(clientes[1])
+                self.entryApellidos2.set_text(clientes[2])
+                self.entryDireccion2.set_text(clientes[4])
+                self.entryTelefono2.set_text(clientes[5])
 
     # Recoge la señal del combo para cagar el dni seleccionado
     def on_comboEliminar_changed(self, combo):
@@ -278,6 +311,12 @@ class GridWindow(Gtk.Window):
                 :param: none
                 :return: none
         """
+        self.entryDni3.clear()
+        self.entryDni2.clear()
+        datos = SQLiteMetodos.selectTablaClientesDni2()
+        for clientes in datos:
+            self.entryDni2.append([clientes[0]])
+            self.entryDni3.append([clientes[0]])
 
     # Volver al inicio
     def on_buttonVolver_clicked(self, widget):

@@ -17,6 +17,17 @@ def crear_conexion():
     return conn
 
 
+def cerrar_conexion(conn):
+    """
+        Función que cierra la base de datos
+        :return: none
+        """
+    try:
+        conn.close()
+    except conn.DatabaseError as erroSQL:
+        print("Error al cerrar de conexión.")
+
+
 def crearTabla(conn, crear_tabla_sql):
     """Crea una tabla con la query crear_tabla_sql
     :param conn: Objecto Connection
@@ -40,6 +51,31 @@ def insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono):
     :param telefono: Telefono text
     :return: none
     """
+    if (
+            dni != "" and nombre != "" and apellidos != "" and sexo != "" and direccion != "" and telefono != ""):
+        conn = crear_conexion()
+        cursor = conn.cursor()
+
+        try:
+
+            sql = "INSERT INTO clientes (dni,nombre,apellidos,sexo,direccion,telefono) VALUES (?, ?, ?, ?, ?, ?)"
+            parametros = (dni, nombre, apellidos, sexo, direccion, telefono)
+
+            cursor.execute(sql, parametros)
+
+            conn.commit()
+
+        except conn.OperationalError as e:
+            print("Error ")
+
+        except conn.DatabaseError as e2:
+            print("Error")
+
+        finally:
+            cursor.close()
+            cerrar_conexion(conn)
+    else:
+        print("Faltan valores para insertar el cliente")
 
 
 def insertTablaServicios(id, dni, tipo, tarifa):
@@ -50,6 +86,28 @@ def insertTablaServicios(id, dni, tipo, tarifa):
     :param tarifa: Tarifa double
     :return: none
     """
+    if (
+            dni != "" and id != "" and dni != "" and tipo != "" and tarifa != ""):
+        conn = crear_conexion()
+        cursor = conn.cursor()
+
+        try:
+            sql = "INSERT INTO clientes (id,dni,tipo,tarifa) VALUES (?, ?, ?, ?)"
+            parametros = (id, dni, tipo, tarifa)
+            cursor.execute(sql, parametros)
+            conn.commit()
+
+        except conn.OperationalError as e:
+            print("Error ")
+
+        except conn.DatabaseError as e2:
+            print("Error")
+
+        finally:
+            cursor.close()
+            cerrar_conexion(conn)
+    else:
+        print("Faltan valores para insertar el servicio")
 
 
 def insertTablaProductos(id, dni, nombre, descripcion, precio, cantidad):
@@ -62,13 +120,65 @@ def insertTablaProductos(id, dni, nombre, descripcion, precio, cantidad):
     :param cantidad: Cantidad int
     :return: none
     """
+    if (
+            id != "" and dni != "" and nombre != "" and descripcion != "" and precio != "" and cantidad != ""):
+        conn = crear_conexion()
+        cursor = conn.cursor()
+
+        try:
+
+            sql = "INSERT INTO clientes (id, dni, nombre, descripcion, precio, cantidad) VALUES (?, ?, ?, ?, ?, ?)"
+            parametros = (id, dni, nombre, descripcion, precio, cantidad)
+            cursor.execute(sql, parametros)
+            conn.commit()
+
+        except conn.OperationalError as e:
+            print("Error ")
+
+        except conn.DatabaseError as e2:
+            print("Error")
+
+        finally:
+            cursor.close()
+            cerrar_conexion(conn)
+    else:
+        print("Faltan valores para insertar el producto")
 
 
-def updateTablaClientes(dni):
+def updateTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono):
     """Modifica los datos de un cliente dado su dni
-    :param dni: Dni del cliente
+    :param dni: Dni text
+    :param nombre: Nombre text
+    :param apellidos: Apellidos text
+    :param sexo: Sexo text
+    :param direccion: Direccion text
+    :param telefono: Telefono text
     :return: none
     """
+    if (dni != "" and nombre != "" and apellidos != "" and sexo != "" and direccion != "" and telefono != ""):
+
+        conn = crear_conexion()
+        cursor = conn.cursor()
+        try:
+
+            sql = "UPDATE clientes SET nombre = ?, apellidos = ?, sexo = ?, direccion = ?, telefono = ? where dni = ?"
+            parametros = (nombre, apellidos, sexo, direccion, telefono, dni)
+
+            cursor.execute(sql, parametros)
+
+            conn.commit()
+
+        except conn.OperationalError as e:
+            print("Error ")
+
+        except conn.DatabaseError as e2:
+            print("Error")
+
+        finally:
+            cursor.close()
+            cerrar_conexion(conn)
+    else:
+        print("Faltan valores para modificar el cliente")
 
 
 def deleteTablaClientes(dni):
@@ -76,6 +186,24 @@ def deleteTablaClientes(dni):
     :param dni: Dni del cliente
     :return: none
     """
+    conn = crear_conexion()
+    cursor = conn.cursor()
+    try:
+
+        sql_DELETE = "DELETE FROM clientes WHERE dni = '" + dni + "'"
+        cursor.execute(sql_DELETE)
+        conn.commit()
+        print("Eliminado")
+
+    except conn.OperationalError as err:
+        print("Error ")
+
+    except conn.DatabaseError as err2:
+        print("Error")
+
+    finally:
+        cursor.close()
+        cerrar_conexion(conn)
 
 
 def selectTablaClientes():
@@ -90,6 +218,22 @@ def selectTablaClientesDni(dni):
     :param dni: Dni del cliente a buscar
     :return: datos del cliente.
     """
+    conn = crear_conexion()
+    cursor = conn.cursor()
+    try:
+        sql = "SELECT * FROM clientes WHERE dni = '" + dni + "'"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        return datos
+    except conn.OperationalError as err:
+        print("Error ")
+
+    except conn.DatabaseError as err2:
+        print("Error")
+
+    finally:
+        cursor.close()
+        cerrar_conexion(conn)
 
 
 def selectTablaClientesDni2():
@@ -97,6 +241,19 @@ def selectTablaClientesDni2():
     :param: none
     :return: Lista de dni clientes.
     """
+    try:
+        conn = crear_conexion()
+        cursor = conn.cursor()
+        cursor.execute("SELECT dni FROM clientes")
+        datos = cursor.fetchall()
+        return datos
+    except conn.OperationalError as err:
+        print("Error ")
+    except conn.DatabaseError as err2:
+        print("Error")
+    finally:
+        cursor.close()
+        cerrar_conexion(conn)
 
 
 def selectTablaProductos(dni):
@@ -136,7 +293,7 @@ def main():
                                      id integer PRIMARY KEY, 
                                      dni TEXT NOT NULL, 
                                      tipo TEXT NOT NULL, 
-                                     tarifa TEXT NOT NULL
+                                     tarifa double NOT NULL
                                      )
     """
     # Crear conexion con la base de datos
@@ -148,3 +305,4 @@ def main():
         crearTabla(conn, sql_crear_tabla_productos)
     else:
         print("Fallo en la conexión.")
+    cerrar_conexion(conn)
