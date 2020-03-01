@@ -30,9 +30,36 @@ def crearTabla(conn, crear_tabla_sql):
         print(e)
 
 
-def insertTabla(nombreTabla):
-    """Inserta una nueva fila en la tabla indicada
-    :param nombreTabla: Nombre de la tabla
+def insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono):
+    """Inserta una nueva fila en la tabla Clientes
+    :param dni: Dni text
+    :param nombre: Nombre text
+    :param apellidos: Apellidos text
+    :param sexo: Sexo text
+    :param direccion: Direccion text
+    :param telefono: Telefono text
+    :return: none
+    """
+
+
+def insertTablaServicios(id, dni, tipo, tarifa):
+    """Inserta una nueva fila en la tabla Clientes
+    :param id: id int
+    :param dni: Dni text
+    :param tipo: Tipo text
+    :param tarifa: Tarifa double
+    :return: none
+    """
+
+
+def insertTablaProductos(id, dni, nombre, descripcion, precio, cantidad):
+    """Inserta una nueva fila en la tabla Clientes
+    :param id: id int
+    :param dni: Dni text
+    :param nombre: nombre text
+    :param descripcion: Descripcion text
+    :param precio: Precio double
+    :param cantidad: Cantidad int
     :return: none
     """
 
@@ -65,6 +92,13 @@ def selectTablaClientesDni(dni):
     """
 
 
+def selectTablaClientesDni2():
+    """Select de los dni de los clientes existentes
+    :param: none
+    :return: Lista de dni clientes.
+    """
+
+
 def selectTablaProductos(dni):
     """Select de productos relacionados con un cliente determinado dado el dni
     :param dni: Dni del cliente a buscar
@@ -91,7 +125,7 @@ def main():
     """
     sql_crear_tabla_productos = """CREATE TABLE IF NOT EXISTS productos(
                                      id integer PRIMARY KEY, 
-                                     dni TEXT NOT NUL, 
+                                     dni TEXT NOT NULL, 
                                      nombre TEXT NOT NULL, 
                                      descripcion TEXT NOT NULL,
                                      precio double NOT NULL,
@@ -100,7 +134,7 @@ def main():
     """
     sql_crear_tabla_servicios = """CREATE TABLE IF NOT EXISTS servicios(
                                      id integer PRIMARY KEY, 
-                                     dni TEXT NOT NUL, 
+                                     dni TEXT NOT NULL, 
                                      tipo TEXT NOT NULL, 
                                      tarifa TEXT NOT NULL
                                      )

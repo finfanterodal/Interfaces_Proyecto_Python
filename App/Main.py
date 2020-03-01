@@ -3,6 +3,7 @@ import gi
 from App.Albaranes import Albaranes, Listar
 from App.GestionClientes import GestionClientes
 from App.ProductosServicios import Productos, Servicios
+from SQLiteBD import SQLiteMetodos
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -40,7 +41,7 @@ class GridWindow(Gtk.Window):
         self.box.pack_start(self.button6, True, True, 0)
         self.connect("destroy", Gtk.main_quit)
         # Creacion de las tablas en la base de datos.
-
+        SQLiteMetodos.main()
     # LLama a la siguiente ventana Gestion de clientes
     def on_button1_clicked(self, widget):
         """
