@@ -204,6 +204,11 @@ class GridWindow(Gtk.Window):
 
     # Señal del RadioButton Insertar
     def on_button_toggled(self, button, name):
+        """Merodo que recoge la seña del RadioButton
+                :param button: Button
+                :param name: Name
+                :return: none
+        """
         if button.get_active():
             state = "on"
         else:
@@ -211,6 +216,11 @@ class GridWindow(Gtk.Window):
 
     # Señal del RadioButton Modificar
     def on_button_toggled2(self, button, name):
+        """Merodo que recoge la seña del RadioButton
+                :param button: Button
+                :param name: Name
+                :return: none
+        """
         if button.get_active():
             state = "on"
         else:
@@ -233,16 +243,16 @@ class GridWindow(Gtk.Window):
     # 3. Metodo que borra usuarios
     def on_buttonEliminar_clicked(self, widget):
         """Merodo para eliminar un cliente
-                          :param widget: Widget
-                          :return: none
-                          """
+                :param widget: Widget
+                :return: none
+        """
 
     # Recoge la señal del combo para cagar los datos actuales del cliente en función del dni seleccionado
     def on_comboModificar_changed(self, combo):
         """Merodo que recoge la señar del combo "changed" para cargar los datos del cliente a modificar
                 :param combo: GtkCombo
                 :return: none
-                """
+        """
         tree_iter = combo.get_active_iter()
         if tree_iter != None:
             model = combo.get_model()
@@ -254,7 +264,7 @@ class GridWindow(Gtk.Window):
         """Merodo que recoge la señar del combo "changed" para cargar los datos del cliente a eliminar
                         :param combo: GtkCombo
                         :return: none
-                        """
+        """
         tree_iter = combo.get_active_iter()
         if tree_iter != None:
             model = combo.get_model()
@@ -272,8 +282,8 @@ class GridWindow(Gtk.Window):
     # Volver al inicio
     def on_buttonVolver_clicked(self, widget):
         """Metodo que vuelve al menu de inicio.
-                       :param widget: Widget
-                       :return: none
-               """
+                :param widget: Widget
+                :return: none
+        """
         Main.GridWindow().show_all()
         self.set_visible(False)
