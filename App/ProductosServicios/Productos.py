@@ -29,7 +29,7 @@ class GridWindow(Gtk.Window):
         self.buttonAñadir = Gtk.Button("Añadir")
         self.buttonAñadir.connect("clicked", self.on_buttonAñadir_clicked)
         self.buttonVolver = Gtk.Button("Volver")
-        self.buttonAñadir.connect("clicked", self.on_buttonVolver_clicked)
+        self.buttonVolver.connect("clicked", self.on_buttonVolver_clicked)
 
         self.boxPrincipal = Gtk.Box(spacing=10)
         self.boxPrincipal.set_orientation(Gtk.Orientation.HORIZONTAL)
@@ -118,13 +118,18 @@ class GridWindow(Gtk.Window):
             :param button: GtkButton
             :return: none
         """
-        id = int(self.entryId.get_text())
-        dni = self.aux
-        nombre = self.entryNombre.get_text()
-        descripcion = self.entryDescripcion.get_text()
-        precio = float(self.entryPrecio.get_text())
-        cantidad = int(self.entryCantidad.get_text())
-        SQLiteMetodos.insertTablaProductos(id, dni, nombre, descripcion, precio, cantidad)
+        try:
+            id = int(self.entryId.get_text())
+            dni = self.aux
+            nombre = self.entryNombre.get_text()
+            descripcion = self.entryDescripcion.get_text()
+            precio = float(self.entryPrecio.get_text())
+            cantidad = int(self.entryCantidad.get_text())
+            SQLiteMetodos.insertTablaProductos(id, dni, nombre, descripcion, precio, cantidad)
+        except ValueError as verr:
+            print("Introduzca valores coherentes")
+        except Exception as ex:
+            print("Otro Error")
 
     # Volver al inicio
     def on_buttonVolver_clicked(self, widget):
