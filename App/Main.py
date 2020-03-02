@@ -2,7 +2,7 @@ import gi
 
 from App.Albaranes import Albaranes, Listar
 from App.GestionClientes import GestionClientes
-from App.ProductosServicios import Productos, Servicios
+from App.ProductosServicios import Productos
 from SQLiteBD import SQLiteMetodos
 
 gi.require_version('Gtk', '3.0')
@@ -27,9 +27,6 @@ class GridWindow(Gtk.Window):
         self.button2 = Gtk.Button(label="Productos")
         self.button2.connect("clicked", self.on_button2_clicked)
         self.box.pack_start(self.button2, True, True, 0)
-        self.button3 = Gtk.Button(label="Servicios")
-        self.button3.connect("clicked", self.on_button3_clicked)
-        self.box.pack_start(self.button3, True, True, 0)
         self.button4 = Gtk.Button(label="Albaranes")
         self.button4.connect("clicked", self.on_button4_clicked)
         self.box.pack_start(self.button4, True, True, 0)
@@ -42,6 +39,7 @@ class GridWindow(Gtk.Window):
         self.connect("destroy", Gtk.main_quit)
         # Creacion de las tablas en la base de datos.
         SQLiteMetodos.main()
+
     # LLama a la siguiente ventana Gestion de clientes
     def on_button1_clicked(self, widget):
         """
@@ -60,16 +58,6 @@ class GridWindow(Gtk.Window):
                   :return: Nothing
                   """
         Productos.GridWindow().show_all()
-        self.set_visible(False)
-
-    # LLama a la siguiente ventana en este caso Servicios
-    def on_button3_clicked(self, widget):
-        """
-               Metodo para entrar en la ventana de Servicios
-               :param Widget: widget
-               :return: Nothing
-               """
-        Servicios.GridWindow().show_all()
         self.set_visible(False)
 
     # LLama a la siguiente ventana en este caso  Albaranes

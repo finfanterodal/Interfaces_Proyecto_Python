@@ -78,45 +78,13 @@ def insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono):
         print("Faltan valores para insertar el cliente")
 
 
-def insertTablaServicios(id, dni, tipo, tarifa):
-    """Inserta una nueva fila en la tabla Clientes
-    :param id: id int
-    :param dni: Dni text
-    :param tipo: Tipo text
-    :param tarifa: Tarifa double
-    :return: none
-    """
-    if (
-            dni != "" and id != "" and dni != "" and tipo != "" and tarifa != ""):
-        conn = crear_conexion()
-        cursor = conn.cursor()
-
-        try:
-            sql = "INSERT INTO clientes (id,dni,tipo,tarifa) VALUES (?, ?, ?, ?)"
-            parametros = (id, dni, tipo, tarifa)
-            cursor.execute(sql, parametros)
-            conn.commit()
-
-        except conn.OperationalError as e:
-            print("Error ")
-
-        except conn.DatabaseError as e2:
-            print("Error")
-
-        finally:
-            cursor.close()
-            cerrar_conexion(conn)
-    else:
-        print("Faltan valores para insertar el servicio")
-
-
 def insertTablaProductos(id, dni, nombre, descripcion, precio, cantidad):
     """Inserta una nueva fila en la tabla Clientes
     :param id: id int
     :param dni: Dni text
     :param nombre: nombre text
     :param descripcion: Descripcion text
-    :param precio: Precio double
+    :param precio: Precio float
     :param cantidad: Cantidad int
     :return: none
     """
@@ -127,17 +95,18 @@ def insertTablaProductos(id, dni, nombre, descripcion, precio, cantidad):
 
         try:
 
-            sql = "INSERT INTO clientes (id, dni, nombre, descripcion, precio, cantidad) VALUES (?, ?, ?, ?, ?, ?)"
+            sql = "INSERT INTO productos(id, dni, nombre, descripcion, precio, cantidad) VALUES (?, ?, ?, ?, ?, ?)"
             parametros = (id, dni, nombre, descripcion, precio, cantidad)
             cursor.execute(sql, parametros)
             conn.commit()
 
         except conn.OperationalError as e:
             print("Error ")
+            print(e)
 
         except conn.DatabaseError as e2:
             print("Error")
-
+            print(e2)
         finally:
             cursor.close()
             cerrar_conexion(conn)
@@ -211,6 +180,22 @@ def selectTablaClientes():
     :param: none
     :return: Lista de todos los clientes
     """
+    conn = crear_conexion()
+    cursor = conn.cursor()
+    try:
+        sql = "SELECT * FROM clientes"
+        cursor.execute(sql)
+        datos = cursor.fetchall()
+        return datos
+    except conn.OperationalError as err:
+        print("Error ")
+
+    except conn.DatabaseError as err2:
+        print("Error")
+
+    finally:
+        cursor.close()
+        cerrar_conexion(conn)
 
 
 def selectTablaClientesDni(dni):
@@ -261,13 +246,19 @@ def selectTablaProductos(dni):
     :param dni: Dni del cliente a buscar
     :return: productos relacionados.
     """
-
-
-def selectTablaServicios(dni):
-    """Select de servicios relacionados con un cliente determinado dado el dni
-    :param dni: Dni del cliente a buscar
-    :return: servicios relacionados.
-    """
+    try:
+        conn = crear_conexion()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM productos WHERE dni ='" + dni + "'")
+        datos = cursor.fetchall()
+        return datos
+    except conn.OperationalError as err:
+        print("Error ")
+    except conn.DatabaseError as err2:
+        print("Error")
+    finally:
+        cursor.close()
+        cerrar_conexion(conn)
 
 
 def main():
@@ -285,15 +276,8 @@ def main():
                                      dni TEXT NOT NULL, 
                                      nombre TEXT NOT NULL, 
                                      descripcion TEXT NOT NULL,
-                                     precio double NOT NULL,
-                                     cantidad TEXT NOT NULL
-                                     )
-    """
-    sql_crear_tabla_servicios = """CREATE TABLE IF NOT EXISTS servicios(
-                                     id integer PRIMARY KEY, 
-                                     dni TEXT NOT NULL, 
-                                     tipo TEXT NOT NULL, 
-                                     tarifa double NOT NULL
+                                     precio float NOT NULL,
+                                     cantidad integer NOT NULL
                                      )
     """
     # Crear conexion con la base de datos
@@ -301,7 +285,6 @@ def main():
     # Crear tablas
     if conn is not None:
         crearTabla(conn, sql_crear_tabla_clientes)
-        crearTabla(conn, sql_crear_tabla_servicios)
         crearTabla(conn, sql_crear_tabla_productos)
     else:
         print("Fallo en la conexión.")
