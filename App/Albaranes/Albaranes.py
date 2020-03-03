@@ -1,5 +1,6 @@
 import gi
 
+from App import Main
 from SQLiteBD import SQLiteMetodos
 
 gi.require_version('Gtk', '3.0')
@@ -27,7 +28,7 @@ class GridWindow(Gtk.Window):
         self.vista = Gtk.TreeView(model=self.modeloC)
         self.vista.get_selection().connect("changed", self.on_changed)
 
-        self.labelClientes = Gtk.Label("Clientess")
+        self.labelClientes = Gtk.Label("Clientes")
 
         """TABLA PRODUCTOS"""
         self.columnasP = ["Id", "Dni", "Nombre", "Descripcion", "Precio", "Cantidad"]
@@ -41,6 +42,20 @@ class GridWindow(Gtk.Window):
         self.boxPrincipal.add(self.vista)
         self.boxPrincipal.add(self.labelProductos)
         self.boxPrincipal.add(self.vistaP)
+
+        self.boxAux = Gtk.Box(spacing=20)
+        self.boxAux.set_orientation(Gtk.Orientation.HORIZONTAL)
+        self.boxPrincipal.add(self.boxAux)
+
+        self.buttonVolver = Gtk.Button(label="Volver")
+        self.buttonVolver.connect("clicked", self.on_buttonVolver_clicked)
+        self.boxAux.pack_start(self.buttonVolver, True, True, 0)
+        self.buttonFactura = Gtk.Button(label="Factura")
+        self.buttonFactura.connect("clicked", self.on_buttonFactura_clicked)
+        self.boxAux.pack_start(self.buttonFactura, True, True, 0)
+        self.buttonLista = Gtk.Button(label="Lista Clientes")
+        self.buttonLista.connect("clicked", self.on_buttonLista_clicked)
+        self.boxAux.pack_start(self.buttonLista, True, True, 0)
 
         clientes = SQLiteMetodos.selectTablaClientes()
         for cliente in clientes:
@@ -60,9 +75,9 @@ class GridWindow(Gtk.Window):
         :param selection:
         :return:
         """
-        (model, iter) = selection.get_selected()
+        (self.model, self.iter) = selection.get_selected()
         self.productosP.clear()
-        productos = SQLiteMetodos.selectTablaProductos(model[iter][0])
+        productos = SQLiteMetodos.selectTablaProductos(self.model[self.iter][0])
         for producto in productos:
             self.productosP.append([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
 
@@ -76,3 +91,27 @@ class GridWindow(Gtk.Window):
                 self.columnaP = Gtk.TreeViewColumn(self.columnasP[i], celda, text=i)
                 self.vistaP.append_column(self.columnaP)
                 self.auxiliar = False
+
+    # Volver al inicio
+    def on_buttonVolver_clicked(self, widget):
+        """Metodo que vuelve al menu de inicio.
+                            :param widget: Widget
+                            :return: none
+                    """
+        Main.GridWindow().show_all()
+        self.set_visible(False)
+
+    def on_buttonLista_clicked(self, widget):
+        """Metodo que crea un pdf con una tabla de lista de clientes
+            :param widget: Widget
+            :return: none
+        """
+
+    def on_buttonFactura_clicked(self, widget):
+        """Metodo que crea una factura del cliente seeccionado en el treeview.
+           :param widget: Widget
+           :return: none
+        """
+        productos = SQLiteMetodos.selectTablaProductos(self.model[self.iter][0])
+        for producto in productos:
+            print([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])

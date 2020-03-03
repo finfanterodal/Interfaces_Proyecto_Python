@@ -1,6 +1,6 @@
 import gi
 
-from App.Albaranes import Albaranes, Listar
+from App.Albaranes import Albaranes
 from App.GestionClientes import GestionClientes
 from App.ProductosServicios import Productos
 from SQLiteBD import SQLiteMetodos
@@ -30,9 +30,6 @@ class GridWindow(Gtk.Window):
         self.button4 = Gtk.Button(label="Albaranes")
         self.button4.connect("clicked", self.on_button4_clicked)
         self.box.pack_start(self.button4, True, True, 0)
-        self.button5 = Gtk.Button(label="Listar")
-        self.button5.connect("clicked", self.on_button5_clicked)
-        self.box.pack_start(self.button5, True, True, 0)
         self.button6 = Gtk.Button(label="Salir")
         self.button6.connect("clicked", self.on_button6_clicked)
         self.box.pack_start(self.button6, True, True, 0)
@@ -68,16 +65,6 @@ class GridWindow(Gtk.Window):
                :return: Nothing
             """
         Albaranes.GridWindow().show_all()
-        self.set_visible(False)
-
-    # LLama a la siguiente ventana en este caso  Listar
-    def on_button5_clicked(self, widget):
-        """
-               Metodo para entrar en la ventana de Listar
-               :param Widget: widget
-               :return: Nothing
-               """
-        Listar.GridWindow().show_all()
         self.set_visible(False)
 
     # Salir de la App
