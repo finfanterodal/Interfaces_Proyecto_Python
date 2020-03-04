@@ -36,16 +36,17 @@ class GridWindow(Gtk.Window):
         self.boxAux = Gtk.Box(spacing=10)
         self.boxAux.set_orientation(Gtk.Orientation.HORIZONTAL)
 
-        self.labelDni = Gtk.Label("Dni:")
+        self.labelDni = Gtk.Label("Dni:", halign=Gtk.Align.START)
+        s
         self.entryDni = Gtk.Entry()
 
-        self.labelNombre = Gtk.Label("Nombre:")
+        self.labelNombre = Gtk.Label("Nombre:", halign=Gtk.Align.START)
         self.entryNombre = Gtk.Entry()
 
-        self.labelApellidos = Gtk.Label("Apellidos:")
+        self.labelApellidos = Gtk.Label("Apellidos:", halign=Gtk.Align.START)
         self.entryApellidos = Gtk.Entry()
 
-        self.labelSexo = Gtk.Label("Sexo:")
+        self.labelSexo = Gtk.Label("Sexo:", halign=Gtk.Align.START)
 
         self.boxSexo = Gtk.Box(spacing=10)
         self.boxSexo.set_orientation(Gtk.Orientation.HORIZONTAL)
@@ -60,10 +61,10 @@ class GridWindow(Gtk.Window):
         self.boxSexo.add(self.sexoH)
         self.boxSexo.add(self.sexoM)
 
-        self.labelDireccion = Gtk.Label("Direccion:")
+        self.labelDireccion = Gtk.Label("Direccion:", halign=Gtk.Align.START)
         self.entryDireccion = Gtk.Entry()
 
-        self.labelTelefono = Gtk.Label("Telefono:")
+        self.labelTelefono = Gtk.Label("Telefono:", halign=Gtk.Align.START)
         self.entryTelefono = Gtk.Entry()
 
         self.buttonAñadir = Gtk.Button("Añadir")
