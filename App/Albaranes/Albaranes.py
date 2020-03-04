@@ -164,50 +164,83 @@ class GridWindow(Gtk.Window):
            :return: none
         """
         # IMPORTS
-        from reportlab.pdfbase.ttfonts import TTFont
-        from reportlab.pdfbase.ttfonts import pdfmetrics
+        from reportlab.platypus import SimpleDocTemplate
+        from reportlab.lib.pagesizes import letter
+        from reportlab.lib import colors
+        from reportlab.platypus import Table
+        from reportlab.platypus import TableStyle
         from reportlab.pdfgen import canvas
         from reportlab.platypus import Frame, Table
-        from reportlab.lib.units import cm
         import webbrowser as wb
 
         # DATOS CLIENTE SELECCIONADO
         dataC = []
-        dataC.append(["Dni", "Nombre", "Apellidos", "Sexo", "Direccion", "Telefono"])
         clientes = SQLiteMetodos.selectTablaClientesDni(self.model[self.iter][0])
-        dataC.append([clientes[0]])
+        for cliente in clientes:
+            dataC.append(['Datos Cliente ', '', '', '', ''])
+            dataC.append(['Dni: ', cliente[0], '', '', ''])
+            dataC.append(['Nombre: ', cliente[1], '', '', ''])
+            dataC.append(['Apellidos: ', cliente[2], '', '', ''])
+            dataC.append(['Sexo: ', cliente[3], '', '', ''])
+            dataC.append(['Direccion: ', cliente[4], '', '', ''])
+            dataC.append(['Teléfono: ', cliente[5], '', '', ''])
 
-        # DATOS PRODUCTOS DEL CLIENTE SELECCIONADO
-        precioTotal = 0.0
-        dataP = []
-        productos = SQLiteMetodos.selectTablaProductos(self.model[self.iter][0])
-        # Productos que pertenecen al cliente seleccionado
-        for producto in productos:
-            print([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
-            dataP.append([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
-            precioTotal = precioTotal + producto[4]
+            # PRODUCTOS DEL CLIENTE SELECCIONADO
+            precioTotal = 0.0
+            dataP = []
+            productos = SQLiteMetodos.selectTablaProductos(self.model[self.iter][0])
+            # Productos que pertenecen al cliente seleccionado
+        try:
+            dataP = ["Id", "Dni", "Nombre", "Descripcion", "Precio", "Cantidad"]
+            for producto in productos:
+                print([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
+                dataP.append([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
+                precioTotal = precioTotal + producto[4]
 
-        print("DATA")
-        print(dataP[0][0])
+            rowNumb = len(dataP)
+            for i in range(0, rowNumb):
+                print("")
 
-        rowNumb = len(dataP)
-        for i in range(0, rowNumb):
-            print("")
+            # GENERAR PDF
+            fileName = 'Factura' + dataP[0][1] + '.pdf'
+            pdf = SimpleDocTemplate("./Pdfs/" + fileName, pagesize=letter)
 
-        # Factura ["Id", "Dni", "Nombre", "Descripcion", "Precio", "Cantidad"]
-        fileName = 'Factura' + dataP[0][1] + '.pdf'
+            # DATOS CLIENTE
 
-        pdf = canvas.Canvas("./Pdfs/" + fileName)
-        """  pdf.setTitle(dataP[0][1] + 'Factura')
-        pdf.setFont('Courier-Bold', 30)
-        pdf.drawString(250, 700, 'Factura')"""
+            table = Table(dataC, colWidths=90, rowHeights=30)
+            table.setStyle(TableStyle([
+                ('TEXTCOLOR', (0, 0), (0, -1), colors.darkgreen),
 
-        # HEADEER Y FOOTER PDF
-        pdf.translate(cm, cm)
-        frameh = Frame(1, 750, 550, 30, showBoundary=1)
-        flow_obj = []
-        table = Table([['FACTURA CLIENTE: ' + dataP[0][1]]])
-        flow_obj.append(table)
-        frameh.addFromList(flow_obj, pdf)
-        pdf.save()
-        wb.open_new('./Pdfs/' + fileName)
+                ('ALIGN', (0, 0), (0, -1), 'LEFT'),
+
+                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+
+                # ('BOX', (0, 0), (-1, 5), 1, colors.black),
+
+                # ('INNERGRID', (0, 0), (-1, 5), 0.5, colors.grey)
+            ]))
+
+            # DATOS PRODUCTOS CLIENTE
+            table2 = Table(dataC, colWidths=90, rowHeights=30)
+            table2.setStyle(TableStyle([
+                ('TEXTCOLOR', (0, 0), (0, -1), colors.darkgreen),
+
+                ('ALIGN', (0, 0), (0, -1), 'LEFT'),
+
+                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+
+                # ('BOX', (0, 0), (-1, 5), 1, colors.black),
+
+                # ('INNERGRID', (0, 0), (-1, 5), 0.5, colors.grey)
+            ]))
+            # Creación de las dtabla
+            elementos = []
+            elementos.append(table)
+            elementos.append(table2)
+            pdf.build(elementos)
+            wb.open_new('./Pdfs/' + fileName)
+
+
+
+        except IndexError as e:
+            print('No hay productos para generar la factura.')
