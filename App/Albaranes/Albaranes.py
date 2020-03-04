@@ -111,6 +111,7 @@ class GridWindow(Gtk.Window):
         from reportlab.lib import colors
         from reportlab.platypus import Table
         from reportlab.platypus import TableStyle
+        import webbrowser as wb
         data = []
         data.append(["Dni", "Nombre", "Apellidos", "Sexo", "Direccion", "Telefono"])
         clientes = SQLiteMetodos.selectTablaClientes()
@@ -155,21 +156,58 @@ class GridWindow(Gtk.Window):
         )
         table.setStyle(ts2)
         pdf.build(elementos)
+        wb.open_new('./Pdfs/' + fileName)
 
     def on_buttonFactura_clicked(self, widget):
         """Metodo que crea una factura del cliente seeccionado en el treeview.
            :param widget: Widget
            :return: none
         """
-        nombre = ""
+        # IMPORTS
+        from reportlab.pdfbase.ttfonts import TTFont
+        from reportlab.pdfbase.ttfonts import pdfmetrics
+        from reportlab.pdfgen import canvas
+        from reportlab.platypus import Frame, Table
+        from reportlab.lib.units import cm
+        import webbrowser as wb
+
+        # DATOS CLIENTE SELECCIONADO
+        dataC = []
+        dataC.append(["Dni", "Nombre", "Apellidos", "Sexo", "Direccion", "Telefono"])
+        clientes = SQLiteMetodos.selectTablaClientesDni(self.model[self.iter][0])
+        dataC.append([clientes[0]])
+
+        # DATOS PRODUCTOS DEL CLIENTE SELECCIONADO
         precioTotal = 0.0
-        data = []
+        dataP = []
         productos = SQLiteMetodos.selectTablaProductos(self.model[self.iter][0])
         # Productos que pertenecen al cliente seleccionado
         for producto in productos:
             print([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
-            data.append([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
+            dataP.append([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
             precioTotal = precioTotal + producto[4]
 
         print("DATA")
-        print(data[1][0])
+        print(dataP[0][0])
+
+        rowNumb = len(dataP)
+        for i in range(0, rowNumb):
+            print("")
+
+        # Factura ["Id", "Dni", "Nombre", "Descripcion", "Precio", "Cantidad"]
+        fileName = 'Factura' + dataP[0][1] + '.pdf'
+
+        pdf = canvas.Canvas("./Pdfs/" + fileName)
+        """  pdf.setTitle(dataP[0][1] + 'Factura')
+        pdf.setFont('Courier-Bold', 30)
+        pdf.drawString(250, 700, 'Factura')"""
+
+        # HEADEER Y FOOTER PDF
+        pdf.translate(cm, cm)
+        frameh = Frame(1, 750, 550, 30, showBoundary=1)
+        flow_obj = []
+        table = Table([['FACTURA CLIENTE: ' + dataP[0][1]]])
+        flow_obj.append(table)
+        frameh.addFromList(flow_obj, pdf)
+        pdf.save()
+        wb.open_new('./Pdfs/' + fileName)
