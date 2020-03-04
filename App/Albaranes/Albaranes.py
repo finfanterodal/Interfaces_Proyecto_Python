@@ -1,4 +1,5 @@
 import gi
+from reportlab.platypus.para import Paragraph
 
 from App import Main
 from SQLiteBD import SQLiteMetodos
@@ -32,7 +33,7 @@ class GridWindow(Gtk.Window):
 
         """TABLA PRODUCTOS"""
         self.columnasP = ["Id", "Dni", "Nombre", "Descripcion", "Precio", "Cantidad"]
-        self.modeloP = Gtk.ListStore(int, str, str, str, float, int)
+        self.modeloP = Gtk.ListStore(int, str, str, str, str, int)
         self.productosP = []
         self.vistaP = Gtk.TreeView(model=self.modeloP)
         self.auxiliar = True
@@ -79,7 +80,8 @@ class GridWindow(Gtk.Window):
         self.productosP.clear()
         productos = SQLiteMetodos.selectTablaProductos(self.model[self.iter][0])
         for producto in productos:
-            self.productosP.append([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
+            self.productosP.append(
+                [producto[0], producto[1], producto[2], producto[3], str(producto[4]) + " €/ud", producto[5]])
 
         self.modeloP.clear()
         for elemento in self.productosP:
@@ -170,6 +172,7 @@ class GridWindow(Gtk.Window):
         from reportlab.platypus import TableStyle
         from reportlab.platypus import Frame, Table
         import webbrowser as wb
+        from reportlab.lib.styles import ParagraphStyle as PS
 
         # DATOS CLIENTE SELECCIONADO
         dataC = []
@@ -192,7 +195,7 @@ class GridWindow(Gtk.Window):
         try:
             dataP.append(["Id Producto", "Nombre", "Descripcion", "Precio", "Cantidad"])
             for producto in productos:
-                dataP.append([producto[0], producto[2], producto[3], producto[4], producto[5]])
+                dataP.append([producto[0], producto[2], producto[3], str(producto[4]) + " €/ud", producto[5]])
                 precioTotal = precioTotal + (producto[4] * producto[5])
 
             dataP.append(['', '', '', 'PRECIO TOTAL:', str(precioTotal) + " €"])
@@ -201,7 +204,6 @@ class GridWindow(Gtk.Window):
             # GENERAR PDF
             fileName = 'Factura' + dataP[0][1] + '.pdf'
             pdf = SimpleDocTemplate("./Pdfs/" + fileName, pagesize=letter)
-
             # DATOS CLIENTE
 
             table = Table(dataC, colWidths=80, rowHeights=30)
@@ -215,6 +217,7 @@ class GridWindow(Gtk.Window):
 
             # DATOS PRODUCTOS CLIENTE
             table2 = Table(dataP, colWidths=80, rowHeights=30)
+            table2.getSpaceBefore()
             table2.setStyle(TableStyle([
                 ('TEXTCOLOR', (0, 0), (4, 0), colors.darkgreen),
 

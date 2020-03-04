@@ -24,6 +24,9 @@ class GridWindow(Gtk.Window):
         self.buttonVolver = Gtk.Button("Volver")
         self.buttonVolver.connect("clicked", self.on_buttonVolver_clicked)
         self.gridInsertar = Gtk.Grid()
+        self.gridInsertar.set_column_homogeneous(True)
+        self.gridInsertar.set_row_homogeneous(True)
+
         self.boxAñadir1 = Gtk.Box(spacing=10)
         self.boxAñadir1.set_orientation(Gtk.Orientation.VERTICAL)
         self.boxAñadir2 = Gtk.Box(spacing=10)
@@ -65,7 +68,7 @@ class GridWindow(Gtk.Window):
 
         self.buttonAñadir = Gtk.Button("Añadir")
         self.buttonAñadir.connect("clicked", self.on_buttonAñadir_clicked)
-
+        """
         # Añadir etiquetas
         self.boxAñadir1.pack_start(self.labelDni, True, True, 0)
         self.boxAñadir1.pack_start(self.labelNombre, True, True, 0)
@@ -87,6 +90,22 @@ class GridWindow(Gtk.Window):
         self.boxAñadir.pack_start(self.boxAñadir2, True, True, 0)
         self.gridInsertar.add(self.boxAñadir)
         self.gridInsertar.attach_next_to(self.boxAux, self.boxAñadir, Gtk.PositionType.BOTTOM, 1, 1)
+        """
+        ## AÑADIR A GRID
+        self.gridInsertar.add(self.labelDni)
+        self.gridInsertar.attach_next_to(self.entryDni, self.labelDni, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridInsertar.attach_next_to(self.labelNombre, self.labelDni, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridInsertar.attach_next_to(self.entryNombre, self.labelNombre, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridInsertar.attach_next_to(self.labelApellidos, self.labelNombre, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridInsertar.attach_next_to(self.entryApellidos, self.labelApellidos, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridInsertar.attach_next_to(self.labelDireccion, self.labelApellidos, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridInsertar.attach_next_to(self.entryDireccion, self.labelDireccion, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridInsertar.attach_next_to(self.labelTelefono, self.labelDireccion, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridInsertar.attach_next_to(self.entryTelefono, self.labelTelefono, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridInsertar.attach_next_to(self.labelSexo, self.labelTelefono, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridInsertar.attach_next_to(self.boxSexo, self.labelSexo, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridInsertar.attach_next_to(self.buttonAñadir, self.labelSexo, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridInsertar.attach_next_to(self.buttonVolver, self.buttonAñadir, Gtk.PositionType.RIGHT, 1, 1)
 
         """MODIFICAR CLIENTE EXISTENTE"""
         self.buttonVolver2 = Gtk.Button("Volver")
