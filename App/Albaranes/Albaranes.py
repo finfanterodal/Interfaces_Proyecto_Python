@@ -106,12 +106,39 @@ class GridWindow(Gtk.Window):
             :param widget: Widget
             :return: none
         """
+        from reportlab.platypus import SimpleDocTemplate
+        from reportlab.lib.pagesizes import letter
+        from reportlab.platypus import Table
+        from reportlab.platypus import TableStyle
+        data = []
+        clientes = SQLiteMetodos.selectTablaClientes()
+        for cliente in clientes:
+            data.append([cliente[0], cliente[1], cliente[2], cliente[3], cliente[4], cliente[5]])
+        # Creacion pedf
+        fileName = 'listaClientes.pdf'
+        pdf = SimpleDocTemplate("./Pdfs/" + fileName, pagesize=letter)
+        # Creación de la tabla
+        table = Table(data)
+        elementos = []
+        elementos.append(table)
+
+        # Añadiendo style a la tabla
+        pdf.build(elementos)
 
     def on_buttonFactura_clicked(self, widget):
         """Metodo que crea una factura del cliente seeccionado en el treeview.
            :param widget: Widget
            :return: none
         """
+        nombre = ""
+        precioTotal = 0.0
+        data = []
         productos = SQLiteMetodos.selectTablaProductos(self.model[self.iter][0])
+        # Productos que pertenecen al cliente seleccionado
         for producto in productos:
             print([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
+            data.append([producto[0], producto[1], producto[2], producto[3], producto[4], producto[5]])
+            precioTotal = precioTotal + producto[4]
+
+        print("DATA")
+        print(data[1][0])
