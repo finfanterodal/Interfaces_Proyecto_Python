@@ -108,9 +108,11 @@ class GridWindow(Gtk.Window):
         """
         from reportlab.platypus import SimpleDocTemplate
         from reportlab.lib.pagesizes import letter
+        from reportlab.lib import colors
         from reportlab.platypus import Table
         from reportlab.platypus import TableStyle
         data = []
+        data.append(["Dni", "Nombre", "Apellidos", "Sexo", "Direccion", "Telefono"])
         clientes = SQLiteMetodos.selectTablaClientes()
         for cliente in clientes:
             data.append([cliente[0], cliente[1], cliente[2], cliente[3], cliente[4], cliente[5]])
@@ -123,6 +125,35 @@ class GridWindow(Gtk.Window):
         elementos.append(table)
 
         # Añadiendo style a la tabla
+        style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.lightslategray),
+            ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('FONTNAME', (0, 0), (-1, 0), 'Courier-Bold'),
+            ('FONTSIZE', (0, 0), (-1, 0), 14),
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ])
+        table.setStyle(style)
+        # Alternar color de las filas
+        rowNumb = len(data)
+        for i in range(1, rowNumb):
+            if i % 2 == 0:
+                bc = colors.lightgreen
+            else:
+                bc = colors.lightskyblue
+            ts = TableStyle([('BACKGROUND', (0, i), (-1, i), bc)])
+            table.setStyle(ts)
+
+        # Añadimos bordes a la tabla
+        ts2 = TableStyle(
+            [
+                ('BOX', (0, 0), (-1, -1), 2, colors.black),
+                ('LINEBEFORE', (0, 0), (-1, rowNumb), 2, colors.black),
+                ('LINEABOVE', (0, 0), (-1, rowNumb), 2, colors.black)
+            ]
+        )
+        table.setStyle(ts2)
         pdf.build(elementos)
 
     def on_buttonFactura_clicked(self, widget):
