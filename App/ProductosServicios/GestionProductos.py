@@ -9,14 +9,9 @@ from gi.repository import Gtk
 
 class GridWindow(Gtk.Window):
     def __init__(self):
-        """Formulario para insertar productos relacionados con clientes existentes, combo con dni de los clientes actuales,
-                nombre producto, descripcion, cantidad, precio"""
-        """                          id integer PRIMARY KEY, 
-                                     dni TEXT NOT NULL, 
-                                     nombre TEXT NOT NULL, 
-                                     descripcion TEXT NOT NULL,
-                                     precio double NOT NULL,
-                                   cantidad integer NOT NULL"""
+        """
+        Inicializa la ventana de Productos con la interfaz.
+        """
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Productos")
         self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
@@ -69,6 +64,9 @@ class GridWindow(Gtk.Window):
         self.cargarInterface()
 
     def cargarInterface(self):
+        """
+        Carga el grid de la ventana Productos con los componentes necesarios.
+        """
         # AÑADIR A GRID
         self.gridProductos.add(self.labelDni)
         self.gridProductos.attach_next_to(self.comboAñadir, self.labelDni, Gtk.PositionType.RIGHT, 1, 1)
@@ -78,9 +76,7 @@ class GridWindow(Gtk.Window):
         self.gridProductos.attach_next_to(self.entryNombre, self.labelNombre, Gtk.PositionType.RIGHT, 1, 1)
         self.gridProductos.attach_next_to(self.labelCantidad, self.labelNombre, Gtk.PositionType.BOTTOM, 1, 1)
         self.gridProductos.attach_next_to(self.entryCantidad, self.labelCantidad, Gtk.PositionType.RIGHT, 1, 1)
-        self.gridProductos.attach_next_to(self.labelDescripcion, self.labelCantidad, Gtk.PositionType.BOTTOM, 1, 1)
-        self.gridProductos.attach_next_to(self.entryDescripcion, self.labelDescripcion, Gtk.PositionType.RIGHT, 1, 1)
-        self.gridProductos.attach_next_to(self.labelPrecio, self.labelDescripcion, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridProductos.attach_next_to(self.labelPrecio, self.labelCantidad, Gtk.PositionType.BOTTOM, 1, 1)
         self.gridProductos.attach_next_to(self.entryPrecio, self.labelPrecio, Gtk.PositionType.RIGHT, 1, 1)
         self.gridProductos.attach_next_to(self.buttonAñadir, self.labelPrecio, Gtk.PositionType.BOTTOM, 1, 1)
         self.gridProductos.attach_next_to(self.buttonVolver, self.buttonAñadir, Gtk.PositionType.RIGHT, 1, 1)
@@ -115,10 +111,13 @@ class GridWindow(Gtk.Window):
             id = int(self.entryId.get_text())
             dni = self.aux
             nombre = self.entryNombre.get_text()
-            descripcion = self.entryDescripcion.get_text()
             precio = float(self.entryPrecio.get_text())
             cantidad = int(self.entryCantidad.get_text())
-            SQLiteMetodos.insertTablaProductos(id, dni, nombre, descripcion, precio, cantidad)
+            SQLiteMetodos.insertTablaProductos(id, dni, nombre, precio, cantidad)
+            dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
+                                       "Producto añadido correctamente")
+            dialog.run()
+            dialog.destroy()
         except ValueError as verr:
             print("Introduzca valores coherentes")
         except Exception as ex:

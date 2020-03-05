@@ -10,6 +10,9 @@ from gi.repository import Gtk
 
 class GridWindow(Gtk.Window):
     def __init__(self):
+        """
+        Inicializa la ventana de Albaranes con la interfaz.
+        """
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Albaranes")
         self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
@@ -32,10 +35,11 @@ class GridWindow(Gtk.Window):
         self.labelClientes = Gtk.Label("Clientes")
 
         """TABLA PRODUCTOS"""
-        self.columnasP = ["Id", "Dni", "Nombre", "Descripcion", "Precio", "Cantidad"]
-        self.modeloP = Gtk.ListStore(int, str, str, str, str, int)
+        self.columnasP = ["Id", "Dni", "Nombre", "Precio", "Cantidad"]
+        self.modeloP = Gtk.ListStore(int, str, str, str, int)
         self.productosP = []
         self.vistaP = Gtk.TreeView(model=self.modeloP)
+        self.vistaP.get_selection().connect("changed", self.on_changedP)
         self.auxiliar = True
         self.labelProductos = Gtk.Label("Productos")
 
@@ -71,6 +75,9 @@ class GridWindow(Gtk.Window):
             self.columna = Gtk.TreeViewColumn(self.columnasC[i], celda, text=i)
             self.vista.append_column(self.columna)
 
+    def on_celda_edited(self):
+        """"""
+
     def on_changed(self, selection):
         """Método que captura la señal selection en el TreeView y carga los productos del cliente seleccionado
         :param selection:
@@ -81,7 +88,7 @@ class GridWindow(Gtk.Window):
         productos = SQLiteMetodos.selectTablaProductos(self.model[self.iter][0])
         for producto in productos:
             self.productosP.append(
-                [producto[0], producto[1], producto[2], producto[3], str(producto[4]) + " €/ud", producto[5]])
+                [producto[0], producto[1], producto[2], str(producto[3]) + " €/ud", producto[4]])
 
         self.modeloP.clear()
         for elemento in self.productosP:
@@ -93,6 +100,12 @@ class GridWindow(Gtk.Window):
                 self.columnaP = Gtk.TreeViewColumn(self.columnasP[i], celda, text=i)
                 self.vistaP.append_column(self.columnaP)
                 self.auxiliar = False
+
+    def on_changedP(self, selection):
+        """Método que captura la señal selection en el TreeView y carga los productos del cliente seleccionado
+        :param selection:
+        :return:
+        """
 
     # Volver al inicio
     def on_buttonVolver_clicked(self, widget):
@@ -193,16 +206,16 @@ class GridWindow(Gtk.Window):
             productos = SQLiteMetodos.selectTablaProductos(self.model[self.iter][0])
             # Productos que pertenecen al cliente seleccionado
         try:
-            dataP.append(["Id Producto", "Nombre", "Descripcion", "Precio", "Cantidad"])
+            dataP.append(["Id Producto", "Nombre", "Precio", "Cantidad"])
             for producto in productos:
-                dataP.append([producto[0], producto[2], producto[3], str(producto[4]) + " €/ud", producto[5]])
-                precioTotal = precioTotal + (producto[4] * producto[5])
+                dataP.append([producto[0], producto[2], str(producto[3]) + " €/ud", producto[4]])
+                precioTotal = precioTotal + (producto[3] * producto[4])
 
-            dataP.append(['', '', '', 'PRECIO TOTAL:', str(precioTotal) + " €"])
+            dataP.append(['', '', 'PRECIO TOTAL:', str(precioTotal) + " €"])
             rowNumb = len(dataP)
 
             # GENERAR PDF
-            fileName = 'Factura' + dataP[0][1] + '.pdf'
+            fileName = 'Factura' + dataC[1][1] + '.pdf'
             pdf = SimpleDocTemplate("./Pdfs/" + fileName, pagesize=letter)
             # DATOS CLIENTE
 
@@ -219,9 +232,9 @@ class GridWindow(Gtk.Window):
             table2 = Table(dataP, colWidths=80, rowHeights=30)
             table2.getSpaceBefore()
             table2.setStyle(TableStyle([
-                ('TEXTCOLOR', (0, 0), (4, 0), colors.darkgreen),
+                ('TEXTCOLOR', (0, 0), (3, 0), colors.darkgreen),
 
-                ('TEXTCOLOR', (0, rowNumb - 1), (4, rowNumb - 1), colors.darkred),
+                ('TEXTCOLOR', (0, rowNumb - 1), (3, rowNumb - 1), colors.darkred),
 
                 ('ALIGN', (0, 0), (0, -1), 'LEFT'),
 

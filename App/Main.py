@@ -3,7 +3,7 @@ from gi.overrides.Gdk import Gdk
 
 from App.Albaranes import Albaranes
 from App.GestionClientes import GestionClientes
-from App.ProductosServicios import Productos
+from App.ProductosServicios import GestionProductos
 from SQLiteBD import SQLiteMetodos
 
 gi.require_version('Gtk', '3.0')
@@ -12,6 +12,9 @@ from gi.repository import Gtk
 
 class GridWindow(Gtk.Window):
     def __init__(self):
+        """
+        Inicializa la ventana con la interfaz.
+        """
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Proyecto interfaces")
         #
@@ -55,7 +58,7 @@ class GridWindow(Gtk.Window):
                   :param Widget: widget
                   :return: Nothing
                   """
-        Productos.GridWindow().show_all()
+        GestionProductos.GridWindow().show_all()
         self.set_visible(False)
 
     # LLama a la siguiente ventana en este caso  Albaranes

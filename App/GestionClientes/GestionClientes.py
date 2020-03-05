@@ -9,7 +9,9 @@ from gi.repository import Gtk
 
 class GridWindow(Gtk.Window):
     def __init__(self):
-        """ """
+        """
+        Inicializa la ventana de Gestion de Clientes con la interfaz.
+        """
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Gestion clientes")
         self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
@@ -220,6 +222,9 @@ class GridWindow(Gtk.Window):
         telefono = self.entryTelefono.get_text()
         SQLiteMetodos.insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono)
         self.cargar_dni_cliente()
+        dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Cliente Añadido Correctamente")
+        dialog.run()
+        dialog.destroy()
 
     # 2.Metodo que consulta usuarios
     def on_buttonModificar_clicked(self, widget):
@@ -247,6 +252,9 @@ class GridWindow(Gtk.Window):
         """
         SQLiteMetodos.deleteTablaClientes(self.comboAux2)
         self.cargar_dni_cliente()
+        dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Cliente Eliminado Correctamente")
+        dialog.run()
+        dialog.destroy()
 
     # Recoge la señal del combo para cagar los datos actuales del cliente en función del dni seleccionado
     def on_comboModificar_changed(self, combo):
@@ -266,6 +274,10 @@ class GridWindow(Gtk.Window):
                 self.entryApellidos2.set_text(clientes[2])
                 self.entryDireccion2.set_text(clientes[4])
                 self.entryTelefono2.set_text(clientes[5])
+        dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
+                                   "Cliente Modificado Correctamente")
+        dialog.run()
+        dialog.destroy()
 
     # Recoge la señal del combo para cagar el dni seleccionado
     def on_comboEliminar_changed(self, combo):
@@ -301,3 +313,15 @@ class GridWindow(Gtk.Window):
         """
         Main.GridWindow().show_all()
         self.set_visible(False)
+
+    def validoDNI(dni):
+        """Metodo que vuelve al menu de inicio.
+        :param dni: Str Dni de la persona.
+        :return boolean: true o false en función del resultado
+        """
+
+    def validoTelf(telf):
+        """Metodo que vuelve al menu de inicio.
+        :param telf: Str Dni de la persona.
+        :return boolean: true o false en función del resultado
+        """

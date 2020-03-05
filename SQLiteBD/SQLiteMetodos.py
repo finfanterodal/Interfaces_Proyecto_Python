@@ -78,25 +78,24 @@ def insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono):
         print("Faltan valores para insertar el cliente")
 
 
-def insertTablaProductos(id, dni, nombre, descripcion, precio, cantidad):
+def insertTablaProductos(id, dni, nombre, precio, cantidad):
     """Inserta una nueva fila en la tabla Clientes
     :param id: id int
     :param dni: Dni text
     :param nombre: nombre text
-    :param descripcion: Descripcion text
     :param precio: Precio float
     :param cantidad: Cantidad int
     :return: none
     """
     if (
-            id != "" and dni != "" and nombre != "" and descripcion != "" and precio != "" and cantidad != ""):
+            id != "" and dni != "" and nombre != "" and precio != "" and cantidad != ""):
         conn = crear_conexion()
         cursor = conn.cursor()
 
         try:
 
-            sql = "INSERT INTO productos(id, dni, nombre, descripcion, precio, cantidad) VALUES (?, ?, ?, ?, ?, ?)"
-            parametros = (id, dni, nombre, descripcion, precio, cantidad)
+            sql = "INSERT INTO productos(id, dni, nombre, precio, cantidad) VALUES (?, ?, ?, ?, ?)"
+            parametros = (id, dni, nombre, precio, cantidad)
             cursor.execute(sql, parametros)
             conn.commit()
 
@@ -275,7 +274,6 @@ def main():
                                      id integer PRIMARY KEY, 
                                      dni TEXT NOT NULL, 
                                      nombre TEXT NOT NULL, 
-                                     descripcion TEXT NOT NULL,
                                      precio float NOT NULL,
                                      cantidad integer NOT NULL
                                      )
