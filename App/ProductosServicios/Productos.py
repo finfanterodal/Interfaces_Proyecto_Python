@@ -26,6 +26,10 @@ class GridWindow(Gtk.Window):
                                      precio double NOT NULL,
                                      cantidad integer NOT NULL"""
 
+        self.gridProductos = Gtk.Grid()
+        self.gridProductos.set_column_homogeneous(True)
+        self.gridProductos.set_row_homogeneous(True)
+
         self.buttonAñadir = Gtk.Button("Añadir")
         self.buttonAñadir.connect("clicked", self.on_buttonAñadir_clicked)
         self.buttonVolver = Gtk.Button("Volver")
@@ -36,20 +40,8 @@ class GridWindow(Gtk.Window):
         self.boxPrincipal.set_margin_left(10)
         self.boxPrincipal.set_margin_right(10)
         self.set_border_width(10)
-        self.add(self.boxPrincipal)
+        self.add(self.gridProductos)
 
-        self.boxAñadir = Gtk.Box(spacing=10)
-        self.boxAñadir.set_orientation(Gtk.Orientation.HORIZONTAL)
-
-        self.boxAñadir1 = Gtk.Box(spacing=20)
-        self.boxAñadir1.set_orientation(Gtk.Orientation.VERTICAL)
-        self.boxAñadir.add(self.boxAñadir1)
-
-        self.boxAñadir2 = Gtk.Box(spacing=10)
-        self.boxAñadir2.set_orientation(Gtk.Orientation.VERTICAL)
-        self.boxAñadir.add(self.boxAñadir2)
-
-        self.boxPrincipal.add(self.boxAñadir)
 
         # Combo DNI
         self.labelDni = Gtk.Label("Dni Cliente:")
@@ -77,20 +69,21 @@ class GridWindow(Gtk.Window):
         self.labelCantidad = Gtk.Label("Cantidad")
         self.entryCantidad = Gtk.Entry()
 
-        self.boxAñadir1.add(self.labelDni)
-        self.boxAñadir1.add(self.labelId)
-        self.boxAñadir1.add(self.labelNombre)
-        self.boxAñadir1.add(self.labelCantidad)
-        self.boxAñadir1.add(self.labelDescripcion)
-        self.boxAñadir1.add(self.labelPrecio)
-        self.boxAñadir1.add(self.buttonAñadir)
-        self.boxAñadir2.add(self.comboAñadir)
-        self.boxAñadir2.add(self.entryId)
-        self.boxAñadir2.add(self.entryNombre)
-        self.boxAñadir2.add(self.entryCantidad)
-        self.boxAñadir2.add(self.entryDescripcion)
-        self.boxAñadir2.add(self.entryPrecio)
-        self.boxAñadir2.add(self.buttonVolver)
+        # AÑADIR A GRID
+        self.gridProductos.add(self.labelDni)
+        self.gridProductos.attach_next_to(self.comboAñadir, self.labelDni, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridProductos.attach_next_to(self.labelId, self.labelDni, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridProductos.attach_next_to(self.entryId, self.labelId, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridProductos.attach_next_to(self.labelNombre, self.labelId, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridProductos.attach_next_to(self.entryNombre, self.labelNombre, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridProductos.attach_next_to(self.labelCantidad, self.labelNombre, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridProductos.attach_next_to(self.entryCantidad, self.labelCantidad, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridProductos.attach_next_to(self.labelDescripcion, self.labelCantidad, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridProductos.attach_next_to(self.entryDescripcion, self.labelDescripcion, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridProductos.attach_next_to(self.labelPrecio, self.labelDescripcion, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridProductos.attach_next_to(self.entryPrecio, self.labelPrecio, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridProductos.attach_next_to(self.buttonAñadir, self.labelPrecio, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridProductos.attach_next_to(self.buttonVolver, self.buttonAñadir, Gtk.PositionType.RIGHT, 1, 1)
 
     def cargar_dni_cliente(self):
         """Metodo que carga los dni de los clientes existentes en los comboBox de modificar y eliminar.
