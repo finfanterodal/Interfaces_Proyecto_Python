@@ -209,7 +209,8 @@ class GridWindow(Gtk.Window):
             dataP.append(["Id Producto", "Nombre", "Precio", "Cantidad"])
             for producto in productos:
                 dataP.append([producto[0], producto[2], str(producto[3]) + " €/ud", producto[4]])
-                precioTotal = precioTotal + (producto[3] * producto[4])
+                precioTotal = precioTotal + (producto[3] * producto[4
+                ])
 
             dataP.append(['', '', 'PRECIO TOTAL:', str(precioTotal) + " €"])
             rowNumb = len(dataP)

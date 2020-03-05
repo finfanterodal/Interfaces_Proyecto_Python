@@ -11,7 +11,23 @@ class GridWindow(Gtk.Window):
     def __init__(self):
         """
         Inicializa la ventana de Gestion de Clientes con la interfaz.
+
         """
+        # Validacion DNIF
+        self.TABLA_NIF = 'TRWAGMYFPDXBNJZSQVHLCKE'  # Valores para validar el NIF
+
+        self.CLAVES_CIF = 'PQS' + 'ABEH' + 'CDFGJRUVNW'
+        self.CLAVES_NIF1 = 'LKM'  # Son especiales, se validan
+        # como CIFs
+        self.CLAVES_NIF2 = 'XYZ'
+        self.CLAVES_NIF = self.CLAVES_NIF1 + self.CLAVES_NIF2
+
+        self.CONTROL_CIF_LETRA = 'KPQS'
+        self.CONTROL_CIF_NUMERO = 'ABEH'
+
+        self.EQUIVALENCIAS_CIF = {1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E', 6: 'F', 7: 'G',
+                                  8: 'H', 9: 'I', 10: 'J', 0: 'J'}
+
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Gestion clientes")
         self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
@@ -211,20 +227,27 @@ class GridWindow(Gtk.Window):
             :return: none
             """
         dni = self.entryDni.get_text()
-        nombre = self.entryNombre.get_text()
-        apellidos = self.entryApellidos.get_text()
-        if (self.sexoH.get_active()):
-            sexo = "H"
+        validacion = self.validoDNI(dni)
+        if (validacion):
+            nombre = self.entryNombre.get_text()
+            apellidos = self.entryApellidos.get_text()
+            if (self.sexoH.get_active()):
+                sexo = "H"
+            else:
+                sexo = "M"
+            direccion = self.entryDireccion.get_text()
+            telefono = self.entryTelefono.get_text()
+            SQLiteMetodos.insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono)
+            self.cargar_dni_cliente()
+            dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
+                                       "Cliente Añadido Correctamente")
+            dialog.run()
+            dialog.destroy()
         else:
-            sexo = "M"
-
-        direccion = self.entryDireccion.get_text()
-        telefono = self.entryTelefono.get_text()
-        SQLiteMetodos.insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono)
-        self.cargar_dni_cliente()
-        dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, "Cliente Añadido Correctamente")
-        dialog.run()
-        dialog.destroy()
+            dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK,
+                                       "Introduce un valor válido")
+            dialog.run()
+            dialog.destroy()
 
     # 2.Metodo que consulta usuarios
     def on_buttonModificar_clicked(self, widget):
@@ -243,6 +266,10 @@ class GridWindow(Gtk.Window):
         direccion = self.entryDireccion2.get_text()
         telefono = self.entryTelefono2.get_text()
         SQLiteMetodos.updateTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono)
+        dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
+                                   "Cliente Modificado Correctamente")
+        dialog.run()
+        dialog.destroy()
 
     # 3. Metodo que borra usuarios
     def on_buttonEliminar_clicked(self, widget):
@@ -274,10 +301,6 @@ class GridWindow(Gtk.Window):
                 self.entryApellidos2.set_text(clientes[2])
                 self.entryDireccion2.set_text(clientes[4])
                 self.entryTelefono2.set_text(clientes[5])
-        dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
-                                   "Cliente Modificado Correctamente")
-        dialog.run()
-        dialog.destroy()
 
     # Recoge la señal del combo para cagar el dni seleccionado
     def on_comboEliminar_changed(self, combo):
@@ -314,11 +337,38 @@ class GridWindow(Gtk.Window):
         Main.GridWindow().show_all()
         self.set_visible(False)
 
-    def validoDNI(dni):
+    def validoDNI(self, valor):
         """Metodo que vuelve al menu de inicio.
         :param dni: Str Dni de la persona.
         :return boolean: true o false en función del resultado
         """
+        """
+           Nos indica si un NIF es valido.
+           El valor debe estar normalizado
+           @note:
+             - ante cualquier problema se valida como False
+           """
+        bRet = False
+
+        if len(valor) == 9:
+            try:
+                if valor[0] in self.CLAVES_NIF1:
+                    bRet = self.validarCIF(valor)
+                else:
+                    num = None
+                    if valor[0] in self.CLAVES_NIF2:
+                        pos = self.CLAVES_NIF2.find(valor[0])
+                        sNum = str(pos) + valor[1:-1]
+                        num = int(sNum)
+                    elif valor[0].isdigit():
+                        num = int(valor[:-1])
+                    if num != None and self.TABLA_NIF[num % 23] == valor[-1]:
+                        bRet = True
+            except:
+                print("EROOR NIF")
+                pass
+
+        return bRet
 
     def validoTelf(telf):
         """Metodo que vuelve al menu de inicio.
