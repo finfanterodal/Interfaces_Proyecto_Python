@@ -9,6 +9,7 @@ from gi.repository import Gtk
 
 class GridWindow(Gtk.Window):
     def __init__(self):
+        """ """
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Gestion clientes")
         self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
@@ -37,7 +38,6 @@ class GridWindow(Gtk.Window):
         self.boxAux.set_orientation(Gtk.Orientation.HORIZONTAL)
 
         self.labelDni = Gtk.Label("Dni:", halign=Gtk.Align.START)
-        s
         self.entryDni = Gtk.Entry()
 
         self.labelNombre = Gtk.Label("Nombre:", halign=Gtk.Align.START)
@@ -69,30 +69,8 @@ class GridWindow(Gtk.Window):
 
         self.buttonAñadir = Gtk.Button("Añadir")
         self.buttonAñadir.connect("clicked", self.on_buttonAñadir_clicked)
-        """
-        # Añadir etiquetas
-        self.boxAñadir1.pack_start(self.labelDni, True, True, 0)
-        self.boxAñadir1.pack_start(self.labelNombre, True, True, 0)
-        self.boxAñadir1.pack_start(self.labelApellidos, True, True, 0)
-        self.boxAñadir1.pack_start(self.labelDireccion, True, True, 0)
-        self.boxAñadir1.pack_start(self.labelTelefono, True, True, 0)
-        self.boxAñadir1.pack_start(self.labelSexo, True, True, 0)
-        # Añadir entry
-        self.boxAñadir2.pack_start(self.entryDni, True, True, 0)
-        self.boxAñadir2.pack_start(self.entryNombre, True, True, 0)
-        self.boxAñadir2.pack_start(self.entryApellidos, True, True, 0)
-        self.boxAñadir2.pack_start(self.entryDireccion, True, True, 0)
-        self.boxAñadir2.pack_start(self.entryTelefono, True, True, 0)
-        self.boxAñadir2.pack_start(self.boxSexo, True, True, 0)
 
-        self.boxAux.pack_start(self.buttonAñadir, True, True, 0)
-        self.boxAux.pack_start(self.buttonVolver, True, True, 0)
-        self.boxAñadir.pack_start(self.boxAñadir1, True, True, 0)
-        self.boxAñadir.pack_start(self.boxAñadir2, True, True, 0)
-        self.gridInsertar.add(self.boxAñadir)
-        self.gridInsertar.attach_next_to(self.boxAux, self.boxAñadir, Gtk.PositionType.BOTTOM, 1, 1)
-        """
-        ## AÑADIR A GRID
+        # AÑADIR A GRID
         self.gridInsertar.add(self.labelDni)
         self.gridInsertar.attach_next_to(self.entryDni, self.labelDni, Gtk.PositionType.RIGHT, 1, 1)
         self.gridInsertar.attach_next_to(self.labelNombre, self.labelDni, Gtk.PositionType.BOTTOM, 1, 1)
@@ -112,14 +90,8 @@ class GridWindow(Gtk.Window):
         self.buttonVolver2 = Gtk.Button("Volver")
         self.buttonVolver2.connect("clicked", self.on_buttonVolver_clicked)
         self.gridModificar = Gtk.Grid()
-        self.boxModificar1 = Gtk.Box(spacing=10)
-        self.boxModificar1.set_orientation(Gtk.Orientation.VERTICAL)
-        self.boxModificar2 = Gtk.Box(spacing=10)
-        self.boxModificar2.set_orientation(Gtk.Orientation.VERTICAL)
-        self.boxModificar = Gtk.Box(spacing=10)
-        self.boxModificar.set_orientation(Gtk.Orientation.HORIZONTAL)
-        self.boxAux2 = Gtk.Box(spacing=10)
-        self.boxAux2.set_orientation(Gtk.Orientation.HORIZONTAL)
+        self.gridModificar.set_column_homogeneous(True)
+        self.gridModificar.set_row_homogeneous(True)
 
         self.labelDni2 = Gtk.Label("Dni:")
         self.entryDni2 = Gtk.ListStore(str)
@@ -161,40 +133,27 @@ class GridWindow(Gtk.Window):
         self.buttonModificar = Gtk.Button("Modificar")
         self.buttonModificar.connect("clicked", self.on_buttonModificar_clicked)
 
-        # Añadir etiquetas
-        self.boxModificar1.pack_start(self.labelDni2, True, True, 0)
-        self.boxModificar1.pack_start(self.labelNombre2, True, True, 0)
-        self.boxModificar1.pack_start(self.labelApellidos2, True, True, 0)
-        self.boxModificar1.pack_start(self.labelDireccion2, True, True, 0)
-        self.boxModificar1.pack_start(self.labelTelefono2, True, True, 0)
-        self.boxModificar1.pack_start(self.labelSexo2, True, True, 0)
-        # Añadir entry
-        self.boxModificar2.pack_start(self.combo_Modificar, True, True, 0)
-        self.boxModificar2.pack_start(self.entryNombre2, True, True, 0)
-        self.boxModificar2.pack_start(self.entryApellidos2, True, True, 0)
-        self.boxModificar2.pack_start(self.entryDireccion2, True, True, 0)
-        self.boxModificar2.pack_start(self.entryTelefono2, True, True, 0)
-        self.boxModificar2.pack_start(self.boxSexo2, True, True, 0)
-
-        self.boxAux2.pack_start(self.buttonModificar, True, True, 0)
-        self.boxAux2.pack_start(self.buttonVolver2, True, True, 0)
-        self.boxModificar.pack_start(self.boxModificar1, True, True, 0)
-        self.boxModificar.pack_start(self.boxModificar2, True, True, 0)
-        self.gridModificar.add(self.boxModificar)
-        self.gridModificar.attach_next_to(self.boxAux2, self.boxModificar, Gtk.PositionType.BOTTOM, 1, 1)
+        # AÑADIR A GRID
+        self.gridModificar.add(self.labelDni2)
+        self.gridModificar.attach_next_to(self.combo_Modificar, self.labelDni2, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridModificar.attach_next_to(self.labelNombre2, self.labelDni2, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridModificar.attach_next_to(self.entryNombre2, self.labelNombre2, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridModificar.attach_next_to(self.labelApellidos2, self.labelNombre2, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridModificar.attach_next_to(self.entryApellidos2, self.labelApellidos2, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridModificar.attach_next_to(self.labelDireccion2, self.labelApellidos2, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridModificar.attach_next_to(self.entryDireccion2, self.labelDireccion2, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridModificar.attach_next_to(self.labelTelefono2, self.labelDireccion2, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridModificar.attach_next_to(self.entryTelefono2, self.labelTelefono2, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridModificar.attach_next_to(self.labelSexo2, self.labelTelefono2, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridModificar.attach_next_to(self.boxSexo2, self.labelSexo2, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridModificar.attach_next_to(self.buttonAñadir, self.labelSexo2, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridModificar.attach_next_to(self.buttonVolver2, self.buttonAñadir, Gtk.PositionType.RIGHT, 1, 1)
 
         """ELIMINAR UN CLIENTE"""
         self.buttonVolver3 = Gtk.Button("Volver")
         self.buttonVolver3.connect("clicked", self.on_buttonVolver_clicked)
         self.gridEliminar = Gtk.Grid()
-        self.boxEliminar = Gtk.Box(spacing=150)
-        self.boxEliminar.set_orientation(Gtk.Orientation.HORIZONTAL)
-        self.boxEliminar2 = Gtk.Box(spacing=10)
-        self.boxEliminar2.set_orientation(Gtk.Orientation.VERTICAL)
-        self.boxEliminar3 = Gtk.Box(spacing=10)
-        self.boxEliminar3.set_orientation(Gtk.Orientation.VERTICAL)
-        self.boxAux3 = Gtk.Box(spacing=10)
-        self.boxAux3.set_orientation(Gtk.Orientation.HORIZONTAL)
+        self.gridEliminar.set_column_homogeneous(True)
 
         self.labelDni3 = Gtk.Label("Dni:")
         self.entryDni3 = Gtk.ListStore(str)
@@ -208,14 +167,10 @@ class GridWindow(Gtk.Window):
         self.buttonEliminar = Gtk.Button("Eliminar")
         self.buttonEliminar.connect("clicked", self.on_buttonEliminar_clicked)
 
-        self.boxAux3.pack_start(self.buttonEliminar, True, True, 0)
-        self.boxAux3.pack_start(self.buttonVolver3, True, True, 0)
-        self.boxEliminar2.pack_start(self.labelDni3, True, True, 0)
-        self.boxEliminar3.pack_start(self.combo_Eliminar, True, True, 0)
-        self.boxEliminar.pack_start(self.boxEliminar2, True, True, 0)
-        self.boxEliminar.pack_start(self.boxEliminar3, True, True, 0)
-        self.gridEliminar.add(self.boxEliminar)
-        self.gridEliminar.attach_next_to(self.boxAux3, self.boxEliminar, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridEliminar.add(self.labelDni3)
+        self.gridEliminar.attach_next_to(self.combo_Eliminar, self.labelDni3, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridEliminar.attach_next_to(self.buttonEliminar, self.labelDni3, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridEliminar.attach_next_to(self.buttonVolver3, self.buttonEliminar, Gtk.PositionType.RIGHT, 1, 1)
 
         """AÑADIMOS LOS GRID AL NOTEBOOK"""
         self.cargar_dni_cliente()
