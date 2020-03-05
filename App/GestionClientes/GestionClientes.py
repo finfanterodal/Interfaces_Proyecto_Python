@@ -21,12 +21,7 @@ class GridWindow(Gtk.Window):
         # como CIFs
         self.CLAVES_NIF2 = 'XYZ'
         self.CLAVES_NIF = self.CLAVES_NIF1 + self.CLAVES_NIF2
-
-        self.CONTROL_CIF_LETRA = 'KPQS'
-        self.CONTROL_CIF_NUMERO = 'ABEH'
-
-        self.EQUIVALENCIAS_CIF = {1: 'A', 2: 'B', 3: 'C', 4: 'D', 5: 'E', 6: 'F', 7: 'G',
-                                  8: 'H', 9: 'I', 10: 'J', 0: 'J'}
+        # Validación telf
 
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Gestion clientes")
@@ -228,24 +223,32 @@ class GridWindow(Gtk.Window):
             """
         dni = self.entryDni.get_text()
         validacion = self.validoDNI(dni)
-        if (validacion):
-            nombre = self.entryNombre.get_text()
-            apellidos = self.entryApellidos.get_text()
-            if (self.sexoH.get_active()):
-                sexo = "H"
-            else:
-                sexo = "M"
-            direccion = self.entryDireccion.get_text()
-            telefono = self.entryTelefono.get_text()
+        if (self.sexoH.get_active()):
+            sexo = "H"
+        else:
+            sexo = "M"
+        direccion = self.entryDireccion.get_text()
+        telefono = self.entryTelefono.get_text()
+        nombre = self.entryNombre.get_text()
+        apellidos = self.entryApellidos.get_text()
+        vaidacionTelf = self.validoTelf(telefono)
+
+        if (validacion and vaidacionTelf):
             SQLiteMetodos.insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono)
             self.cargar_dni_cliente()
             dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
                                        "Cliente Añadido Correctamente")
             dialog.run()
             dialog.destroy()
+        elif (validacion == False):
+            dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK,
+                                       "Introduce un dni válido")
+            dialog.run()
+            dialog.destroy()
+
         else:
             dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK,
-                                       "Introduce un valor válido")
+                                       "Introduce un teléfono válido")
             dialog.run()
             dialog.destroy()
 
@@ -370,8 +373,22 @@ class GridWindow(Gtk.Window):
 
         return bRet
 
-    def validoTelf(telf):
+    def validoTelf(self, valor):
         """Metodo que vuelve al menu de inicio.
         :param telf: Str Dni de la persona.
         :return boolean: true o false en función del resultado
         """
+        bRet = False
+
+        if len(valor) == 9:
+            try:
+                if valor.isnumeric():
+                    bRet = True
+                else:
+
+                    bRet = False
+            except:
+                print("EROOR TELF")
+                pass
+
+        return bRet
