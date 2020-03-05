@@ -93,10 +93,10 @@ class GridWindow(Gtk.Window):
         self.gridModificar.set_column_homogeneous(True)
         self.gridModificar.set_row_homogeneous(True)
 
-        self.labelDni2 = Gtk.Label("Dni:")
+        self.labelDni2 = Gtk.Label("Dni:", halign=Gtk.Align.START)
         self.entryDni2 = Gtk.ListStore(str)
 
-        self.labelNombre2 = Gtk.Label("Nombre:")
+        self.labelNombre2 = Gtk.Label("Nombre:", halign=Gtk.Align.START)
         self.entryNombre2 = Gtk.Entry()
 
         self.combo_Modificar = Gtk.ComboBox.new_with_model(self.entryDni2)
@@ -106,10 +106,10 @@ class GridWindow(Gtk.Window):
         self.combo_Modificar.pack_start(self.renderer_text, True)
         self.combo_Modificar.add_attribute(self.renderer_text, "text", 0)
 
-        self.labelApellidos2 = Gtk.Label("Apellidos:")
+        self.labelApellidos2 = Gtk.Label("Apellidos:", halign=Gtk.Align.START)
         self.entryApellidos2 = Gtk.Entry()
 
-        self.labelSexo2 = Gtk.Label("Sexo:")
+        self.labelSexo2 = Gtk.Label("Sexo:", halign=Gtk.Align.START)
 
         self.boxSexo2 = Gtk.Box(spacing=10)
         self.boxSexo2.set_orientation(Gtk.Orientation.HORIZONTAL)
@@ -124,10 +124,10 @@ class GridWindow(Gtk.Window):
         self.boxSexo2.add(self.sexoH2)
         self.boxSexo2.add(self.sexoM2)
 
-        self.labelDireccion2 = Gtk.Label("Direccion:")
+        self.labelDireccion2 = Gtk.Label("Direccion:", halign=Gtk.Align.START)
         self.entryDireccion2 = Gtk.Entry()
 
-        self.labelTelefono2 = Gtk.Label("Telefono:")
+        self.labelTelefono2 = Gtk.Label("Telefono:", halign=Gtk.Align.START)
         self.entryTelefono2 = Gtk.Entry()
 
         self.buttonModificar = Gtk.Button("Modificar")
@@ -146,8 +146,8 @@ class GridWindow(Gtk.Window):
         self.gridModificar.attach_next_to(self.entryTelefono2, self.labelTelefono2, Gtk.PositionType.RIGHT, 1, 1)
         self.gridModificar.attach_next_to(self.labelSexo2, self.labelTelefono2, Gtk.PositionType.BOTTOM, 1, 1)
         self.gridModificar.attach_next_to(self.boxSexo2, self.labelSexo2, Gtk.PositionType.RIGHT, 1, 1)
-        self.gridModificar.attach_next_to(self.buttonAñadir, self.labelSexo2, Gtk.PositionType.BOTTOM, 1, 1)
-        self.gridModificar.attach_next_to(self.buttonVolver2, self.buttonAñadir, Gtk.PositionType.RIGHT, 1, 1)
+        self.gridModificar.attach_next_to(self.buttonModificar, self.labelSexo2, Gtk.PositionType.BOTTOM, 1, 1)
+        self.gridModificar.attach_next_to(self.buttonVolver2, self.buttonModificar, Gtk.PositionType.RIGHT, 1, 1)
 
         """ELIMINAR UN CLIENTE"""
         self.buttonVolver3 = Gtk.Button("Volver")
@@ -155,7 +155,7 @@ class GridWindow(Gtk.Window):
         self.gridEliminar = Gtk.Grid()
         self.gridEliminar.set_column_homogeneous(True)
 
-        self.labelDni3 = Gtk.Label("Dni:")
+        self.labelDni3 = Gtk.Label("Dni:", halign=Gtk.Align.START)
         self.entryDni3 = Gtk.ListStore(str)
         self.combo_Eliminar = Gtk.ComboBox.new_with_model(self.entryDni3)
 

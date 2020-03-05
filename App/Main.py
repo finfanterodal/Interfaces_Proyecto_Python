@@ -1,4 +1,5 @@
 import gi
+from gi.overrides.Gdk import Gdk
 
 from App.Albaranes import Albaranes
 from App.GestionClientes import GestionClientes
@@ -16,7 +17,7 @@ class GridWindow(Gtk.Window):
         #
         self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
         self.set_border_width(10)
-        self.set_default_size(300, 300)
+        self.set_default_size(250, 300)
         self.set_resizable(False)
         self.box = Gtk.Box(spacing=10)
         self.box.set_orientation(Gtk.Orientation.VERTICAL)
@@ -78,5 +79,29 @@ class GridWindow(Gtk.Window):
 
 
 if __name__ == "__main__":
+    # Estilo de la interfaz con css
+    css = '''
+                    
+        button { 
+        background:  #abd6f5;
+        padding: 5px 5px;
+        font-size: 15px;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        border-style: hidden;
+        border-radius: 15px;
+        }
+        label {
+        font: 20px Courier-bold;
+        }
+
+                '''
+    cssProvider = Gtk.CssProvider()
+    cssProvider.load_from_data(bytes(css.encode()))
+    screen = Gdk.Screen.get_default()
+    styleContext = Gtk.StyleContext()
+    styleContext.add_provider_for_screen(screen, cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
     GridWindow().show_all()
     Gtk.main()

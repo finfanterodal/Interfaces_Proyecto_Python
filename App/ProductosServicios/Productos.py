@@ -9,6 +9,14 @@ from gi.repository import Gtk
 
 class GridWindow(Gtk.Window):
     def __init__(self):
+        """Formulario para insertar productos relacionados con clientes existentes, combo con dni de los clientes actuales,
+                nombre producto, descripcion, cantidad, precio"""
+        """                          id integer PRIMARY KEY, 
+                                     dni TEXT NOT NULL, 
+                                     nombre TEXT NOT NULL, 
+                                     descripcion TEXT NOT NULL,
+                                     precio double NOT NULL,
+                                   cantidad integer NOT NULL"""
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Productos")
         self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
@@ -16,15 +24,6 @@ class GridWindow(Gtk.Window):
         self.set_default_size(150, 300)
         self.set_resizable(False)
         self.connect("destroy", Gtk.main_quit)
-
-        """Formulario para insertar productos relacionados con clientes existentes, combo con dni de los clientes actuales,
-        nombre producto, descripcion, cantidad, precio"""
-        """                          id integer PRIMARY KEY, 
-                                     dni TEXT NOT NULL, 
-                                     nombre TEXT NOT NULL, 
-                                     descripcion TEXT NOT NULL,
-                                     precio double NOT NULL,
-                                     cantidad integer NOT NULL"""
 
         self.gridProductos = Gtk.Grid()
         self.gridProductos.set_column_homogeneous(True)
@@ -42,9 +41,8 @@ class GridWindow(Gtk.Window):
         self.set_border_width(10)
         self.add(self.gridProductos)
 
-
         # Combo DNI
-        self.labelDni = Gtk.Label("Dni Cliente:")
+        self.labelDni = Gtk.Label("Dni Cliente:", halign=Gtk.Align.START)
         self.entryDni = Gtk.ListStore(str)
         self.cargar_dni_cliente()
 
@@ -54,21 +52,23 @@ class GridWindow(Gtk.Window):
         self.comboAñadir.pack_start(self.renderer_text, True)
         self.comboAñadir.add_attribute(self.renderer_text, "text", 0)
 
-        self.labelId = Gtk.Label("Id:")
+        self.labelId = Gtk.Label("Id:", halign=Gtk.Align.START)
         self.entryId = Gtk.Entry()
 
-        self.labelNombre = Gtk.Label("Nombre:")
+        self.labelNombre = Gtk.Label("Nombre:", halign=Gtk.Align.START)
         self.entryNombre = Gtk.Entry()
 
-        self.labelDescripcion = Gtk.Label("Descripcion")
+        self.labelDescripcion = Gtk.Label("Descripcion", halign=Gtk.Align.START)
         self.entryDescripcion = Gtk.Entry()
 
-        self.labelPrecio = Gtk.Label("Precio")
+        self.labelPrecio = Gtk.Label("Precio", halign=Gtk.Align.START)
         self.entryPrecio = Gtk.Entry()
 
-        self.labelCantidad = Gtk.Label("Cantidad")
+        self.labelCantidad = Gtk.Label("Cantidad", halign=Gtk.Align.START)
         self.entryCantidad = Gtk.Entry()
+        self.cargarInterface()
 
+    def cargarInterface(self):
         # AÑADIR A GRID
         self.gridProductos.add(self.labelDni)
         self.gridProductos.attach_next_to(self.comboAñadir, self.labelDni, Gtk.PositionType.RIGHT, 1, 1)
