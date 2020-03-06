@@ -395,8 +395,7 @@ class GridWindow(Gtk.Window):
     def validoDNI(self, valor):
         """ Nos indica si un NIF es valido.
            El valor debe estar normalizado
-           @note:
-             - ante cualquier problema se valida como False
+           ante cualquier problema se valida como False.
 
             :param dni: Str Dni de la persona.
             :return boolean: true o false en función del resultado

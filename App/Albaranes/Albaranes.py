@@ -8,6 +8,24 @@ from gi.repository import Gtk
 
 
 class GridWindow(Gtk.Window):
+    """Ventana de Albaranes y Listado.
+
+            **Métodos:**
+
+                - __init__
+
+                - on_changed
+
+                - on_changedP
+
+                - on_buttonVolver_clicked
+
+                - on_buttonLista_clicked
+
+                - on_buttonFactura_clicked
+
+            """
+
     def __init__(self):
         """
         Inicializa la ventana de Albaranes con la interfaz.
@@ -79,9 +97,10 @@ class GridWindow(Gtk.Window):
         """"""
 
     def on_changed(self, selection):
-        """Método que captura la señal selection en el TreeView y carga los productos del cliente seleccionado
-        :param selection:
-        :return:
+        """Método que captura la señal selection en el TreeView y carga los productos del cliente seleccionado.
+
+            :param selection: Si se ha seleccionado algo en el TreeView.
+            :return: No devuelve ningún parámetro.
 
         """
         (self.model, self.iter) = selection.get_selected()
@@ -103,25 +122,28 @@ class GridWindow(Gtk.Window):
                 self.auxiliar = False
 
     def on_changedP(self, selection):
-        """Método que captura la señal selection en el TreeView y carga los productos del cliente seleccionado
-        :param selection:
-        :return:
+        """Método que captura la señal selection en el TreeView y carga los productos del cliente seleccionado.
+
+            :param selection: Si se ha seleccinado algo en el TreeView.
+            :return: No devuelve ningún parámetro.
 
         """
 
     # Volver al inicio
     def on_buttonVolver_clicked(self, widget):
         """Metodo que vuelve al menu de inicio.
-                            :param widget: Widget
-                            :return: none
-                    """
+
+                :param widget: Widget Botón.
+                :return: No devuelve ningún parámetro.
+        """
         Main.GridWindow().show_all()
         self.set_visible(False)
 
     def on_buttonLista_clicked(self, widget):
-        """Metodo que crea un pdf con una tabla de lista de clientes
-            :param widget: Widget
-            :return: none
+        """Metodo que crea un pdf con una tabla de lista de clientes.
+
+            :param widget: Widget butón.
+            :return: No devuelve ningún parámetro.
 
         """
         from reportlab.platypus import SimpleDocTemplate
@@ -178,8 +200,9 @@ class GridWindow(Gtk.Window):
 
     def on_buttonFactura_clicked(self, widget):
         """Metodo que crea una factura del cliente seeccionado en el treeview.
-           :param widget: Widget
-           :return: none
+
+           :param widget: Widget botón.
+           :return: No devuelve ningún parámetro.
 
         """
         # IMPORTS
