@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <title>Gestion de Productos &#8212; documentación de ProyectoPython - </title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css"/>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css"/>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html"/>
+    <link rel="search" title="Búsqueda" href="search.html"/>
+
+    <link rel="stylesheet" href="_static/custom.css" type="text/css"/>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9"/>
+
+</head>
+<body>
+
+
+<div class="document">
+    <div class="documentwrapper">
+        <div class="bodywrapper">
+
+
+            <div class="body" role="main">
+
+                <div class="section" id="module-App.GestionProductos.GestionProductos">
+                    <span id="gestion-de-productos"></span>
+                    <h1>Gestion de Productos<a class="headerlink" href="#module-App.GestionProductos.GestionProductos"
+                                               title="Enlazar permanentemente con este título">¶</a></h1>
+                    <dl class="class">
+                        <dt id="App.GestionProductos.GestionProductos.GridWindow">
+                            <em class="property">class </em><code class="sig-prename descclassname">App.GestionProductos.GestionProductos.</code><code
+                                class="sig-name descname">GridWindow</code><a class="reference internal"
+                                                                              href="_modules/App/GestionProductos/GestionProductos.html#GridWindow"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.GestionProductos.GestionProductos.GridWindow"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gi.overrides.Gtk.Window</span></code>
+                        </p>
+                            <p>Ventana de Gestion de Productos.</p>
+                            <p><strong>Métodos:</strong></p>
+                            <blockquote>
+                                <div>
+                                    <ul class="simple">
+                                        <li><p>__init__</p></li>
+                                        <li><p>cargar_interfaz</p></li>
+                                        <li><p>cargar_dni_cliente</p></li>
+                                        <li><p>on_comboAñadir_changed</p></li>
+                                        <li><p>on_buttonAñadir_clicked</p></li>
+                                        <li><p>on_buttonVolver_clicked</p></li>
+                                    </ul>
+                                </div>
+                            </blockquote>
+                            <dl class="method">
+                                <dt id="App.GestionProductos.GestionProductos.GridWindow.cargarInterface">
+                                    <code class="sig-name descname">cargarInterface</code><span
+                                        class="sig-paren">(</span><span class="sig-paren">)</span><a
+                                        class="reference internal"
+                                        href="_modules/App/GestionProductos/GestionProductos.html#GridWindow.cargarInterface"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionProductos.GestionProductos.GridWindow.cargarInterface"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Carga el grid de la ventana Productos con los componentes necesarios.</p>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionProductos.GestionProductos.GridWindow.cargar_dni_cliente">
+                                    <code class="sig-name descname">cargar_dni_cliente</code><span
+                                        class="sig-paren">(</span><span class="sig-paren">)</span><a
+                                        class="reference internal"
+                                        href="_modules/App/GestionProductos/GestionProductos.html#GridWindow.cargar_dni_cliente"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionProductos.GestionProductos.GridWindow.cargar_dni_cliente"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo que carga los dni de los clientes existentes en los comboBox de modificar
+                                    y eliminar.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Param</dt>
+                                        <dd class="field-odd"><p>No recibe ningún parámetro.</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionProductos.GestionProductos.GridWindow.on_buttonAñadir_clicked">
+                                    <code class="sig-name descname">on_buttonAñadir_clicked</code><span
+                                        class="sig-paren">(</span><em class="sig-param">button</em><span
+                                        class="sig-paren">)</span><a class="reference internal"
+                                                                     href="_modules/App/GestionProductos/GestionProductos.html#GridWindow.on_buttonAñadir_clicked"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionProductos.GestionProductos.GridWindow.on_buttonAñadir_clicked"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo que recoge la señal «clicked» del boton y añada un nuevo producto asignado
+                                    a un cliente.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd"><p><strong>button</strong> – GtkButton.</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionProductos.GestionProductos.GridWindow.on_buttonVolver_clicked">
+                                    <code class="sig-name descname">on_buttonVolver_clicked</code><span
+                                        class="sig-paren">(</span><em class="sig-param">widget</em><span
+                                        class="sig-paren">)</span><a class="reference internal"
+                                                                     href="_modules/App/GestionProductos/GestionProductos.html#GridWindow.on_buttonVolver_clicked"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionProductos.GestionProductos.GridWindow.on_buttonVolver_clicked"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo que vuelve al menu de inicio.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd"><p><strong>widget</strong> – Widget</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionProductos.GestionProductos.GridWindow.on_comboAñadir_changed">
+                                    <code class="sig-name descname">on_comboAñadir_changed</code><span
+                                        class="sig-paren">(</span><em class="sig-param">combo</em><span
+                                        class="sig-paren">)</span><a class="reference internal"
+                                                                     href="_modules/App/GestionProductos/GestionProductos.html#GridWindow.on_comboAñadir_changed"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionProductos.GestionProductos.GridWindow.on_comboAñadir_changed"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo que recoge la señal «chaged» del comboBox y selecciona el actual valor en
+                                    el indice.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd"><p><strong>combo</strong> – GtkComboBox</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                        </dd>
+                    </dl>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <h1 class="logo"><a href="index.html">ProyectoPython</a></h1>
+
+
+            <h3>Navegación</h3>
+            <p class="caption"><span class="caption-text">Contents:</span></p>
+            <ul>
+                <li class="toctree-l1"><a class="reference internal" href="Inicio.html">Guia Usuario</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="Modules.html">Modulos Proyecto</a></li>
+            </ul>
+
+            <div class="relations">
+                <h3>Related Topics</h3>
+                <ul>
+                    <li><a href="index.html">Documentation overview</a>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="searchbox" style="display: none" role="search">
+                <h3 id="searchlabel">Búsqueda rápida</h3>
+                <div class="searchformwrapper">
+                    <form class="search" action="search.html" method="get">
+                        <input type="text" name="q" aria-labelledby="searchlabel"/>
+                        <input type="submit" value="Ir a"/>
+                    </form>
+                </div>
+            </div>
+            <script>$('#searchbox').show(0);</script>
+
+
+        </div>
+    </div>
+    <div class="clearer"></div>
+</div>
+<div class="footer">
+    &copy;2020, finfanterodal.
+
+    |
+    Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+    &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+
+    |
+    <a href="_sources/GestionProductos.rst.txt"
+       rel="nofollow">Page source</a>
+</div>
+
+
+</body>
+</html>

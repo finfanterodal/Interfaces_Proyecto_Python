@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <title>Gestion Base de Datos &#8212; documentación de ProyectoPython - </title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css"/>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css"/>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html"/>
+    <link rel="search" title="Búsqueda" href="search.html"/>
+
+    <link rel="stylesheet" href="_static/custom.css" type="text/css"/>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9"/>
+
+</head>
+<body>
+
+
+<div class="document">
+    <div class="documentwrapper">
+        <div class="bodywrapper">
+
+
+            <div class="body" role="main">
+
+                <div class="section" id="module-App.SQLiteBD.SQLiteMetodos">
+                    <span id="gestion-base-de-datos"></span>
+                    <h1>Gestion Base de Datos<a class="headerlink" href="#module-App.SQLiteBD.SQLiteMetodos"
+                                                title="Enlazar permanentemente con este título">¶</a></h1>
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.cerrar_conexion">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">cerrar_conexion</code><span class="sig-paren">(</span><em
+                                class="sig-param">conn</em><span class="sig-paren">)</span><a class="reference internal"
+                                                                                              href="_modules/App/SQLiteBD/SQLiteMetodos.html#cerrar_conexion"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.cerrar_conexion"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Función que cierra la base de datos.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Parámetros</dt>
+                                <dd class="field-odd"><p><strong>conn</strong> – Conexion de a la base de datos.</p>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.crearTabla">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">crearTabla</code><span class="sig-paren">(</span><em
+                                class="sig-param">conn</em>, <em class="sig-param">crear_tabla_sql</em><span
+                                class="sig-paren">)</span><a class="reference internal"
+                                                             href="_modules/App/SQLiteBD/SQLiteMetodos.html#crearTabla"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.crearTabla"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Crea una tabla con la query crear_tabla_sql.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Parámetros</dt>
+                                <dd class="field-odd">
+                                    <ul class="simple">
+                                        <li><p><strong>conn</strong> – Objecto Connection</p></li>
+                                        <li><p><strong>crear_tabla_sql</strong> – Create table statement</p></li>
+                                    </ul>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>No devuelve ningún prámetro.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.crear_conexion">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">crear_conexion</code><span class="sig-paren">(</span><span
+                                class="sig-paren">)</span><a class="reference internal"
+                                                             href="_modules/App/SQLiteBD/SQLiteMetodos.html#crear_conexion"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.crear_conexion"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Crea una conexion a la base de datos SQLite.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Param</dt>
+                                <dd class="field-odd"><p>No recibe ningún parámetro.</p>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>Objeto Connection o null.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.deleteTablaClientes">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">deleteTablaClientes</code><span class="sig-paren">(</span><em
+                                class="sig-param">dni</em><span class="sig-paren">)</span><a class="reference internal"
+                                                                                             href="_modules/App/SQLiteBD/SQLiteMetodos.html#deleteTablaClientes"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.deleteTablaClientes"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Elimina un cliente dado su dni.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Parámetros</dt>
+                                <dd class="field-odd"><p><strong>dni</strong> – Dni del cliente a eliminar.</p>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>Ningún parámetro es devuelto.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.insertTablaClientes">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">insertTablaClientes</code><span class="sig-paren">(</span><em
+                                class="sig-param">dni</em>, <em class="sig-param">nombre</em>, <em class="sig-param">apellidos</em>,
+                            <em class="sig-param">sexo</em>, <em class="sig-param">direccion</em>, <em
+                                class="sig-param">telefono</em><span class="sig-paren">)</span><a
+                                class="reference internal"
+                                href="_modules/App/SQLiteBD/SQLiteMetodos.html#insertTablaClientes"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.insertTablaClientes"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Inserta una nueva fila en la tabla Clientes.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Parámetros</dt>
+                                <dd class="field-odd">
+                                    <ul class="simple">
+                                        <li><p><strong>dni</strong> – Dni text</p></li>
+                                        <li><p><strong>nombre</strong> – Nombre text</p></li>
+                                        <li><p><strong>apellidos</strong> – Apellidos text</p></li>
+                                        <li><p><strong>sexo</strong> – Sexo text</p></li>
+                                        <li><p><strong>direccion</strong> – Direccion text</p></li>
+                                        <li><p><strong>telefono</strong> – Telefono text</p></li>
+                                    </ul>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.insertTablaProductos">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">insertTablaProductos</code><span class="sig-paren">(</span><em
+                                class="sig-param">id</em>, <em class="sig-param">dni</em>, <em
+                                class="sig-param">nombre</em>, <em class="sig-param">precio</em>, <em class="sig-param">cantidad</em><span
+                                class="sig-paren">)</span><a class="reference internal"
+                                                             href="_modules/App/SQLiteBD/SQLiteMetodos.html#insertTablaProductos"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.insertTablaProductos"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Inserta una nueva fila en la tabla Productos.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Parámetros</dt>
+                                <dd class="field-odd">
+                                    <ul class="simple">
+                                        <li><p><strong>id</strong> – id int</p></li>
+                                        <li><p><strong>dni</strong> – Dni text</p></li>
+                                        <li><p><strong>nombre</strong> – nombre text</p></li>
+                                        <li><p><strong>precio</strong> – Precio float</p></li>
+                                        <li><p><strong>cantidad</strong> – Cantidad int</p></li>
+                                    </ul>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>Ningún parámetro devuelto.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.main">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">main</code><span class="sig-paren">(</span><span
+                                class="sig-paren">)</span><a class="reference internal"
+                                                             href="_modules/App/SQLiteBD/SQLiteMetodos.html#main"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.main"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd></dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.selectTablaClientes">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">selectTablaClientes</code><span
+                                class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal"
+                                                                                             href="_modules/App/SQLiteBD/SQLiteMetodos.html#selectTablaClientes"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.selectTablaClientes"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Select de todos los clientes.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Param</dt>
+                                <dd class="field-odd"><p>No recibe ningún parámetro.</p>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>Lista de todos los clientes existentes.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.selectTablaClientesDni">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">selectTablaClientesDni</code><span
+                                class="sig-paren">(</span><em class="sig-param">dni</em><span class="sig-paren">)</span><a
+                                class="reference internal"
+                                href="_modules/App/SQLiteBD/SQLiteMetodos.html#selectTablaClientesDni"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.selectTablaClientesDni"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Select de clientes dado el dni para realizar la búsqueda.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Parámetros</dt>
+                                <dd class="field-odd"><p><strong>dni</strong> – Dni del cliente que se quiere encontrar.
+                                </p>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>Lista de datos del cliente.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.selectTablaClientesDni2">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">selectTablaClientesDni2</code><span class="sig-paren">(</span><span
+                                class="sig-paren">)</span><a class="reference internal"
+                                                             href="_modules/App/SQLiteBD/SQLiteMetodos.html#selectTablaClientesDni2"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.selectTablaClientesDni2"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Select de los dni todos los clientes existentes.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Param</dt>
+                                <dd class="field-odd"><p>Ningún parámetro recibido.</p>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>Lista de dni de clientes.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.selectTablaProductos">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">selectTablaProductos</code><span class="sig-paren">(</span><em
+                                class="sig-param">dni</em><span class="sig-paren">)</span><a class="reference internal"
+                                                                                             href="_modules/App/SQLiteBD/SQLiteMetodos.html#selectTablaProductos"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.selectTablaProductos"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Select de productos relacionados con un cliente determinado dado el dni.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Parámetros</dt>
+                                <dd class="field-odd"><p><strong>dni</strong> – Dni del cliente para realizar la
+                                    búsqueda.</p>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>Lista con productos relacionados.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                    <dl class="function">
+                        <dt id="App.SQLiteBD.SQLiteMetodos.updateTablaClientes">
+                            <code class="sig-prename descclassname">App.SQLiteBD.SQLiteMetodos.</code><code
+                                class="sig-name descname">updateTablaClientes</code><span class="sig-paren">(</span><em
+                                class="sig-param">dni</em>, <em class="sig-param">nombre</em>, <em class="sig-param">apellidos</em>,
+                            <em class="sig-param">sexo</em>, <em class="sig-param">direccion</em>, <em
+                                class="sig-param">telefono</em><span class="sig-paren">)</span><a
+                                class="reference internal"
+                                href="_modules/App/SQLiteBD/SQLiteMetodos.html#updateTablaClientes"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.SQLiteBD.SQLiteMetodos.updateTablaClientes"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Modifica los datos de un cliente existente dado su dni.</p>
+                            <dl class="field-list simple">
+                                <dt class="field-odd">Parámetros</dt>
+                                <dd class="field-odd">
+                                    <ul class="simple">
+                                        <li><p><strong>dni</strong> – Dni text</p></li>
+                                        <li><p><strong>nombre</strong> – Nombre text</p></li>
+                                        <li><p><strong>apellidos</strong> – Apellidos text</p></li>
+                                        <li><p><strong>sexo</strong> – Sexo text</p></li>
+                                        <li><p><strong>direccion</strong> – Direccion text</p></li>
+                                        <li><p><strong>telefono</strong> – Telefono text</p></li>
+                                    </ul>
+                                </dd>
+                                <dt class="field-even">Devuelve</dt>
+                                <dd class="field-even"><p>Ningún parámetro es devuelto.</p>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <h1 class="logo"><a href="index.html">ProyectoPython</a></h1>
+
+
+            <h3>Navegación</h3>
+            <p class="caption"><span class="caption-text">Contents:</span></p>
+            <ul>
+                <li class="toctree-l1"><a class="reference internal" href="Inicio.html">Guia Usuario</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="Modules.html">Modulos Proyecto</a></li>
+            </ul>
+
+            <div class="relations">
+                <h3>Related Topics</h3>
+                <ul>
+                    <li><a href="index.html">Documentation overview</a>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="searchbox" style="display: none" role="search">
+                <h3 id="searchlabel">Búsqueda rápida</h3>
+                <div class="searchformwrapper">
+                    <form class="search" action="search.html" method="get">
+                        <input type="text" name="q" aria-labelledby="searchlabel"/>
+                        <input type="submit" value="Ir a"/>
+                    </form>
+                </div>
+            </div>
+            <script>$('#searchbox').show(0);</script>
+
+
+        </div>
+    </div>
+    <div class="clearer"></div>
+</div>
+<div class="footer">
+    &copy;2020, finfanterodal.
+
+    |
+    Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+    &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+
+    |
+    <a href="_sources/SQLiteBD.rst.txt"
+       rel="nofollow">Page source</a>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <title>App.Albaranes.Albaranes &#8212; documentación de ProyectoPython - </title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css"/>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css"/>
+    <script id="documentation_options" data-url_root="../../../"
+            src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html"/>
+    <link rel="search" title="Búsqueda" href="../../../search.html"/>
+
+    <link rel="stylesheet" href="../../../_static/custom.css" type="text/css"/>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9"/>
+
+</head>
+<body>
+
+
+<div class="document">
+    <div class="documentwrapper">
+        <div class="bodywrapper">
+
+
+            <div class="body" role="main">
+
+                <h1>Código fuente para App.Albaranes.Albaranes</h1>
+                <div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">gi</span>
+
+<span class="kn">from</span> <span class="nn">App</span> <span class="kn">import</span> <span class="n">Main</span>
+<span class="kn">from</span> <span class="nn">App.SQLiteBD</span> <span class="kn">import</span> <span class="n">SQLiteMetodos</span>
+
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span
+                        class="s1">&#39;Gtk&#39;</span><span class="p">,</span> <span
+                        class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="kn">import</span> <span
+                        class="n">Gtk</span>
+
+
+<div class="viewcode-block" id="GridWindow"><a class="viewcode-back"
+                                               href="../../../Albaranes.html#App.Albaranes.Albaranes.GridWindow">[documentos]</a><span
+        class="k">class</span> <span class="nc">GridWindow</span><span class="p">(</span><span class="n">Gtk</span><span
+        class="o">.</span><span class="n">Window</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Ventana de Albaranes y Listado.</span>
+
+<span class="sd">            **Métodos:**</span>
+
+<span class="sd">                - __init__</span>
+
+<span class="sd">                - on_changed</span>
+
+<span class="sd">                - on_changedP</span>
+
+<span class="sd">                - on_buttonVolver_clicked</span>
+
+<span class="sd">                - on_buttonLista_clicked</span>
+
+<span class="sd">                - on_buttonFactura_clicked</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span
+            class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Inicializa la ventana de Albaranes con la interfaz.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Interfaz Principal</span>
+        <span class="n">Gtk</span><span class="o">.</span><span class="n">Window</span><span class="o">.</span><span
+            class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span
+            class="n">title</span><span class="o">=</span><span class="s2">&quot;Albaranes&quot;</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_position</span><span
+            class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span
+            class="n">WindowPosition</span><span class="o">.</span><span class="n">CENTER_ALWAYS</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_border_width</span><span
+            class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_default_size</span><span
+            class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="mi">300</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_resizable</span><span class="p">(</span><span
+            class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span
+            class="s2">&quot;destroy&quot;</span><span class="p">,</span> <span class="n">Gtk</span><span
+            class="o">.</span><span class="n">main_quit</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span
+            class="n">spacing</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span><span
+            class="o">.</span><span class="n">set_orientation</span><span class="p">(</span><span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span
+            class="n">VERTICAL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span><span class="p">)</span>
+
+        <span class="sd">&quot;&quot;&quot;TABLA CLIENTES&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnasC</span> <span
+            class="o">=</span> <span class="p">[</span><span class="s2">&quot;Dni&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Nombre&quot;</span><span class="p">,</span> <span class="s2">&quot;Apellidos&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Sexo&quot;</span><span class="p">,</span> <span class="s2">&quot;Direccion&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Telefono&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modeloC</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ListStore</span><span
+            class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span
+            class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span
+            class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clientes</span> <span
+            class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">TreeView</span><span class="p">(</span><span
+            class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span
+            class="n">modeloC</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span class="o">.</span><span
+            class="n">get_selection</span><span class="p">()</span><span class="o">.</span><span
+            class="n">connect</span><span class="p">(</span><span class="s2">&quot;changed&quot;</span><span
+            class="p">,</span> <span class="bp">self</span><span class="o">.</span><span
+            class="n">on_changed</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelClientes</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span
+            class="p">(</span><span class="s2">&quot;Clientes&quot;</span><span class="p">)</span>
+
+        <span class="sd">&quot;&quot;&quot;TABLA PRODUCTOS&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">columnasP</span> <span
+            class="o">=</span> <span class="p">[</span><span class="s2">&quot;Id&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Dni&quot;</span><span class="p">,</span> <span class="s2">&quot;Nombre&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Precio&quot;</span><span class="p">,</span> <span class="s2">&quot;Cantidad&quot;</span><span
+            class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">modeloP</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ListStore</span><span
+            class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span
+            class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span
+            class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">productosP</span> <span
+            class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vistaP</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">TreeView</span><span class="p">(</span><span
+            class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span
+            class="n">modeloP</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">vistaP</span><span class="o">.</span><span
+            class="n">get_selection</span><span class="p">()</span><span class="o">.</span><span
+            class="n">connect</span><span class="p">(</span><span class="s2">&quot;changed&quot;</span><span
+            class="p">,</span> <span class="bp">self</span><span class="o">.</span><span
+            class="n">on_changedP</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auxiliar</span> <span
+            class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelProductos</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span
+            class="p">(</span><span class="s2">&quot;Productos&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span><span
+            class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">labelClientes</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span><span
+            class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">vista</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span><span
+            class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">labelProductos</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span><span
+            class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">vistaP</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxAux</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span
+            class="n">spacing</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxAux</span><span class="o">.</span><span
+            class="n">set_orientation</span><span class="p">(</span><span class="n">Gtk</span><span
+            class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span
+            class="n">HORIZONTAL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span><span
+            class="o">.</span><span class="n">add</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">boxAux</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonVolver</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span
+            class="n">label</span><span class="o">=</span><span class="s2">&quot;Volver&quot;</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonVolver</span><span
+            class="o">.</span><span class="n">connect</span><span class="p">(</span><span
+            class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span
+            class="o">.</span><span class="n">on_buttonVolver_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxAux</span><span class="o">.</span><span
+            class="n">pack_start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span
+            class="n">buttonVolver</span><span class="p">,</span> <span class="kc">True</span><span
+            class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonFactura</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span
+            class="p">(</span><span class="n">label</span><span class="o">=</span><span
+            class="s2">&quot;Factura&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonFactura</span><span class="o">.</span><span
+            class="n">connect</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span
+            class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_buttonFactura_clicked</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxAux</span><span class="o">.</span><span
+            class="n">pack_start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span
+            class="n">buttonFactura</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span
+            class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonLista</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span
+            class="n">label</span><span class="o">=</span><span class="s2">&quot;Lista Clientes&quot;</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonLista</span><span
+            class="o">.</span><span class="n">connect</span><span class="p">(</span><span
+            class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span
+            class="o">.</span><span class="n">on_buttonLista_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxAux</span><span class="o">.</span><span
+            class="n">pack_start</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span
+            class="n">buttonLista</span><span class="p">,</span> <span class="kc">True</span><span
+            class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">)</span>
+
+        <span class="n">clientes</span> <span class="o">=</span> <span class="n">SQLiteMetodos</span><span
+            class="o">.</span><span class="n">selectTablaClientes</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">cliente</span> <span class="ow">in</span> <span
+            class="n">clientes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clientes</span><span
+            class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">cliente</span><span class="p">[</span><span
+            class="mi">0</span><span class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span
+            class="mi">1</span><span class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span
+            class="mi">2</span><span class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span
+            class="mi">3</span><span class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span
+            class="mi">4</span><span class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span
+            class="mi">5</span><span class="p">]])</span>
+
+        <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">clientes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">modeloC</span><span
+            class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elemento</span><span
+            class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span
+            class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">columnasC</span><span class="p">)):</span>
+            <span class="n">celda</span> <span class="o">=</span> <span class="n">Gtk</span><span
+            class="o">.</span><span class="n">CellRendererText</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">columna</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">TreeViewColumn</span><span
+            class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columnasC</span><span
+            class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">celda</span><span
+            class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">i</span><span
+            class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span
+            class="o">.</span><span class="n">append_column</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">columna</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GridWindow.on_celda_edited"><a class="viewcode-back"
+                                                               href="../../../Albaranes.html#App.Albaranes.Albaranes.GridWindow.on_celda_edited">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">on_celda_edited</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="GridWindow.on_changed"><a class="viewcode-back"
+                                                          href="../../../Albaranes.html#App.Albaranes.Albaranes.GridWindow.on_changed">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">on_changed</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">,</span> <span class="n">selection</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Método que captura la señal selection en el TreeView y carga los productos del cliente seleccionado.</span>
+
+<span class="sd">            :param selection: Si se ha seleccionado algo en el TreeView.</span>
+<span class="sd">            :return: No devuelve ningún parámetro.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span
+            class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter</span><span
+            class="p">)</span> <span class="o">=</span> <span class="n">selection</span><span class="o">.</span><span
+            class="n">get_selected</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">productosP</span><span
+            class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">productos</span> <span class="o">=</span> <span class="n">SQLiteMetodos</span><span
+            class="o">.</span><span class="n">selectTablaProductos</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">iter</span><span class="p">][</span><span
+            class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">producto</span> <span class="ow">in</span> <span
+            class="n">productos</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">productosP</span><span
+            class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">producto</span><span class="p">[</span><span class="mi">0</span><span
+            class="p">],</span> <span class="n">producto</span><span class="p">[</span><span class="mi">1</span><span
+            class="p">],</span> <span class="n">producto</span><span class="p">[</span><span class="mi">2</span><span
+            class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">producto</span><span
+            class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span
+            class="s2">&quot; €/ud&quot;</span><span class="p">,</span> <span class="n">producto</span><span
+            class="p">[</span><span class="mi">4</span><span class="p">]])</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">modeloP</span><span class="o">.</span><span
+            class="n">clear</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">elemento</span> <span class="ow">in</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">productosP</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">modeloP</span><span
+            class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elemento</span><span
+            class="p">)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span
+            class="n">auxiliar</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span
+            class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">columnasP</span><span class="p">)):</span>
+                <span class="n">celda</span> <span class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span
+            class="n">CellRendererText</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">columnaP</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span
+            class="n">TreeViewColumn</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">columnasP</span><span class="p">[</span><span class="n">i</span><span
+            class="p">],</span> <span class="n">celda</span><span class="p">,</span> <span class="n">text</span><span
+            class="o">=</span><span class="n">i</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">vistaP</span><span
+            class="o">.</span><span class="n">append_column</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">columnaP</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">auxiliar</span> <span
+            class="o">=</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="GridWindow.on_changedP"><a class="viewcode-back"
+                                                           href="../../../Albaranes.html#App.Albaranes.Albaranes.GridWindow.on_changedP">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">on_changedP</span><span class="p">(</span><span
+        class="bp">self</span><span class="p">,</span> <span class="n">selection</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Método que captura la señal selection en el TreeView y carga los productos del cliente seleccionado.</span>
+
+<span class="sd">            :param selection: Si se ha seleccinado algo en el TreeView.</span>
+<span class="sd">            :return: No devuelve ningún parámetro.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+    <span class="c1"># Volver al inicio</span>
+<div class="viewcode-block" id="GridWindow.on_buttonVolver_clicked"><a class="viewcode-back"
+                                                                       href="../../../Albaranes.html#App.Albaranes.Albaranes.GridWindow.on_buttonVolver_clicked">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">on_buttonVolver_clicked</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Metodo que vuelve al menu de inicio.</span>
+
+<span class="sd">                :param widget: Widget Botón.</span>
+<span class="sd">                :return: No devuelve ningún parámetro.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Main</span><span class="o">.</span><span class="n">GridWindow</span><span
+            class="p">()</span><span class="o">.</span><span class="n">show_all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_visible</span><span
+            class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GridWindow.on_buttonLista_clicked"><a class="viewcode-back"
+                                                                      href="../../../Albaranes.html#App.Albaranes.Albaranes.GridWindow.on_buttonLista_clicked">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">on_buttonLista_clicked</span><span class="p">(</span><span
+        class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Metodo que crea un pdf con una tabla de lista de clientes.</span>
+
+<span class="sd">            :param widget: Widget butón.</span>
+<span class="sd">            :return: No devuelve ningún parámetro.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
+            class="n">SimpleDocTemplate</span>
+        <span class="kn">from</span> <span class="nn">reportlab.lib.pagesizes</span> <span
+            class="kn">import</span> <span class="n">letter</span>
+        <span class="kn">from</span> <span class="nn">reportlab.lib</span> <span class="kn">import</span> <span
+            class="n">colors</span>
+        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
+            class="n">Table</span>
+        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
+            class="n">TableStyle</span>
+        <span class="kn">import</span> <span class="nn">webbrowser</span> <span class="k">as</span> <span
+            class="nn">wb</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span
+            class="s2">&quot;Dni&quot;</span><span class="p">,</span> <span class="s2">&quot;Nombre&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Apellidos&quot;</span><span class="p">,</span> <span class="s2">&quot;Sexo&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Direccion&quot;</span><span class="p">,</span> <span class="s2">&quot;Telefono&quot;</span><span
+            class="p">])</span>
+        <span class="n">clientes</span> <span class="o">=</span> <span class="n">SQLiteMetodos</span><span
+            class="o">.</span><span class="n">selectTablaClientes</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">cliente</span> <span class="ow">in</span> <span
+            class="n">clientes</span><span class="p">:</span>
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="n">cliente</span><span class="p">[</span><span class="mi">0</span><span
+            class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">1</span><span
+            class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">2</span><span
+            class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">3</span><span
+            class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">4</span><span
+            class="p">],</span> <span class="n">cliente</span><span class="p">[</span><span class="mi">5</span><span
+            class="p">]])</span>
+        <span class="c1"># Creacion pedf</span>
+        <span class="n">fileName</span> <span class="o">=</span> <span class="s1">&#39;listaClientes.pdf&#39;</span>
+        <span class="n">pdf</span> <span class="o">=</span> <span class="n">SimpleDocTemplate</span><span
+            class="p">(</span><span class="s2">&quot;./Pdfs/&quot;</span> <span class="o">+</span> <span class="n">fileName</span><span
+            class="p">,</span> <span class="n">pagesize</span><span class="o">=</span><span class="n">letter</span><span
+            class="p">)</span>
+        <span class="c1"># Creación de la tabla</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span
+            class="n">data</span><span class="p">)</span>
+        <span class="n">elementos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">elementos</span><span class="o">.</span><span class="n">append</span><span
+            class="p">(</span><span class="n">table</span><span class="p">)</span>
+
+        <span class="c1"># Añadiendo style a la tabla</span>
+        <span class="n">style</span> <span class="o">=</span> <span class="n">TableStyle</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;BACKGROUND&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">colors</span><span
+            class="o">.</span><span class="n">lightslategray</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;BACKGROUND&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span
+            class="n">colors</span><span class="o">.</span><span class="n">beige</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;TEXTCOLOR&#39;</span><span class="p">,</span> <span class="p">(</span><span
+            class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span
+            class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span
+            class="mi">0</span><span class="p">),</span> <span class="n">colors</span><span class="o">.</span><span
+            class="n">whitesmoke</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;ALIGN&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span
+            class="s1">&#39;CENTER&#39;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;FONTNAME&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s1">&#39;Courier-Bold&#39;</span><span
+            class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;FONTSIZE&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">14</span><span
+            class="p">),</span>
+            <span class="p">(</span><span class="s1">&#39;BOTTOMPADDING&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">12</span><span
+            class="p">),</span>
+        <span class="p">])</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">setStyle</span><span class="p">(</span><span
+            class="n">style</span><span class="p">)</span>
+        <span class="c1"># Alternar color de las filas</span>
+        <span class="n">rowNumb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span
+            class="n">data</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span
+            class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span
+            class="n">rowNumb</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span
+            class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">bc</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span
+            class="n">lightgreen</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">bc</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span
+            class="n">lightskyblue</span>
+            <span class="n">ts</span> <span class="o">=</span> <span class="n">TableStyle</span><span
+            class="p">([(</span><span class="s1">&#39;BACKGROUND&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span
+            class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span
+            class="p">),</span> <span class="n">bc</span><span class="p">)])</span>
+            <span class="n">table</span><span class="o">.</span><span class="n">setStyle</span><span
+            class="p">(</span><span class="n">ts</span><span class="p">)</span>
+
+        <span class="c1"># Añadimos bordes a la tabla</span>
+        <span class="n">ts2</span> <span class="o">=</span> <span class="n">TableStyle</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">(</span><span class="s1">&#39;BOX&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span
+            class="mi">2</span><span class="p">,</span> <span class="n">colors</span><span class="o">.</span><span
+            class="n">black</span><span class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;LINEBEFORE&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="n">rowNumb</span><span class="p">),</span> <span class="mi">2</span><span
+            class="p">,</span> <span class="n">colors</span><span class="o">.</span><span class="n">black</span><span
+            class="p">),</span>
+                <span class="p">(</span><span class="s1">&#39;LINEABOVE&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="n">rowNumb</span><span class="p">),</span> <span class="mi">2</span><span
+            class="p">,</span> <span class="n">colors</span><span class="o">.</span><span class="n">black</span><span
+            class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">setStyle</span><span class="p">(</span><span
+            class="n">ts2</span><span class="p">)</span>
+        <span class="n">pdf</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span
+            class="n">elementos</span><span class="p">)</span>
+        <span class="n">wb</span><span class="o">.</span><span class="n">open_new</span><span class="p">(</span><span
+            class="s1">&#39;./Pdfs/&#39;</span> <span class="o">+</span> <span class="n">fileName</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GridWindow.on_buttonFactura_clicked"><a class="viewcode-back"
+                                                                        href="../../../Albaranes.html#App.Albaranes.Albaranes.GridWindow.on_buttonFactura_clicked">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">on_buttonFactura_clicked</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Metodo que crea una factura del cliente seeccionado en el treeview.</span>
+
+<span class="sd">           :param widget: Widget botón.</span>
+<span class="sd">           :return: No devuelve ningún parámetro.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># IMPORTS</span>
+        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
+            class="n">SimpleDocTemplate</span>
+        <span class="kn">from</span> <span class="nn">reportlab.lib.pagesizes</span> <span
+            class="kn">import</span> <span class="n">letter</span>
+        <span class="kn">from</span> <span class="nn">reportlab.lib</span> <span class="kn">import</span> <span
+            class="n">colors</span>
+        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
+            class="n">TableStyle</span>
+        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
+            class="n">Table</span>
+        <span class="kn">import</span> <span class="nn">webbrowser</span> <span class="k">as</span> <span
+            class="nn">wb</span>
+
+        <span class="c1"># DATOS CLIENTE SELECCIONADO</span>
+        <span class="n">dataC</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">clientes</span> <span class="o">=</span> <span class="n">SQLiteMetodos</span><span
+            class="o">.</span><span class="n">selectTablaClientesDni</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">iter</span><span class="p">][</span><span
+            class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">cliente</span> <span class="ow">in</span> <span
+            class="n">clientes</span><span class="p">:</span>
+            <span class="n">dataC</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="s1">&#39;Datos Cliente &#39;</span><span class="p">,</span> <span
+            class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span
+            class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span
+            class="s1">&#39;&#39;</span><span class="p">])</span>
+            <span class="n">dataC</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="s1">&#39;Dni: &#39;</span><span class="p">,</span> <span
+            class="n">cliente</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span
+            class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span
+            class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">])</span>
+            <span class="n">dataC</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="s1">&#39;Nombre: &#39;</span><span class="p">,</span> <span class="n">cliente</span><span
+            class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;&#39;</span><span
+            class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span
+            class="s1">&#39;&#39;</span><span class="p">])</span>
+            <span class="n">dataC</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="s1">&#39;Apellidos: &#39;</span><span class="p">,</span> <span class="n">cliente</span><span
+            class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;&#39;</span><span
+            class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span
+            class="s1">&#39;&#39;</span><span class="p">])</span>
+            <span class="n">dataC</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="s1">&#39;Sexo: &#39;</span><span class="p">,</span> <span
+            class="n">cliente</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span
+            class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span
+            class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">])</span>
+            <span class="n">dataC</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="s1">&#39;Direccion: &#39;</span><span class="p">,</span> <span class="n">cliente</span><span
+            class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="s1">&#39;&#39;</span><span
+            class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span
+            class="s1">&#39;&#39;</span><span class="p">])</span>
+            <span class="n">dataC</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="s1">&#39;Teléfono: &#39;</span><span class="p">,</span> <span class="n">cliente</span><span
+            class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;&#39;</span><span
+            class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span
+            class="s1">&#39;&#39;</span><span class="p">])</span>
+            <span class="n">dataC</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span
+            class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span
+            class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span
+            class="s1">&#39;&#39;</span><span class="p">])</span>
+
+            <span class="c1"># PRODUCTOS DEL CLIENTE SELECCIONADO</span>
+            <span class="n">precioTotal</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">dataP</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">productos</span> <span class="o">=</span> <span class="n">SQLiteMetodos</span><span
+            class="o">.</span><span class="n">selectTablaProductos</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">iter</span><span class="p">][</span><span
+            class="mi">0</span><span class="p">])</span>
+            <span class="c1"># Productos que pertenecen al cliente seleccionado</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">dataP</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="s2">&quot;Id Producto&quot;</span><span class="p">,</span> <span class="s2">&quot;Nombre&quot;</span><span
+            class="p">,</span> <span class="s2">&quot;Precio&quot;</span><span class="p">,</span> <span class="s2">&quot;Cantidad&quot;</span><span
+            class="p">])</span>
+            <span class="k">for</span> <span class="n">producto</span> <span class="ow">in</span> <span class="n">productos</span><span
+            class="p">:</span>
+                <span class="n">dataP</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="n">producto</span><span class="p">[</span><span class="mi">0</span><span
+            class="p">],</span> <span class="n">producto</span><span class="p">[</span><span class="mi">2</span><span
+            class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">producto</span><span
+            class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">+</span> <span
+            class="s2">&quot; €/ud&quot;</span><span class="p">,</span> <span class="n">producto</span><span
+            class="p">[</span><span class="mi">4</span><span class="p">]])</span>
+                <span class="n">precioTotal</span> <span class="o">=</span> <span class="n">precioTotal</span> <span
+            class="o">+</span> <span class="p">(</span><span class="n">producto</span><span class="p">[</span><span
+            class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">producto</span><span
+            class="p">[</span><span class="mi">4</span>
+                <span class="p">])</span>
+
+            <span class="n">dataP</span><span class="o">.</span><span class="n">append</span><span
+            class="p">([</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span
+            class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;PRECIO TOTAL:&#39;</span><span
+            class="p">,</span> <span class="nb">str</span><span class="p">(</span><span
+            class="n">precioTotal</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; €&quot;</span><span
+            class="p">])</span>
+            <span class="n">rowNumb</span> <span class="o">=</span> <span class="nb">len</span><span
+            class="p">(</span><span class="n">dataP</span><span class="p">)</span>
+
+            <span class="c1"># GENERAR PDF</span>
+            <span class="n">fileName</span> <span class="o">=</span> <span class="s1">&#39;Factura&#39;</span> <span
+            class="o">+</span> <span class="n">dataC</span><span class="p">[</span><span class="mi">1</span><span
+            class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span
+            class="s1">&#39;.pdf&#39;</span>
+            <span class="n">pdf</span> <span class="o">=</span> <span class="n">SimpleDocTemplate</span><span class="p">(</span><span
+            class="s2">&quot;./Pdfs/&quot;</span> <span class="o">+</span> <span class="n">fileName</span><span
+            class="p">,</span> <span class="n">pagesize</span><span class="o">=</span><span class="n">letter</span><span
+            class="p">)</span>
+            <span class="c1"># DATOS CLIENTE</span>
+
+            <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span
+            class="p">(</span><span class="n">dataC</span><span class="p">,</span> <span class="n">colWidths</span><span
+            class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">rowHeights</span><span
+            class="o">=</span><span class="mi">30</span><span class="p">)</span>
+            <span class="n">table</span><span class="o">.</span><span class="n">setStyle</span><span
+            class="p">(</span><span class="n">TableStyle</span><span class="p">([</span>
+                <span class="p">(</span><span class="s1">&#39;TEXTCOLOR&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span
+            class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="n">colors</span><span
+            class="o">.</span><span class="n">darkgreen</span><span class="p">),</span>
+
+                <span class="p">(</span><span class="s1">&#39;ALIGN&#39;</span><span class="p">,</span> <span class="p">(</span><span
+            class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span
+            class="mi">1</span><span class="p">),</span> <span class="s1">&#39;LEFT&#39;</span><span class="p">),</span>
+
+                <span class="p">(</span><span class="s1">&#39;VALIGN&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span
+            class="s1">&#39;MIDDLE&#39;</span><span class="p">),</span>
+            <span class="p">]))</span>
+
+            <span class="c1"># DATOS PRODUCTOS CLIENTE</span>
+            <span class="n">table2</span> <span class="o">=</span> <span class="n">Table</span><span
+            class="p">(</span><span class="n">dataP</span><span class="p">,</span> <span class="n">colWidths</span><span
+            class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">rowHeights</span><span
+            class="o">=</span><span class="mi">30</span><span class="p">)</span>
+            <span class="n">table2</span><span class="o">.</span><span class="n">getSpaceBefore</span><span
+            class="p">()</span>
+            <span class="n">table2</span><span class="o">.</span><span class="n">setStyle</span><span class="p">(</span><span
+            class="n">TableStyle</span><span class="p">([</span>
+                <span class="p">(</span><span class="s1">&#39;TEXTCOLOR&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span
+            class="mi">0</span><span class="p">),</span> <span class="n">colors</span><span class="o">.</span><span
+            class="n">darkgreen</span><span class="p">),</span>
+
+                <span class="p">(</span><span class="s1">&#39;TEXTCOLOR&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rowNumb</span> <span
+            class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span
+            class="mi">3</span><span class="p">,</span> <span class="n">rowNumb</span> <span class="o">-</span> <span
+            class="mi">1</span><span class="p">),</span> <span class="n">colors</span><span class="o">.</span><span
+            class="n">darkred</span><span class="p">),</span>
+
+                <span class="p">(</span><span class="s1">&#39;ALIGN&#39;</span><span class="p">,</span> <span class="p">(</span><span
+            class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span
+            class="mi">1</span><span class="p">),</span> <span class="s1">&#39;LEFT&#39;</span><span class="p">),</span>
+
+                <span class="p">(</span><span class="s1">&#39;VALIGN&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span
+            class="s1">&#39;MIDDLE&#39;</span><span class="p">),</span>
+
+                <span class="p">(</span><span class="s1">&#39;ALIGN&#39;</span><span class="p">,</span> <span class="p">(</span><span
+            class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span
+            class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span
+            class="mi">1</span><span class="p">),</span> <span class="s1">&#39;CENTER&#39;</span><span
+            class="p">),</span>
+
+                <span class="p">(</span><span class="s1">&#39;BOX&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="n">rowNumb</span> <span class="o">-</span> <span class="mi">2</span><span
+            class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">colors</span><span
+            class="o">.</span><span class="n">black</span><span class="p">),</span>
+
+                <span class="p">(</span><span class="s1">&#39;INNERGRID&#39;</span><span class="p">,</span> <span
+            class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span
+            class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span
+            class="p">,</span> <span class="n">rowNumb</span> <span class="o">-</span> <span class="mi">2</span><span
+            class="p">),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">colors</span><span
+            class="o">.</span><span class="n">grey</span><span class="p">)</span>
+            <span class="p">]))</span>
+
+            <span class="c1"># Creación de las dtabla</span>
+            <span class="n">elementos</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">elementos</span><span class="o">.</span><span class="n">append</span><span
+            class="p">(</span><span class="n">table</span><span class="p">)</span>
+            <span class="n">elementos</span><span class="o">.</span><span class="n">append</span><span
+            class="p">(</span><span class="n">table2</span><span class="p">)</span>
+            <span class="n">pdf</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span
+            class="n">elementos</span><span class="p">)</span>
+            <span class="n">wb</span><span class="o">.</span><span class="n">open_new</span><span
+            class="p">(</span><span class="s1">&#39;./Pdfs/&#39;</span> <span class="o">+</span> <span class="n">fileName</span><span
+            class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span
+            class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No hay productos para generar la factura.&#39;</span><span
+            class="p">)</span></div></div>
+</pre>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <h1 class="logo"><a href="../../../index.html">ProyectoPython</a></h1>
+
+
+            <h3>Navegación</h3>
+            <p class="caption"><span class="caption-text">Contents:</span></p>
+            <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Inicio.html">Guia Usuario</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../GestionClientes.html">Gestion de
+                    Clientes</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../GestionProductos.html">Gestion de
+                    Productos</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Albaranes.html">Albaranes y
+                    Listado</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../SQLiteBD.html">Gestion Base de
+                    Datos</a></li>
+            </ul>
+
+            <div class="relations">
+                <h3>Related Topics</h3>
+                <ul>
+                    <li><a href="../../../index.html">Documentation overview</a>
+                        <ul>
+                            <li><a href="../../index.html">Código de módulo</a>
+                                <ul>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="searchbox" style="display: none" role="search">
+                <h3 id="searchlabel">Búsqueda rápida</h3>
+                <div class="searchformwrapper">
+                    <form class="search" action="../../../search.html" method="get">
+                        <input type="text" name="q" aria-labelledby="searchlabel"/>
+                        <input type="submit" value="Ir a"/>
+                    </form>
+                </div>
+            </div>
+            <script>$('#searchbox').show(0);</script>
+
+
+        </div>
+    </div>
+    <div class="clearer"></div>
+</div>
+<div class="footer">
+    &copy;2020, finfanterodal.
+
+    |
+    Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+    &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <title>App.SQLiteBD.SQLiteMetodos &#8212; documentación de ProyectoPython - </title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css"/>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css"/>
+    <script id="documentation_options" data-url_root="../../../"
+            src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html"/>
+    <link rel="search" title="Búsqueda" href="../../../search.html"/>
+
+    <link rel="stylesheet" href="../../../_static/custom.css" type="text/css"/>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9"/>
+
+</head>
+<body>
+
+
+<div class="document">
+    <div class="documentwrapper">
+        <div class="bodywrapper">
+
+
+            <div class="body" role="main">
+
+                <h1>Código fuente para App.SQLiteBD.SQLiteMetodos</h1>
+                <div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">from</span> <span class="nn">sqlite3</span> <span class="kn">import</span> <span class="n">Error</span>
+
+
+<div class="viewcode-block" id="crear_conexion"><a class="viewcode-back"
+                                                   href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.crear_conexion">[documentos]</a><span
+        class="k">def</span> <span class="nf">crear_conexion</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Crea una conexion a la base de datos SQLite.</span>
+
+<span class="sd">    :param: No recibe ningún parámetro.</span>
+<span class="sd">    :return: Objeto Connection o null.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">database</span> <span class="o">=</span> <span class="s2">&quot;tienda.db&quot;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span
+            class="n">connect</span><span class="p">(</span><span class="n">database</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">conn</span>
+    <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span
+            class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">conn</span></div>
+
+
+<div class="viewcode-block" id="cerrar_conexion"><a class="viewcode-back"
+                                                    href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.cerrar_conexion">[documentos]</a><span
+        class="k">def</span> <span class="nf">cerrar_conexion</span><span class="p">(</span><span
+        class="n">conn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Función que cierra la base de datos.</span>
+
+<span class="sd">        :param conn: Conexion de a la base de datos.</span>
+<span class="sd">        :return: No devuelve ningún parámetro.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">DatabaseError</span> <span class="k">as</span> <span class="n">erroSQL</span><span
+            class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span
+            class="s2">&quot;Error al cerrar de conexión.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="crearTabla"><a class="viewcode-back"
+                                               href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.crearTabla">[documentos]</a><span
+        class="k">def</span> <span class="nf">crearTabla</span><span class="p">(</span><span class="n">conn</span><span
+        class="p">,</span> <span class="n">crear_tabla_sql</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Crea una tabla con la query crear_tabla_sql.</span>
+
+<span class="sd">    :param conn: Objecto Connection</span>
+<span class="sd">    :param crear_tabla_sql: Create table statement</span>
+<span class="sd">    :return: No devuelve ningún prámetro.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">cursor</span><span class="p">()</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span
+            class="n">crear_tabla_sql</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span
+            class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="insertTablaClientes"><a class="viewcode-back"
+                                                        href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.insertTablaClientes">[documentos]</a><span
+        class="k">def</span> <span class="nf">insertTablaClientes</span><span class="p">(</span><span
+        class="n">dni</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span
+        class="n">apellidos</span><span class="p">,</span> <span class="n">sexo</span><span class="p">,</span> <span
+        class="n">direccion</span><span class="p">,</span> <span class="n">telefono</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Inserta una nueva fila en la tabla Clientes.</span>
+
+<span class="sd">    :param dni: Dni text</span>
+<span class="sd">    :param nombre: Nombre text</span>
+<span class="sd">    :param apellidos: Apellidos text</span>
+<span class="sd">    :param sexo: Sexo text</span>
+<span class="sd">    :param direccion: Direccion text</span>
+<span class="sd">    :param telefono: Telefono text</span>
+<span class="sd">    :return: No devuelve ningún parámetro.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span>
+            <span class="n">dni</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span
+            class="n">nombre</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span
+            class="ow">and</span> <span class="n">apellidos</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span
+            class="ow">and</span> <span class="n">sexo</span> <span class="o">!=</span> <span
+            class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">direccion</span> <span class="o">!=</span> <span
+            class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">telefono</span> <span class="o">!=</span> <span
+            class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span
+            class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">cursor</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO clientes (dni,nombre,apellidos,sexo,direccion,telefono) VALUES (?, ?, ?, ?, ?, ?)&quot;</span>
+            <span class="n">parametros</span> <span class="o">=</span> <span class="p">(</span><span
+            class="n">dni</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span
+            class="n">apellidos</span><span class="p">,</span> <span class="n">sexo</span><span class="p">,</span> <span
+            class="n">direccion</span><span class="p">,</span> <span class="n">telefono</span><span class="p">)</span>
+
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span
+            class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">parametros</span><span
+            class="p">)</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span class="n">OperationalError</span> <span
+            class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error &quot;</span><span
+            class="p">)</span>
+
+        <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">DatabaseError</span> <span class="k">as</span> <span class="n">e2</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span
+            class="p">)</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Faltan valores para insertar el cliente&quot;</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="insertTablaProductos"><a class="viewcode-back"
+                                                         href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.insertTablaProductos">[documentos]</a><span
+        class="k">def</span> <span class="nf">insertTablaProductos</span><span class="p">(</span><span
+        class="nb">id</span><span class="p">,</span> <span class="n">dni</span><span class="p">,</span> <span class="n">nombre</span><span
+        class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">cantidad</span><span
+        class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Inserta una nueva fila en la tabla Productos.</span>
+
+<span class="sd">    :param id: id int</span>
+<span class="sd">    :param dni: Dni text</span>
+<span class="sd">    :param nombre: nombre text</span>
+<span class="sd">    :param precio: Precio float</span>
+<span class="sd">    :param cantidad: Cantidad int</span>
+<span class="sd">    :return: Ningún parámetro devuelto.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">id</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span
+            class="n">dni</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span
+            class="ow">and</span> <span class="n">nombre</span> <span class="o">!=</span> <span
+            class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">precio</span> <span
+            class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">cantidad</span> <span
+            class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span
+            class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">cursor</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;INSERT INTO productos(id, dni, nombre, precio, cantidad) VALUES (?, ?, ?, ?, ?)&quot;</span>
+            <span class="n">parametros</span> <span class="o">=</span> <span class="p">(</span><span
+            class="nb">id</span><span class="p">,</span> <span class="n">dni</span><span class="p">,</span> <span
+            class="n">nombre</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span
+            class="n">cantidad</span><span class="p">)</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span
+            class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">parametros</span><span
+            class="p">)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span class="n">OperationalError</span> <span
+            class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error &quot;</span><span
+            class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">DatabaseError</span> <span class="k">as</span> <span class="n">e2</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span
+            class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Faltan valores para insertar el producto&quot;</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="updateTablaClientes"><a class="viewcode-back"
+                                                        href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.updateTablaClientes">[documentos]</a><span
+        class="k">def</span> <span class="nf">updateTablaClientes</span><span class="p">(</span><span
+        class="n">dni</span><span class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span
+        class="n">apellidos</span><span class="p">,</span> <span class="n">sexo</span><span class="p">,</span> <span
+        class="n">direccion</span><span class="p">,</span> <span class="n">telefono</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Modifica los datos de un cliente existente dado su dni.</span>
+
+<span class="sd">    :param dni: Dni text</span>
+<span class="sd">    :param nombre: Nombre text</span>
+<span class="sd">    :param apellidos: Apellidos text</span>
+<span class="sd">    :param sexo: Sexo text</span>
+<span class="sd">    :param direccion: Direccion text</span>
+<span class="sd">    :param telefono: Telefono text</span>
+<span class="sd">    :return: Ningún parámetro es devuelto.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">dni</span> <span class="o">!=</span> <span
+            class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">nombre</span> <span
+            class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span class="n">apellidos</span> <span
+            class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="ow">and</span> <span
+            class="n">sexo</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span
+            class="ow">and</span> <span class="n">direccion</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span
+            class="ow">and</span> <span class="n">telefono</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span
+            class="p">):</span>
+
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span
+            class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">cursor</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;UPDATE clientes SET nombre = ?, apellidos = ?, sexo = ?, direccion = ?, telefono = ? where dni = ?&quot;</span>
+            <span class="n">parametros</span> <span class="o">=</span> <span class="p">(</span><span
+            class="n">nombre</span><span class="p">,</span> <span class="n">apellidos</span><span
+            class="p">,</span> <span class="n">sexo</span><span class="p">,</span> <span class="n">direccion</span><span
+            class="p">,</span> <span class="n">telefono</span><span class="p">,</span> <span class="n">dni</span><span
+            class="p">)</span>
+
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span
+            class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">parametros</span><span
+            class="p">)</span>
+
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span class="n">OperationalError</span> <span
+            class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error &quot;</span><span
+            class="p">)</span>
+
+        <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">DatabaseError</span> <span class="k">as</span> <span class="n">e2</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span
+            class="p">)</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Faltan valores para modificar el cliente&quot;</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="deleteTablaClientes"><a class="viewcode-back"
+                                                        href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.deleteTablaClientes">[documentos]</a><span
+        class="k">def</span> <span class="nf">deleteTablaClientes</span><span class="p">(</span><span
+        class="n">dni</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Elimina un cliente dado su dni.</span>
+
+<span class="sd">    :param dni: Dni del cliente a eliminar.</span>
+<span class="sd">    :return: Ningún parámetro es devuelto.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span class="p">()</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">cursor</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+
+        <span class="n">sql_DELETE</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM clientes WHERE dni = &#39;&quot;</span> <span
+            class="o">+</span> <span class="n">dni</span> <span class="o">+</span> <span
+            class="s2">&quot;&#39;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span
+            class="n">sql_DELETE</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eliminado&quot;</span><span
+            class="p">)</span>
+
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span
+            class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error &quot;</span><span
+            class="p">)</span>
+
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">DatabaseError</span> <span class="k">as</span> <span class="n">err2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span
+            class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="selectTablaClientes"><a class="viewcode-back"
+                                                        href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.selectTablaClientes">[documentos]</a><span
+        class="k">def</span> <span class="nf">selectTablaClientes</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Select de todos los clientes.</span>
+
+<span class="sd">    :param: No recibe ningún parámetro.</span>
+<span class="sd">    :return: Lista de todos los clientes existentes.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span class="p">()</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">cursor</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM clientes&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span
+            class="n">sql</span><span class="p">)</span>
+        <span class="n">datos</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span
+            class="n">fetchall</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">datos</span>
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span
+            class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error &quot;</span><span
+            class="p">)</span>
+
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">DatabaseError</span> <span class="k">as</span> <span class="n">err2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span
+            class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="selectTablaClientesDni"><a class="viewcode-back"
+                                                           href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.selectTablaClientesDni">[documentos]</a><span
+        class="k">def</span> <span class="nf">selectTablaClientesDni</span><span class="p">(</span><span
+        class="n">dni</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Select de clientes dado el dni para realizar la búsqueda.</span>
+
+<span class="sd">    :param dni: Dni del cliente que se quiere encontrar.</span>
+<span class="sd">    :return: Lista de datos del cliente.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span class="p">()</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">cursor</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM clientes WHERE dni = &#39;&quot;</span> <span
+            class="o">+</span> <span class="n">dni</span> <span class="o">+</span> <span
+            class="s2">&quot;&#39;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span
+            class="n">sql</span><span class="p">)</span>
+        <span class="n">datos</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span
+            class="n">fetchall</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">datos</span>
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span
+            class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error &quot;</span><span
+            class="p">)</span>
+
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">DatabaseError</span> <span class="k">as</span> <span class="n">err2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span
+            class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="selectTablaClientesDni2"><a class="viewcode-back"
+                                                            href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.selectTablaClientesDni2">[documentos]</a><span
+        class="k">def</span> <span class="nf">selectTablaClientesDni2</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Select de los dni todos los clientes existentes.</span>
+
+<span class="sd">    :param: Ningún parámetro recibido.</span>
+<span class="sd">    :return: Lista de dni de clientes.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span
+            class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span
+            class="s2">&quot;SELECT dni FROM clientes&quot;</span><span class="p">)</span>
+        <span class="n">datos</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span
+            class="n">fetchall</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">datos</span>
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span
+            class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error &quot;</span><span
+            class="p">)</span>
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">DatabaseError</span> <span class="k">as</span> <span class="n">err2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span
+            class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="selectTablaProductos"><a class="viewcode-back"
+                                                         href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.selectTablaProductos">[documentos]</a><span
+        class="k">def</span> <span class="nf">selectTablaProductos</span><span class="p">(</span><span
+        class="n">dni</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Select de productos relacionados con un cliente determinado dado el dni.</span>
+
+<span class="sd">    :param dni: Dni del cliente para realizar la búsqueda.</span>
+<span class="sd">    :return: Lista con productos relacionados.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span
+            class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span
+            class="s2">&quot;SELECT * FROM productos WHERE dni =&#39;&quot;</span> <span class="o">+</span> <span
+            class="n">dni</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span><span
+            class="p">)</span>
+        <span class="n">datos</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span
+            class="n">fetchall</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">datos</span>
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span
+            class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error &quot;</span><span
+            class="p">)</span>
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">DatabaseError</span> <span class="k">as</span> <span class="n">err2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span
+            class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back"
+                                         href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.main">[documentos]</a><span
+        class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">sql_crear_tabla_clientes</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;CREATE TABLE IF NOT EXISTS clientes(</span>
+<span class="s2">                                     dni TEXT PRIMARY KEY, </span>
+<span class="s2">                                     nombre TEXT NOT NULL, </span>
+<span class="s2">                                     apellidos TEXT NOT NULL,</span>
+<span class="s2">                                     sexo TEXT NOT NULL,</span>
+<span class="s2">                                     direccion TEXT NOT NULL, </span>
+<span class="s2">                                     telefono TEXT NOT NULL</span>
+<span class="s2">                                     )</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">sql_crear_tabla_productos</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;CREATE TABLE IF NOT EXISTS productos(</span>
+<span class="s2">                                     id integer PRIMARY KEY, </span>
+<span class="s2">                                     dni TEXT NOT NULL, </span>
+<span class="s2">                                     nombre TEXT NOT NULL, </span>
+<span class="s2">                                     precio float NOT NULL,</span>
+<span class="s2">                                     cantidad integer NOT NULL</span>
+<span class="s2">                                     )</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="c1"># Crear conexion con la base de datos</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span class="p">()</span>
+    <span class="c1"># Crear tablas</span>
+    <span class="k">if</span> <span class="n">conn</span> <span class="ow">is</span> <span class="ow">not</span> <span
+            class="kc">None</span><span class="p">:</span>
+        <span class="n">crearTabla</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">,</span> <span class="n">sql_crear_tabla_clientes</span><span class="p">)</span>
+        <span class="n">crearTabla</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">,</span> <span class="n">sql_crear_tabla_productos</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span
+            class="s2">&quot;Fallo en la conexión.&quot;</span><span class="p">)</span>
+    <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">)</span></div>
+</pre>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <h1 class="logo"><a href="../../../index.html">ProyectoPython</a></h1>
+
+
+            <h3>Navegación</h3>
+            <p class="caption"><span class="caption-text">Contents:</span></p>
+            <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Inicio.html">Guia Usuario</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../GestionClientes.html">Gestion de
+                    Clientes</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../GestionProductos.html">Gestion de
+                    Productos</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Albaranes.html">Albaranes y
+                    Listado</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../SQLiteBD.html">Gestion Base de
+                    Datos</a></li>
+            </ul>
+
+            <div class="relations">
+                <h3>Related Topics</h3>
+                <ul>
+                    <li><a href="../../../index.html">Documentation overview</a>
+                        <ul>
+                            <li><a href="../../index.html">Código de módulo</a>
+                                <ul>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="searchbox" style="display: none" role="search">
+                <h3 id="searchlabel">Búsqueda rápida</h3>
+                <div class="searchformwrapper">
+                    <form class="search" action="../../../search.html" method="get">
+                        <input type="text" name="q" aria-labelledby="searchlabel"/>
+                        <input type="submit" value="Ir a"/>
+                    </form>
+                </div>
+            </div>
+            <script>$('#searchbox').show(0);</script>
+
+
+        </div>
+    </div>
+    <div class="clearer"></div>
+</div>
+<div class="footer">
+    &copy;2020, finfanterodal.
+
+    |
+    Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+    &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+
+</div>
+
+
+</body>
+</html>

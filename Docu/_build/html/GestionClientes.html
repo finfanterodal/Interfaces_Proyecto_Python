@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <title>Gestion de Clientes &#8212; documentación de ProyectoPython - </title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css"/>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css"/>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html"/>
+    <link rel="search" title="Búsqueda" href="search.html"/>
+
+    <link rel="stylesheet" href="_static/custom.css" type="text/css"/>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9"/>
+
+</head>
+<body>
+
+
+<div class="document">
+    <div class="documentwrapper">
+        <div class="bodywrapper">
+
+
+            <div class="body" role="main">
+
+                <div class="section" id="module-App.GestionClientes.GestionClientes">
+                    <span id="gestion-de-clientes"></span>
+                    <h1>Gestion de Clientes<a class="headerlink" href="#module-App.GestionClientes.GestionClientes"
+                                              title="Enlazar permanentemente con este título">¶</a></h1>
+                    <dl class="class">
+                        <dt id="App.GestionClientes.GestionClientes.GridWindow">
+                            <em class="property">class </em><code class="sig-prename descclassname">App.GestionClientes.GestionClientes.</code><code
+                                class="sig-name descname">GridWindow</code><a class="reference internal"
+                                                                              href="_modules/App/GestionClientes/GestionClientes.html#GridWindow"><span
+                                class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                            href="#App.GestionClientes.GestionClientes.GridWindow"
+                                                                            title="Enlazar permanentemente con esta definición">¶</a>
+                        </dt>
+                        <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gi.overrides.Gtk.Window</span></code>
+                        </p>
+                            <p>Ventana de Gestion de Productos.</p>
+                            <p><strong>Métodos:</strong></p>
+                            <blockquote>
+                                <div>
+                                    <ul class="simple">
+                                        <li><p>__init__</p></li>
+                                        <li><p>on_button_toggled</p></li>
+                                        <li><p>on_button_toggled2</p></li>
+                                        <li><p>on_buttonAñadir_clicked</p></li>
+                                        <li><p>on_buttonModificar_clicked</p></li>
+                                        <li><p>on_buttonEliminar_clicked</p></li>
+                                        <li><p>on_comboModificar_changed</p></li>
+                                        <li><p>on_comboEliminar_changed</p></li>
+                                        <li><p>cargar_dni_cliente</p></li>
+                                        <li><p>on_buttonVolver_clicked</p></li>
+                                        <li><p>validoDNI</p></li>
+                                        <li><p>validoTelf</p></li>
+                                    </ul>
+                                </div>
+                            </blockquote>
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.cargar_dni_cliente">
+                                    <code class="sig-name descname">cargar_dni_cliente</code><span
+                                        class="sig-paren">(</span><span class="sig-paren">)</span><a
+                                        class="reference internal"
+                                        href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.cargar_dni_cliente"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.cargar_dni_cliente"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo que carga los dni de los clientes existentes en los comboBox de modificar
+                                    y eliminar.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Param</dt>
+                                        <dd class="field-odd"><p>No recibe ningún parámetro.</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.on_buttonAñadir_clicked">
+                                    <code class="sig-name descname">on_buttonAñadir_clicked</code><span
+                                        class="sig-paren">(</span><em class="sig-param">widget</em><span
+                                        class="sig-paren">)</span><a class="reference internal"
+                                                                     href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.on_buttonAñadir_clicked"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.on_buttonAñadir_clicked"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo para añadir un nuevo cliente dados sus datos.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd"><p><strong>widget</strong> – Widget</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.on_buttonEliminar_clicked">
+                                    <code class="sig-name descname">on_buttonEliminar_clicked</code><span
+                                        class="sig-paren">(</span><em class="sig-param">widget</em><span
+                                        class="sig-paren">)</span><a class="reference internal"
+                                                                     href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.on_buttonEliminar_clicked"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.on_buttonEliminar_clicked"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo para eliminar un cliente.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd"><p><strong>widget</strong> – Widget</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.on_buttonModificar_clicked">
+                                    <code class="sig-name descname">on_buttonModificar_clicked</code><span
+                                        class="sig-paren">(</span><em class="sig-param">widget</em><span
+                                        class="sig-paren">)</span><a class="reference internal"
+                                                                     href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.on_buttonModificar_clicked"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.on_buttonModificar_clicked"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Merodo para modificar los datos de un cliente.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd"><p><strong>widget</strong> – Widget</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.on_buttonVolver_clicked">
+                                    <code class="sig-name descname">on_buttonVolver_clicked</code><span
+                                        class="sig-paren">(</span><em class="sig-param">widget</em><span
+                                        class="sig-paren">)</span><a class="reference internal"
+                                                                     href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.on_buttonVolver_clicked"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.on_buttonVolver_clicked"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo que vuelve al menu de inicio.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd"><p><strong>widget</strong> – Widget</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.on_button_toggled">
+                                    <code class="sig-name descname">on_button_toggled</code><span
+                                        class="sig-paren">(</span><em class="sig-param">button</em>, <em
+                                        class="sig-param">name</em><span class="sig-paren">)</span><a
+                                        class="reference internal"
+                                        href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.on_button_toggled"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.on_button_toggled"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo que recoge la seña del RadioButton.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd">
+                                            <ul class="simple">
+                                                <li><p><strong>button</strong> – Button</p></li>
+                                                <li><p><strong>name</strong> – Name</p></li>
+                                            </ul>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.on_button_toggled2">
+                                    <code class="sig-name descname">on_button_toggled2</code><span
+                                        class="sig-paren">(</span><em class="sig-param">button</em>, <em
+                                        class="sig-param">name</em><span class="sig-paren">)</span><a
+                                        class="reference internal"
+                                        href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.on_button_toggled2"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.on_button_toggled2"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Merodo que recoge la seña del RadioButton.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd">
+                                            <ul class="simple">
+                                                <li><p><strong>button</strong> – Button</p></li>
+                                                <li><p><strong>name</strong> – Name</p></li>
+                                            </ul>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.on_comboEliminar_changed">
+                                    <code class="sig-name descname">on_comboEliminar_changed</code><span
+                                        class="sig-paren">(</span><em class="sig-param">combo</em><span
+                                        class="sig-paren">)</span><a class="reference internal"
+                                                                     href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.on_comboEliminar_changed"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.on_comboEliminar_changed"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo que recoge la señar del combo «changed» para cargar los datos del cliente
+                                    a eliminar.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd"><p><strong>combo</strong> – GtkCombo</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>none</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.on_comboModificar_changed">
+                                    <code class="sig-name descname">on_comboModificar_changed</code><span
+                                        class="sig-paren">(</span><em class="sig-param">combo</em><span
+                                        class="sig-paren">)</span><a class="reference internal"
+                                                                     href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.on_comboModificar_changed"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.on_comboModificar_changed"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo que recoge la señar del combo «changed» para cargar los datos del cliente
+                                    a modificar.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd"><p><strong>combo</strong> – GtkCombo</p>
+                                        </dd>
+                                        <dt class="field-even">Devuelve</dt>
+                                        <dd class="field-even"><p>No devuelve ningún parámetro.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.validoDNI">
+                                    <code class="sig-name descname">validoDNI</code><span class="sig-paren">(</span><em
+                                        class="sig-param">valor</em><span class="sig-paren">)</span><a
+                                        class="reference internal"
+                                        href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.validoDNI"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.validoDNI"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Nos indica si un NIF es valido.
+                                    El valor debe estar normalizado
+                                    ante cualquier problema se valida como False.</p>
+                                    <blockquote>
+                                        <div>
+                                            <dl class="field-list simple">
+                                                <dt class="field-odd">param dni</dt>
+                                                <dd class="field-odd"><p>Str Dni de la persona.</p>
+                                                </dd>
+                                                <dt class="field-even">return boolean</dt>
+                                                <dd class="field-even"><p>true o false en función del resultado</p>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </blockquote>
+                                </dd>
+                            </dl>
+
+                            <dl class="method">
+                                <dt id="App.GestionClientes.GestionClientes.GridWindow.validoTelf">
+                                    <code class="sig-name descname">validoTelf</code><span class="sig-paren">(</span><em
+                                        class="sig-param">valor</em><span class="sig-paren">)</span><a
+                                        class="reference internal"
+                                        href="_modules/App/GestionClientes/GestionClientes.html#GridWindow.validoTelf"><span
+                                        class="viewcode-link">[fuente]</span></a><a class="headerlink"
+                                                                                    href="#App.GestionClientes.GestionClientes.GridWindow.validoTelf"
+                                                                                    title="Enlazar permanentemente con esta definición">¶</a>
+                                </dt>
+                                <dd><p>Metodo que valida que el teléfono sea un número válido.</p>
+                                    <dl class="field-list simple">
+                                        <dt class="field-odd">Parámetros</dt>
+                                        <dd class="field-odd"><p><strong>telf</strong> – Str Dni de la persona.</p>
+                                        </dd>
+                                        <dt class="field-even">Return boolean</dt>
+                                        <dd class="field-even"><p>True o False en función del resultado.</p>
+                                        </dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+
+                        </dd>
+                    </dl>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <h1 class="logo"><a href="index.html">ProyectoPython</a></h1>
+
+
+            <h3>Navegación</h3>
+            <p class="caption"><span class="caption-text">Contents:</span></p>
+            <ul>
+                <li class="toctree-l1"><a class="reference internal" href="Inicio.html">Guia Usuario</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="Modules.html">Modulos Proyecto</a></li>
+            </ul>
+
+            <div class="relations">
+                <h3>Related Topics</h3>
+                <ul>
+                    <li><a href="index.html">Documentation overview</a>
+                        <ul>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="searchbox" style="display: none" role="search">
+                <h3 id="searchlabel">Búsqueda rápida</h3>
+                <div class="searchformwrapper">
+                    <form class="search" action="search.html" method="get">
+                        <input type="text" name="q" aria-labelledby="searchlabel"/>
+                        <input type="submit" value="Ir a"/>
+                    </form>
+                </div>
+            </div>
+            <script>$('#searchbox').show(0);</script>
+
+
+        </div>
+    </div>
+    <div class="clearer"></div>
+</div>
+<div class="footer">
+    &copy;2020, finfanterodal.
+
+    |
+    Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+    &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+
+    |
+    <a href="_sources/GestionClientes.rst.txt"
+       rel="nofollow">Page source</a>
+</div>
+
+
+</body>
+</html>

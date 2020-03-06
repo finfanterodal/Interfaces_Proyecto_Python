@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <title>App.GestionProductos.GestionProductos &#8212; documentación de ProyectoPython - </title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css"/>
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css"/>
+    <script id="documentation_options" data-url_root="../../../"
+            src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script src="../../../_static/translations.js"></script>
+    <link rel="index" title="Índice" href="../../../genindex.html"/>
+    <link rel="search" title="Búsqueda" href="../../../search.html"/>
+
+    <link rel="stylesheet" href="../../../_static/custom.css" type="text/css"/>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9"/>
+
+</head>
+<body>
+
+
+<div class="document">
+    <div class="documentwrapper">
+        <div class="bodywrapper">
+
+
+            <div class="body" role="main">
+
+                <h1>Código fuente para App.GestionProductos.GestionProductos</h1>
+                <div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">gi</span>
+
+<span class="kn">from</span> <span class="nn">App</span> <span class="kn">import</span> <span class="n">Main</span>
+<span class="kn">from</span> <span class="nn">App.SQLiteBD</span> <span class="kn">import</span> <span class="n">SQLiteMetodos</span>
+
+<span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span
+                        class="s1">&#39;Gtk&#39;</span><span class="p">,</span> <span
+                        class="s1">&#39;3.0&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">gi.repository</span> <span class="kn">import</span> <span
+                        class="n">Gtk</span>
+
+
+<div class="viewcode-block" id="GridWindow"><a class="viewcode-back"
+                                               href="../../../GestionProductos.html#App.GestionProductos.GestionProductos.GridWindow">[documentos]</a><span
+        class="k">class</span> <span class="nc">GridWindow</span><span class="p">(</span><span class="n">Gtk</span><span
+        class="o">.</span><span class="n">Window</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Ventana de Gestion de Productos.</span>
+
+<span class="sd">            **Métodos:**</span>
+
+<span class="sd">                - __init__</span>
+
+<span class="sd">                - cargar_interfaz</span>
+
+<span class="sd">                - cargar_dni_cliente</span>
+
+<span class="sd">                - on_comboAñadir_changed</span>
+
+<span class="sd">                - on_buttonAñadir_clicked</span>
+
+<span class="sd">                - on_buttonVolver_clicked</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span
+            class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Inicializa la ventana de Productos con la interfaz.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Interfaz Principal</span>
+        <span class="n">Gtk</span><span class="o">.</span><span class="n">Window</span><span class="o">.</span><span
+            class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span
+            class="n">title</span><span class="o">=</span><span class="s2">&quot;Productos&quot;</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_position</span><span
+            class="p">(</span><span class="n">Gtk</span><span class="o">.</span><span
+            class="n">WindowPosition</span><span class="o">.</span><span class="n">CENTER_ALWAYS</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_border_width</span><span
+            class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_default_size</span><span
+            class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="mi">300</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_resizable</span><span class="p">(</span><span
+            class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span
+            class="s2">&quot;destroy&quot;</span><span class="p">,</span> <span class="n">Gtk</span><span
+            class="o">.</span><span class="n">main_quit</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Grid</span><span
+            class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">set_column_homogeneous</span><span class="p">(</span><span class="kc">True</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">set_row_homogeneous</span><span class="p">(</span><span class="kc">True</span><span
+            class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonAñadir</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span
+            class="s2">&quot;Añadir&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonAñadir</span><span
+            class="o">.</span><span class="n">connect</span><span class="p">(</span><span
+            class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span
+            class="o">.</span><span class="n">on_buttonAñadir_clicked</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonVolver</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span
+            class="s2">&quot;Volver&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonVolver</span><span
+            class="o">.</span><span class="n">connect</span><span class="p">(</span><span
+            class="s2">&quot;clicked&quot;</span><span class="p">,</span> <span class="bp">self</span><span
+            class="o">.</span><span class="n">on_buttonVolver_clicked</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Box</span><span class="p">(</span><span
+            class="n">spacing</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span><span
+            class="o">.</span><span class="n">set_orientation</span><span class="p">(</span><span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Orientation</span><span class="o">.</span><span
+            class="n">HORIZONTAL</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span><span
+            class="o">.</span><span class="n">set_margin_left</span><span class="p">(</span><span
+            class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">boxPrincipal</span><span
+            class="o">.</span><span class="n">set_margin_right</span><span class="p">(</span><span
+            class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_border_width</span><span
+            class="p">(</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="p">)</span>
+
+        <span class="c1"># Combo DNI</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelDni</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span
+            class="p">(</span><span class="s2">&quot;Dni Cliente:&quot;</span><span class="p">,</span> <span class="n">halign</span><span
+            class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Align</span><span
+            class="o">.</span><span class="n">START</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryDni</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">ListStore</span><span
+            class="p">(</span><span class="nb">str</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cargar_dni_cliente</span><span
+            class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboAñadir</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">ComboBox</span><span class="o">.</span><span
+            class="n">new_with_model</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">entryDni</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboAñadir</span><span
+            class="o">.</span><span class="n">connect</span><span class="p">(</span><span
+            class="s2">&quot;changed&quot;</span><span class="p">,</span> <span class="bp">self</span><span
+            class="o">.</span><span class="n">on_comboAñadir_changed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">renderer_text</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">CellRendererText</span><span
+            class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboAñadir</span><span
+            class="o">.</span><span class="n">pack_start</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">renderer_text</span><span class="p">,</span> <span
+            class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboAñadir</span><span
+            class="o">.</span><span class="n">add_attribute</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">renderer_text</span><span
+            class="p">,</span> <span class="s2">&quot;text&quot;</span><span class="p">,</span> <span
+            class="mi">0</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelId</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span
+            class="p">(</span><span class="s2">&quot;Id:&quot;</span><span class="p">,</span> <span
+            class="n">halign</span><span class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span
+            class="n">Align</span><span class="o">.</span><span class="n">START</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryId</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span
+            class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelNombre</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span
+            class="s2">&quot;Nombre:&quot;</span><span class="p">,</span> <span class="n">halign</span><span
+            class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Align</span><span
+            class="o">.</span><span class="n">START</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryNombre</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelDescripcion</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span
+            class="p">(</span><span class="s2">&quot;Descripcion&quot;</span><span class="p">,</span> <span class="n">halign</span><span
+            class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Align</span><span
+            class="o">.</span><span class="n">START</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryDescripcion</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span
+            class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelPrecio</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span
+            class="s2">&quot;Precio&quot;</span><span class="p">,</span> <span class="n">halign</span><span
+            class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Align</span><span
+            class="o">.</span><span class="n">START</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryPrecio</span> <span class="o">=</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelCantidad</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Label</span><span
+            class="p">(</span><span class="s2">&quot;Cantidad&quot;</span><span class="p">,</span> <span class="n">halign</span><span
+            class="o">=</span><span class="n">Gtk</span><span class="o">.</span><span class="n">Align</span><span
+            class="o">.</span><span class="n">START</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryCantidad</span> <span
+            class="o">=</span> <span class="n">Gtk</span><span class="o">.</span><span class="n">Entry</span><span
+            class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cargarInterface</span><span
+            class="p">()</span>
+
+<div class="viewcode-block" id="GridWindow.cargarInterface"><a class="viewcode-back"
+                                                               href="../../../GestionProductos.html#App.GestionProductos.GestionProductos.GridWindow.cargarInterface">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">cargarInterface</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Carga el grid de la ventana Productos con los componentes necesarios.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># AÑADIR A GRID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">add</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span
+            class="n">labelDni</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">comboAñadir</span><span class="p">,</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">labelDni</span><span class="p">,</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">PositionType</span><span class="o">.</span><span
+            class="n">RIGHT</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span
+            class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">labelId</span><span class="p">,</span> <span class="bp">self</span><span
+            class="o">.</span><span class="n">labelDni</span><span class="p">,</span> <span class="n">Gtk</span><span
+            class="o">.</span><span class="n">PositionType</span><span class="o">.</span><span
+            class="n">BOTTOM</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span
+            class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">entryId</span><span class="p">,</span> <span class="bp">self</span><span
+            class="o">.</span><span class="n">labelId</span><span class="p">,</span> <span class="n">Gtk</span><span
+            class="o">.</span><span class="n">PositionType</span><span class="o">.</span><span
+            class="n">RIGHT</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span
+            class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">labelNombre</span><span class="p">,</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">labelId</span><span class="p">,</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">PositionType</span><span class="o">.</span><span
+            class="n">BOTTOM</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span
+            class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">entryNombre</span><span class="p">,</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">labelNombre</span><span
+            class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span
+            class="n">PositionType</span><span class="o">.</span><span class="n">RIGHT</span><span
+            class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">labelCantidad</span><span class="p">,</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">labelNombre</span><span
+            class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span
+            class="n">PositionType</span><span class="o">.</span><span class="n">BOTTOM</span><span
+            class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">entryCantidad</span><span class="p">,</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">labelCantidad</span><span
+            class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span
+            class="n">PositionType</span><span class="o">.</span><span class="n">RIGHT</span><span
+            class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">labelPrecio</span><span class="p">,</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">labelCantidad</span><span
+            class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span
+            class="n">PositionType</span><span class="o">.</span><span class="n">BOTTOM</span><span
+            class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">entryPrecio</span><span class="p">,</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">labelPrecio</span><span
+            class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span
+            class="n">PositionType</span><span class="o">.</span><span class="n">RIGHT</span><span
+            class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">buttonAñadir</span><span class="p">,</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">labelPrecio</span><span
+            class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span
+            class="n">PositionType</span><span class="o">.</span><span class="n">BOTTOM</span><span
+            class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span
+            class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gridProductos</span><span class="o">.</span><span
+            class="n">attach_next_to</span><span class="p">(</span><span class="bp">self</span><span
+            class="o">.</span><span class="n">buttonVolver</span><span class="p">,</span> <span
+            class="bp">self</span><span class="o">.</span><span class="n">buttonAñadir</span><span
+            class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span
+            class="n">PositionType</span><span class="o">.</span><span class="n">RIGHT</span><span
+            class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span
+            class="p">)</span></div>
+
+<div class="viewcode-block" id="GridWindow.cargar_dni_cliente"><a class="viewcode-back"
+                                                                  href="../../../GestionProductos.html#App.GestionProductos.GestionProductos.GridWindow.cargar_dni_cliente">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">cargar_dni_cliente</span><span class="p">(</span><span
+        class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Metodo que carga los dni de los clientes existentes en los comboBox de modificar y eliminar.</span>
+
+<span class="sd">        :param: No recibe ningún parámetro.</span>
+<span class="sd">        :return: No devuelve ningún parámetro.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entryDni</span><span class="o">.</span><span
+            class="n">clear</span><span class="p">()</span>
+        <span class="n">datos</span> <span class="o">=</span> <span class="n">SQLiteMetodos</span><span
+            class="o">.</span><span class="n">selectTablaClientesDni2</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">clientes</span> <span class="ow">in</span> <span
+            class="n">datos</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entryDni</span><span
+            class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">clientes</span><span
+            class="p">[</span><span class="mi">0</span><span class="p">]])</span></div>
+
+<div class="viewcode-block" id="GridWindow.on_comboAñadir_changed"><a class="viewcode-back"
+                                                                      href="../../../GestionProductos.html#App.GestionProductos.GestionProductos.GridWindow.on_comboAñadir_changed">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">on_comboAñadir_changed</span><span class="p">(</span><span
+        class="bp">self</span><span class="p">,</span> <span class="n">combo</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Metodo que recoge la señal &quot;chaged&quot; del comboBox y selecciona el actual valor en el indice.</span>
+
+<span class="sd">            :param combo: GtkComboBox</span>
+<span class="sd">            :return: No devuelve ningún parámetro.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tree_iter</span> <span class="o">=</span> <span class="n">combo</span><span
+            class="o">.</span><span class="n">get_active_iter</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">tree_iter</span> <span class="o">!=</span> <span
+            class="kc">None</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">combo</span><span
+            class="o">.</span><span class="n">get_model</span><span class="p">()</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="n">model</span><span
+            class="p">[</span><span class="n">tree_iter</span><span class="p">][</span><span class="mi">0</span><span
+            class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">aux</span> <span
+            class="o">=</span> <span class="n">dni</span></div>
+
+<div class="viewcode-block" id="GridWindow.on_buttonAñadir_clicked"><a class="viewcode-back"
+                                                                       href="../../../GestionProductos.html#App.GestionProductos.GestionProductos.GridWindow.on_buttonAñadir_clicked">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">on_buttonAñadir_clicked</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">,</span> <span class="n">button</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Metodo que recoge la señal &quot;clicked&quot; del boton y añada un nuevo producto asignado a un cliente.</span>
+
+<span class="sd">            :param button: GtkButton.</span>
+<span class="sd">            :return: No devuelve ningún parámetro.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">entryId</span><span class="o">.</span><span
+            class="n">get_text</span><span class="p">())</span>
+            <span class="n">dni</span> <span class="o">=</span> <span class="bp">self</span><span
+            class="o">.</span><span class="n">aux</span>
+            <span class="n">nombre</span> <span class="o">=</span> <span class="bp">self</span><span
+            class="o">.</span><span class="n">entryNombre</span><span class="o">.</span><span
+            class="n">get_text</span><span class="p">()</span>
+            <span class="n">precio</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">entryPrecio</span><span
+            class="o">.</span><span class="n">get_text</span><span class="p">())</span>
+            <span class="n">cantidad</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span
+            class="bp">self</span><span class="o">.</span><span class="n">entryCantidad</span><span
+            class="o">.</span><span class="n">get_text</span><span class="p">())</span>
+            <span class="n">SQLiteMetodos</span><span class="o">.</span><span class="n">insertTablaProductos</span><span
+            class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">dni</span><span
+            class="p">,</span> <span class="n">nombre</span><span class="p">,</span> <span class="n">precio</span><span
+            class="p">,</span> <span class="n">cantidad</span><span class="p">)</span>
+            <span class="n">dialog</span> <span class="o">=</span> <span class="n">Gtk</span><span
+            class="o">.</span><span class="n">MessageDialog</span><span class="p">(</span><span
+            class="bp">self</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span
+            class="n">Gtk</span><span class="o">.</span><span class="n">MessageType</span><span class="o">.</span><span
+            class="n">INFO</span><span class="p">,</span> <span class="n">Gtk</span><span class="o">.</span><span
+            class="n">ButtonsType</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span>
+                                       <span class="s2">&quot;Producto añadido correctamente&quot;</span><span
+            class="p">)</span>
+            <span class="n">dialog</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+            <span class="n">dialog</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span
+            class="n">verr</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Introduzca valores coherentes&quot;</span><span
+            class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span
+            class="n">ex</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Otro Error&quot;</span><span
+            class="p">)</span></div>
+
+    <span class="c1"># Volver al inicio</span>
+<div class="viewcode-block" id="GridWindow.on_buttonVolver_clicked"><a class="viewcode-back"
+                                                                       href="../../../GestionProductos.html#App.GestionProductos.GestionProductos.GridWindow.on_buttonVolver_clicked">[documentos]</a>    <span
+        class="k">def</span> <span class="nf">on_buttonVolver_clicked</span><span class="p">(</span><span class="bp">self</span><span
+        class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Metodo que vuelve al menu de inicio.</span>
+
+<span class="sd">            :param widget: Widget</span>
+<span class="sd">            :return: No devuelve ningún parámetro.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Main</span><span class="o">.</span><span class="n">GridWindow</span><span
+            class="p">()</span><span class="o">.</span><span class="n">show_all</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_visible</span><span
+            class="p">(</span><span class="kc">False</span><span class="p">)</span></div></div>
+</pre>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <h1 class="logo"><a href="../../../index.html">ProyectoPython</a></h1>
+
+
+            <h3>Navegación</h3>
+            <p class="caption"><span class="caption-text">Contents:</span></p>
+            <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Inicio.html">Guia Usuario</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../GestionClientes.html">Gestion de
+                    Clientes</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../GestionProductos.html">Gestion de
+                    Productos</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../Albaranes.html">Albaranes y
+                    Listado</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../SQLiteBD.html">Gestion Base de
+                    Datos</a></li>
+            </ul>
+
+            <div class="relations">
+                <h3>Related Topics</h3>
+                <ul>
+                    <li><a href="../../../index.html">Documentation overview</a>
+                        <ul>
+                            <li><a href="../../index.html">Código de módulo</a>
+                                <ul>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="searchbox" style="display: none" role="search">
+                <h3 id="searchlabel">Búsqueda rápida</h3>
+                <div class="searchformwrapper">
+                    <form class="search" action="../../../search.html" method="get">
+                        <input type="text" name="q" aria-labelledby="searchlabel"/>
+                        <input type="submit" value="Ir a"/>
+                    </form>
+                </div>
+            </div>
+            <script>$('#searchbox').show(0);</script>
+
+
+        </div>
+    </div>
+    <div class="clearer"></div>
+</div>
+<div class="footer">
+    &copy;2020, finfanterodal.
+
+    |
+    Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+    &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+
+</div>
+
+
+</body>
+</html>
