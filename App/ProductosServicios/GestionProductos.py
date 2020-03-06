@@ -1,7 +1,7 @@
 import gi
 
 from App import Main
-from SQLiteBD import SQLiteMetodos
+from App.SQLiteBD import SQLiteMetodos
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk

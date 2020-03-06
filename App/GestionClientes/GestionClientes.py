@@ -1,7 +1,7 @@
 import gi
 
 from App import Main
-from SQLiteBD import SQLiteMetodos
+from App.SQLiteBD import SQLiteMetodos
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -21,7 +21,6 @@ class GridWindow(Gtk.Window):
         # como CIFs
         self.CLAVES_NIF2 = 'XYZ'
         self.CLAVES_NIF = self.CLAVES_NIF1 + self.CLAVES_NIF2
-        # Validación telf
 
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Gestion clientes")
@@ -268,11 +267,18 @@ class GridWindow(Gtk.Window):
 
         direccion = self.entryDireccion2.get_text()
         telefono = self.entryTelefono2.get_text()
-        SQLiteMetodos.updateTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono)
-        dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
-                                   "Cliente Modificado Correctamente")
-        dialog.run()
-        dialog.destroy()
+        vaidacionTelf = self.validoTelf(telefono)
+        if (vaidacionTelf):
+            SQLiteMetodos.updateTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono)
+            dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO, Gtk.ButtonsType.OK,
+                                       "Cliente Modificado Correctamente")
+            dialog.run()
+            dialog.destroy()
+        else:
+            dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK,
+                                       "Introduce un nuevo teléfono válido")
+            dialog.run()
+            dialog.destroy()
 
     # 3. Metodo que borra usuarios
     def on_buttonEliminar_clicked(self, widget):

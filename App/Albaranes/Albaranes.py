@@ -1,8 +1,7 @@
 import gi
-from reportlab.platypus.para import Paragraph
 
 from App import Main
-from SQLiteBD import SQLiteMetodos
+from App.SQLiteBD import SQLiteMetodos
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -183,9 +182,8 @@ class GridWindow(Gtk.Window):
         from reportlab.lib.pagesizes import letter
         from reportlab.lib import colors
         from reportlab.platypus import TableStyle
-        from reportlab.platypus import Frame, Table
+        from reportlab.platypus import Table
         import webbrowser as wb
-        from reportlab.lib.styles import ParagraphStyle as PS
 
         # DATOS CLIENTE SELECCIONADO
         dataC = []
