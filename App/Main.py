@@ -3,7 +3,7 @@ from gi.overrides.Gdk import Gdk
 
 from App.Albaranes import Albaranes
 from App.GestionClientes import GestionClientes
-from App.ProductosServicios import GestionProductos
+from App.GestionProductos import GestionProductos
 from App.SQLiteBD import SQLiteMetodos
 
 gi.require_version('Gtk', '3.0')

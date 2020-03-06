@@ -4,4 +4,7 @@ Modulos Proyecto
 .. toctree::
    :maxdepth: 4
 
-   GestionClientes
+    GestionClientes
+    GestionProductos
+    Albaranes
+    SQLiteBD

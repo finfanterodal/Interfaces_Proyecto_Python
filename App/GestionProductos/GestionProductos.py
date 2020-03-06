@@ -8,9 +8,27 @@ from gi.repository import Gtk
 
 
 class GridWindow(Gtk.Window):
+    """Ventana de Gestion de Productos.
+
+            **Métodos:**
+
+                - __init__
+
+                - cargar_interfaz
+
+                - cargar_dni_cliente
+
+                - on_comboAñadir_changed
+
+                - on_buttonAñadir_clicked
+
+                - on_buttonVolver_clicked
+
+            """
+
     def __init__(self):
-        """
-        Inicializa la ventana de Productos con la interfaz.
+        """Inicializa la ventana de Productos con la interfaz.
+
         """
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Productos")
@@ -64,9 +82,7 @@ class GridWindow(Gtk.Window):
         self.cargarInterface()
 
     def cargarInterface(self):
-        """
-        Carga el grid de la ventana Productos con los componentes necesarios.
-
+        """Carga el grid de la ventana Productos con los componentes necesarios.
         """
         # AÑADIR A GRID
         self.gridProductos.add(self.labelDni)
@@ -84,8 +100,10 @@ class GridWindow(Gtk.Window):
 
     def cargar_dni_cliente(self):
         """Metodo que carga los dni de los clientes existentes en los comboBox de modificar y eliminar.
-                :param: none
-                :return: none
+
+        :param: No recibe ningún parámetro.
+        :return: No devuelve ningún parámetro.
+
         """
         self.entryDni.clear()
         datos = SQLiteMetodos.selectTablaClientesDni2()
@@ -93,9 +111,11 @@ class GridWindow(Gtk.Window):
             self.entryDni.append([clientes[0]])
 
     def on_comboAñadir_changed(self, combo):
-        """Metodo que recoge la señal "chaged" del comboBox y selecciona el actual valor en el indice
+        """Metodo que recoge la señal "chaged" del comboBox y selecciona el actual valor en el indice.
+
             :param combo: GtkComboBox
-            :return: none
+            :return: No devuelve ningún parámetro.
+
         """
         tree_iter = combo.get_active_iter()
         if tree_iter != None:
@@ -104,9 +124,10 @@ class GridWindow(Gtk.Window):
             self.aux = dni
 
     def on_buttonAñadir_clicked(self, button):
-        """Metodo que recoge la señal "clicked" del boton y añada un nuevo producto asignado a un cliente
-            :param button: GtkButton
-            :return: none
+        """Metodo que recoge la señal "clicked" del boton y añada un nuevo producto asignado a un cliente.
+
+            :param button: GtkButton.
+            :return: No devuelve ningún parámetro.
         """
         try:
             id = int(self.entryId.get_text())
@@ -127,8 +148,9 @@ class GridWindow(Gtk.Window):
     # Volver al inicio
     def on_buttonVolver_clicked(self, widget):
         """Metodo que vuelve al menu de inicio.
-                :param widget: Widget
-                :return: none
+
+            :param widget: Widget
+            :return: No devuelve ningún parámetro.
         """
         Main.GridWindow().show_all()
         self.set_visible(False)

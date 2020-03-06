@@ -1,7 +1,7 @@
-Gestion de Clientes
+Gestion de Productos
 ======================
 
-.. automodule:: App.GestionClientes.GestionClientes
+.. automodule:: App.GestionProductos.GestionProductos
     :members:
     :undoc-members:
     :show-inheritance:

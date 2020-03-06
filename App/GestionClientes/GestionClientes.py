@@ -8,6 +8,36 @@ from gi.repository import Gtk
 
 
 class GridWindow(Gtk.Window):
+    """Ventana de Gestion de Productos.
+
+            **Métodos:**
+
+                - __init__
+
+                - on_button_toggled
+
+                - on_button_toggled2
+
+                - on_buttonAñadir_clicked
+
+                - on_buttonModificar_clicked
+
+                - on_buttonEliminar_clicked
+
+                - on_comboModificar_changed
+
+                - on_comboEliminar_changed
+
+                - cargar_dni_cliente
+
+                - on_buttonVolver_clicked
+
+                - validoDNI
+
+                - validoTelf
+
+            """
+
     def __init__(self):
         """
         Inicializa la ventana de Gestion de Clientes con la interfaz.
@@ -192,10 +222,12 @@ class GridWindow(Gtk.Window):
 
     # Señal del RadioButton Insertar
     def on_button_toggled(self, button, name):
-        """Merodo que recoge la seña del RadioButton
+        """Metodo que recoge la seña del RadioButton.
+
                 :param button: Button
                 :param name: Name
-                :return: none
+                :return: No devuelve ningún parámetro.
+
         """
         if button.get_active():
             state = "on"
@@ -204,10 +236,12 @@ class GridWindow(Gtk.Window):
 
     # Señal del RadioButton Modificar
     def on_button_toggled2(self, button, name):
-        """Merodo que recoge la seña del RadioButton
+        """Merodo que recoge la seña del RadioButton.
+
                 :param button: Button
                 :param name: Name
-                :return: none
+                :return: No devuelve ningún parámetro.
+
         """
         if button.get_active():
             state = "on"
@@ -216,9 +250,11 @@ class GridWindow(Gtk.Window):
 
     # 1,Metodo que inserta usuarios
     def on_buttonAñadir_clicked(self, widget):
-        """Merodo para añadir un nuevo cliente dados unos datos
+        """Metodo para añadir un nuevo cliente dados sus datos.
+
             :param widget: Widget
-            :return: none
+            :return: No devuelve ningún parámetro.
+
             """
         dni = self.entryDni.get_text()
         validacion = self.validoDNI(dni)
@@ -253,9 +289,10 @@ class GridWindow(Gtk.Window):
 
     # 2.Metodo que consulta usuarios
     def on_buttonModificar_clicked(self, widget):
-        """Merodo para modificar los datos de un cliente
+        """Merodo para modificar los datos de un cliente.
+
                     :param widget: Widget
-                    :return: none
+                    :return: No devuelve ningún parámetro.
                     """
         dni = self.comboAux
         nombre = self.entryNombre2.get_text()
@@ -282,9 +319,11 @@ class GridWindow(Gtk.Window):
 
     # 3. Metodo que borra usuarios
     def on_buttonEliminar_clicked(self, widget):
-        """Merodo para eliminar un cliente
+        """Metodo para eliminar un cliente.
+
                 :param widget: Widget
-                :return: none
+                :return: No devuelve ningún parámetro.
+
         """
         SQLiteMetodos.deleteTablaClientes(self.comboAux2)
         self.cargar_dni_cliente()
@@ -294,9 +333,11 @@ class GridWindow(Gtk.Window):
 
     # Recoge la señal del combo para cagar los datos actuales del cliente en función del dni seleccionado
     def on_comboModificar_changed(self, combo):
-        """Merodo que recoge la señar del combo "changed" para cargar los datos del cliente a modificar
+        """Metodo que recoge la señar del combo "changed" para cargar los datos del cliente a modificar.
+
                 :param combo: GtkCombo
-                :return: none
+                :return: No devuelve ningún parámetro.
+
         """
         tree_iter = combo.get_active_iter()
         if tree_iter != None:
@@ -313,9 +354,10 @@ class GridWindow(Gtk.Window):
 
     # Recoge la señal del combo para cagar el dni seleccionado
     def on_comboEliminar_changed(self, combo):
-        """Merodo que recoge la señar del combo "changed" para cargar los datos del cliente a eliminar
-                        :param combo: GtkCombo
-                        :return: none
+        """Metodo que recoge la señar del combo "changed" para cargar los datos del cliente a eliminar.
+
+                :param combo: GtkCombo
+                :return: none
         """
         tree_iter = combo.get_active_iter()
         if tree_iter != None:
@@ -327,8 +369,10 @@ class GridWindow(Gtk.Window):
     # y los carga en los combo de Modificar y Eliminar para poder seleccionarlos
     def cargar_dni_cliente(self):
         """Metodo que carga los dni de los clientes existentes en los comboBox de modificar y eliminar.
-                :param: none
-                :return: none
+
+                :param: No recibe ningún parámetro.
+                :return: No devuelve ningún parámetro.
+
         """
         self.entryDni3.clear()
         self.entryDni2.clear()
@@ -340,23 +384,23 @@ class GridWindow(Gtk.Window):
     # Volver al inicio
     def on_buttonVolver_clicked(self, widget):
         """Metodo que vuelve al menu de inicio.
+
                 :param widget: Widget
-                :return: none
+                :return: No devuelve ningún parámetro.
+
         """
         Main.GridWindow().show_all()
         self.set_visible(False)
 
     def validoDNI(self, valor):
-        """Metodo que vuelve al menu de inicio.
-        :param dni: Str Dni de la persona.
-        :return boolean: true o false en función del resultado
-        """
-        """
-           Nos indica si un NIF es valido.
+        """ Nos indica si un NIF es valido.
            El valor debe estar normalizado
            @note:
              - ante cualquier problema se valida como False
-           """
+
+            :param dni: Str Dni de la persona.
+            :return boolean: true o false en función del resultado
+        """
         bRet = False
 
         if len(valor) == 9:
@@ -380,9 +424,11 @@ class GridWindow(Gtk.Window):
         return bRet
 
     def validoTelf(self, valor):
-        """Metodo que vuelve al menu de inicio.
-        :param telf: Str Dni de la persona.
-        :return boolean: true o false en función del resultado
+        """Metodo que valida que el teléfono sea un número válido.
+
+            :param telf: Str Dni de la persona.
+            :return boolean: True o False en función del resultado.
+
         """
         bRet = False
 

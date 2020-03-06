@@ -3,9 +3,11 @@ from sqlite3 import Error
 
 
 def crear_conexion():
-    """Crea una conexion a la base de datos SQLite
-    :param: none
-    :return: Objeto Connection o null
+    """Crea una conexion a la base de datos SQLite.
+
+    :param: No recibe ningún parámetro.
+    :return: Objeto Connection o null.
+
     """
     database = "tienda.db"
     conn = None
@@ -18,9 +20,11 @@ def crear_conexion():
 
 
 def cerrar_conexion(conn):
-    """
-        Función que cierra la base de datos
-        :return: none
+    """Función que cierra la base de datos.
+
+        :param conn: Conexion de a la base de datos.
+        :return: No devuelve ningún parámetro.
+
         """
     try:
         conn.close()
@@ -29,10 +33,12 @@ def cerrar_conexion(conn):
 
 
 def crearTabla(conn, crear_tabla_sql):
-    """Crea una tabla con la query crear_tabla_sql
+    """Crea una tabla con la query crear_tabla_sql.
+
     :param conn: Objecto Connection
     :param crear_tabla_sql: Create table statement
-    :return:
+    :return: No devuelve ningún prámetro.
+
     """
     try:
         c = conn.cursor()
@@ -42,14 +48,16 @@ def crearTabla(conn, crear_tabla_sql):
 
 
 def insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono):
-    """Inserta una nueva fila en la tabla Clientes
+    """Inserta una nueva fila en la tabla Clientes.
+
     :param dni: Dni text
     :param nombre: Nombre text
     :param apellidos: Apellidos text
     :param sexo: Sexo text
     :param direccion: Direccion text
     :param telefono: Telefono text
-    :return: none
+    :return: No devuelve ningún parámetro.
+
     """
     if (
             dni != "" and nombre != "" and apellidos != "" and sexo != "" and direccion != "" and telefono != ""):
@@ -79,13 +87,15 @@ def insertTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono):
 
 
 def insertTablaProductos(id, dni, nombre, precio, cantidad):
-    """Inserta una nueva fila en la tabla Clientes
+    """Inserta una nueva fila en la tabla Productos.
+
     :param id: id int
     :param dni: Dni text
     :param nombre: nombre text
     :param precio: Precio float
     :param cantidad: Cantidad int
-    :return: none
+    :return: Ningún parámetro devuelto.
+
     """
     if (
             id != "" and dni != "" and nombre != "" and precio != "" and cantidad != ""):
@@ -114,14 +124,16 @@ def insertTablaProductos(id, dni, nombre, precio, cantidad):
 
 
 def updateTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono):
-    """Modifica los datos de un cliente dado su dni
+    """Modifica los datos de un cliente existente dado su dni.
+
     :param dni: Dni text
     :param nombre: Nombre text
     :param apellidos: Apellidos text
     :param sexo: Sexo text
     :param direccion: Direccion text
     :param telefono: Telefono text
-    :return: none
+    :return: Ningún parámetro es devuelto.
+
     """
     if (dni != "" and nombre != "" and apellidos != "" and sexo != "" and direccion != "" and telefono != ""):
 
@@ -150,9 +162,11 @@ def updateTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono):
 
 
 def deleteTablaClientes(dni):
-    """Elimina un cliente dado su dni
-    :param dni: Dni del cliente
-    :return: none
+    """Elimina un cliente dado su dni.
+
+    :param dni: Dni del cliente a eliminar.
+    :return: Ningún parámetro es devuelto.
+
     """
     conn = crear_conexion()
     cursor = conn.cursor()
@@ -175,9 +189,11 @@ def deleteTablaClientes(dni):
 
 
 def selectTablaClientes():
-    """Select de todos los clientes
-    :param: none
-    :return: Lista de todos los clientes
+    """Select de todos los clientes.
+
+    :param: No recibe ningún parámetro.
+    :return: Lista de todos los clientes existentes.
+
     """
     conn = crear_conexion()
     cursor = conn.cursor()
@@ -198,9 +214,11 @@ def selectTablaClientes():
 
 
 def selectTablaClientesDni(dni):
-    """Select de clientes dado el dni
-    :param dni: Dni del cliente a buscar
-    :return: datos del cliente.
+    """Select de clientes dado el dni para realizar la búsqueda.
+
+    :param dni: Dni del cliente que se quiere encontrar.
+    :return: Lista de datos del cliente.
+
     """
     conn = crear_conexion()
     cursor = conn.cursor()
@@ -221,9 +239,11 @@ def selectTablaClientesDni(dni):
 
 
 def selectTablaClientesDni2():
-    """Select de los dni de los clientes existentes
-    :param: none
-    :return: Lista de dni clientes.
+    """Select de los dni todos los clientes existentes.
+
+    :param: Ningún parámetro recibido.
+    :return: Lista de dni de clientes.
+
     """
     try:
         conn = crear_conexion()
@@ -241,9 +261,11 @@ def selectTablaClientesDni2():
 
 
 def selectTablaProductos(dni):
-    """Select de productos relacionados con un cliente determinado dado el dni
-    :param dni: Dni del cliente a buscar
-    :return: productos relacionados.
+    """Select de productos relacionados con un cliente determinado dado el dni.
+
+    :param dni: Dni del cliente para realizar la búsqueda.
+    :return: Lista con productos relacionados.
+
     """
     try:
         conn = crear_conexion()
