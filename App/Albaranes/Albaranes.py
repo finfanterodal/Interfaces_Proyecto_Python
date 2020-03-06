@@ -11,6 +11,7 @@ class GridWindow(Gtk.Window):
     def __init__(self):
         """
         Inicializa la ventana de Albaranes con la interfaz.
+
         """
         # Interfaz Principal
         Gtk.Window.__init__(self, title="Albaranes")
@@ -81,6 +82,7 @@ class GridWindow(Gtk.Window):
         """Método que captura la señal selection en el TreeView y carga los productos del cliente seleccionado
         :param selection:
         :return:
+
         """
         (self.model, self.iter) = selection.get_selected()
         self.productosP.clear()
@@ -104,6 +106,7 @@ class GridWindow(Gtk.Window):
         """Método que captura la señal selection en el TreeView y carga los productos del cliente seleccionado
         :param selection:
         :return:
+
         """
 
     # Volver al inicio
@@ -119,6 +122,7 @@ class GridWindow(Gtk.Window):
         """Metodo que crea un pdf con una tabla de lista de clientes
             :param widget: Widget
             :return: none
+
         """
         from reportlab.platypus import SimpleDocTemplate
         from reportlab.lib.pagesizes import letter
@@ -176,6 +180,7 @@ class GridWindow(Gtk.Window):
         """Metodo que crea una factura del cliente seeccionado en el treeview.
            :param widget: Widget
            :return: none
+
         """
         # IMPORTS
         from reportlab.platypus import SimpleDocTemplate

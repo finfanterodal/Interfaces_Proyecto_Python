@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <title>Guia Usuario &#8212; documentación de AppComercio - </title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css"/>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css"/>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/translations.js"></script>
+    <link rel="index" title="Índice" href="genindex.html"/>
+    <link rel="search" title="Búsqueda" href="search.html"/>
+    <link rel="next" title="Modulos Proyecto" href="modules.html"/>
+    <link rel="prev" title="Welcome to ProyectoPythonComercio’s documentation!" href="index.html"/>
+
+    <link rel="stylesheet" href="_static/custom.css" type="text/css"/>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9"/>
+
+</head>
+<body>
+
+
+<div class="document">
+    <div class="documentwrapper">
+        <div class="bodywrapper">
+
+
+            <div class="body" role="main">
+
+                <div class="section" id="guia-usuario">
+                    <h1>Guia Usuario<a class="headerlink" href="#guia-usuario"
+                                       title="Enlazar permanentemente con este título">¶</a></h1>
+                    <p>Esta es una aplicación que funciona en un entorno gráfico ubuntu con Gtk3.
+                        La aplicación simula un programa de gestión de una tienda en general y dispone de las siguientes
+                        carácterístiacas:</p>
+                    <ul>
+                        <li><p>Varios formularios, entre ellos:</p>
+                            <blockquote>
+                                <div>
+                                    <ul>
+                                        <li>
+                                            <dl>
+                                                <dt>Tenemos un menu de inicio en el que podemos elegir entre 4
+                                                    opciones:
+                                                </dt>
+                                                <dd>
+                                                    <blockquote>
+                                                        <div><img alt="_images/inicio.jpg" src="_images/inicio.jpg"/>
+                                                        </div>
+                                                    </blockquote>
+                                                    <ul>
+                                                        <li><p>Gestion de clientes, crear, modificar o eliminar.</p>
+                                                            <blockquote>
+                                                                <div><img alt="_images/gestionClientes.jpg"
+                                                                          src="_images/gestionClientes.jpg"/>
+                                                                </div>
+                                                            </blockquote>
+                                                        </li>
+                                                        <li><p>Gestion de productos, crear producto asignado a un
+                                                            cliente.</p>
+                                                            <blockquote>
+                                                                <div><img alt="_images/gestionProductos.jpg"
+                                                                          src="_images/gestionProductos.jpg"/>
+                                                                </div>
+                                                            </blockquote>
+                                                        </li>
+                                                        <li><p>Albaranes, dónde listamos clientes y productos asignados
+                                                            a cada cliente mediante un treeview sensible a la selección
+                                                            y generamos facturas o listaclientes.</p>
+                                                            <blockquote>
+                                                                <div><img alt="_images/albaranes.jpg"
+                                                                          src="_images/albaranes.jpg"/>
+                                                                </div>
+                                                            </blockquote>
+                                                        </li>
+                                                        <li><p>Salir, para salir de la aplicaciçón, cerrando en la X
+                                                            también serviría.</p></li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </blockquote>
+                        </li>
+                        <li><p>Como base de datos utilizo SQLite3 en modo local, en la que se crean dos tablas, para
+                            clientes y productos, con las que interaccionamos desde la interface.</p></li>
+                        <li><p>Todas las excepciones o posibles errores están tratados y la interfaz es bastante sencila
+                            e intuitiva, y junto con esta información se complementa.</p></li>
+                        <li><p>Para generar los informes en pdf utiliz Reportlab, en la ventana de albaranes se puede
+                            generar una factura de un cliente o una lista de clientes en pdf que se abren
+                            automáticamente para revisarlos.</p></li>
+                    </ul>
+                    <p>Su funcionamiento es sencillo, al ejecutarse aparece un menu con 4 opciones para navegar a las
+                        distintas funcionalidades.
+                        En la primera Gestión de clientes, se podrán añadir nuevos clientes, modificar clientes ya
+                        existentes escogiendo mediante un combo box su dni almacenado
+                        y lo mismo al eliminarlos. A continuación tenemos el Gestión de productos en la que podemos
+                        asignar productos a clientes ya existentes. Debajo está el botón de Albaranes en el que podemos
+                        listar clientes
+                        y productos asignados mediante un treview que recoge el cliente seleccionado y muestra los
+                        productos asignados a este y también crear factura para el cliente seleccionado o generar una
+                        lista de clientes.
+                        Por último tenemos un botón para salir de la app, aunque es posible salir en cualquier momento
+                        utilizando la pestaña de cerrar y también es posible volver al inicio desde cluaquier
+                        ventana.</p>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <h1 class="logo"><a href="index.html">AppComercio</a></h1>
+
+
+            <h3>Navegación</h3>
+            <p class="caption"><span class="caption-text">Contents:</span></p>
+            <ul class="current">
+                <li class="toctree-l1 current"><a class="current reference internal" href="#">Guia Usuario</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="modules.html">Modulos Proyecto</a></li>
+            </ul>
+
+            <div class="relations">
+                <h3>Related Topics</h3>
+                <ul>
+                    <li><a href="index.html">Documentation overview</a>
+                        <ul>
+                            <li>Previous: <a href="index.html" title="capítulo anterior">Welcome to
+                                ProyectoPythonComercio’s documentation!</a></li>
+                            <li>Next: <a href="modules.html" title="próximo capítulo">Modulos Proyecto</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="searchbox" style="display: none" role="search">
+                <h3 id="searchlabel">Búsqueda rápida</h3>
+                <div class="searchformwrapper">
+                    <form class="search" action="search.html" method="get">
+                        <input type="text" name="q" aria-labelledby="searchlabel"/>
+                        <input type="submit" value="Ir a"/>
+                    </form>
+                </div>
+            </div>
+            <script>$('#searchbox').show(0);</script>
+
+
+        </div>
+    </div>
+    <div class="clearer"></div>
+</div>
+<div class="footer">
+    &copy;2020, finfanterodal.
+
+    |
+    Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.1</a>
+    &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+
+    |
+    <a href="_sources/readme.rst.txt"
+       rel="nofollow">Page source</a>
+</div>
+
+
+</body>
+</html>

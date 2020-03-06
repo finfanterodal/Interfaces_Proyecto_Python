@@ -66,6 +66,7 @@ class GridWindow(Gtk.Window):
     def cargarInterface(self):
         """
         Carga el grid de la ventana Productos con los componentes necesarios.
+
         """
         # AÑADIR A GRID
         self.gridProductos.add(self.labelDni)
