@@ -9,7 +9,7 @@ La aplicación simula un programa de gestión de una tienda en general y dispone
     * Tenemos un menu de inicio en el que podemos elegir entre 4 opciones:
             * Gestion de clientes, crear, modificar o eliminar.
 
-                .. image:: ./Images/inicio.jpeg
+                .. image:: ./Images/inicio.jpg
 
             * Gestion de productos, crear producto asignado a un cliente.
             * Albaranes, dónde listamos clientes y productos asignados a cada cliente mediante un treeview sensible a la selección y generamos facturas o listaclientes.
