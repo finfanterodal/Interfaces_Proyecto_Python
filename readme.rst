@@ -7,12 +7,20 @@ La aplicación simula un programa de gestión de una tienda en general y dispone
 * Varios formularios, entre ellos:
 
     * Tenemos un menu de inicio en el que podemos elegir entre 4 opciones:
+            .. image:: /App/Images/inicio.jpg
+
             * Gestion de clientes, crear, modificar o eliminar.
 
-                .. image:: /App/Images/inicio.jpg
+                .. image:: /App/Images/gestionClientes.jpg
 
             * Gestion de productos, crear producto asignado a un cliente.
+
+                .. image:: /App/Images/gestionProductos.jpg
+
             * Albaranes, dónde listamos clientes y productos asignados a cada cliente mediante un treeview sensible a la selección y generamos facturas o listaclientes.
+
+                .. image:: /App/Images/albaranes.jpg
+
             * Salir, para salir de la aplicaciçón, cerrando en la X también serviría.
 
 * Como base de datos utilizo SQLite3 en modo local, en la que se crean dos tablas, para clientes y productos, con las que interaccionamos desde la interface.
