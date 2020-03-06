@@ -123,6 +123,33 @@ def insertTablaProductos(id, dni, nombre, precio, cantidad):
         print("Faltan valores para insertar el producto")
 
 
+def deleteTablaProductos(dni):
+    """Elimina los productos asignados a un cliente dado su dni.
+
+    :param dni: Dni del cliente.
+    :return: Ningún parámetro es devuelto.
+
+    """
+    conn = crear_conexion()
+    cursor = conn.cursor()
+    try:
+
+        sql_DELETE = "DELETE FROM productos WHERE dni = '" + dni + "'"
+        cursor.execute(sql_DELETE)
+        conn.commit()
+        print("Eliminado")
+
+    except conn.OperationalError as err:
+        print("Error ")
+
+    except conn.DatabaseError as err2:
+        print("Error")
+
+    finally:
+        cursor.close()
+        cerrar_conexion(conn)
+
+
 def updateTablaClientes(dni, nombre, apellidos, sexo, direccion, telefono):
     """Modifica los datos de un cliente existente dado su dni.
 
@@ -168,10 +195,10 @@ def deleteTablaClientes(dni):
     :return: Ningún parámetro es devuelto.
 
     """
+    deleteTablaProductos(dni)
     conn = crear_conexion()
     cursor = conn.cursor()
     try:
-
         sql_DELETE = "DELETE FROM clientes WHERE dni = '" + dni + "'"
         cursor.execute(sql_DELETE)
         conn.commit()
@@ -300,6 +327,7 @@ def main():
                                      cantidad integer NOT NULL
                                      )
     """
+
     # Crear conexion con la base de datos
     conn = crear_conexion()
     # Crear tablas
