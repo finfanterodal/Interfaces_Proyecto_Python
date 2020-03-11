@@ -2,6 +2,12 @@ import gi
 
 from App import Main
 from App.SQLiteBD import SQLiteMetodos
+from reportlab.platypus import SimpleDocTemplate
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.platypus import Table
+from reportlab.platypus import TableStyle
+import webbrowser as wb
 
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
@@ -92,6 +98,7 @@ class GridWindow(Gtk.Window):
             celda = Gtk.CellRendererText()
             self.columna = Gtk.TreeViewColumn(self.columnasC[i], celda, text=i)
             self.vista.append_column(self.columna)
+        self.show_all()
 
     def on_celda_edited(self):
         """"""
@@ -146,12 +153,6 @@ class GridWindow(Gtk.Window):
             :return: No devuelve ningún parámetro.
 
         """
-        from reportlab.platypus import SimpleDocTemplate
-        from reportlab.lib.pagesizes import letter
-        from reportlab.lib import colors
-        from reportlab.platypus import Table
-        from reportlab.platypus import TableStyle
-        import webbrowser as wb
         data = []
         data.append(["Dni", "Nombre", "Apellidos", "Sexo", "Direccion", "Telefono"])
         clientes = SQLiteMetodos.selectTablaClientes()
@@ -205,14 +206,6 @@ class GridWindow(Gtk.Window):
            :return: No devuelve ningún parámetro.
 
         """
-        # IMPORTS
-        from reportlab.platypus import SimpleDocTemplate
-        from reportlab.lib.pagesizes import letter
-        from reportlab.lib import colors
-        from reportlab.platypus import TableStyle
-        from reportlab.platypus import Table
-        import webbrowser as wb
-
         # DATOS CLIENTE SELECCIONADO
         dataC = []
         clientes = SQLiteMetodos.selectTablaClientesDni(self.model[self.iter][0])
@@ -283,3 +276,4 @@ class GridWindow(Gtk.Window):
 
         except IndexError as e:
             print('No hay productos para generar la factura.')
+

@@ -38,8 +38,32 @@ class GridWindow(Gtk.Window):
         self.button6.connect("clicked", self.on_button6_clicked)
         self.box.pack_start(self.button6, True, True, 0)
         self.connect("destroy", Gtk.main_quit)
+        # Estilo de la interfaz con css
+        css = '''
+
+            button { 
+            background:  #abd6f5;
+            padding: 5px 5px;
+            font-size: 15px;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            border-style: hidden;
+            border-radius: 15px;
+            }
+            label {
+            font: 20px Courier-bold;
+            }
+                    '''
+        cssProvider = Gtk.CssProvider()
+        cssProvider.load_from_data(bytes(css.encode()))
+        screen = Gdk.Screen.get_default()
+        styleContext = Gtk.StyleContext()
+        styleContext.add_provider_for_screen(screen, cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
         # Creacion de las tablas en la base de datos.
         SQLiteMetodos.main()
+        self.show_all()
 
     # LLama a la siguiente ventana Gestion de clientes
     def on_button1_clicked(self, widget):
@@ -80,31 +104,9 @@ class GridWindow(Gtk.Window):
                """
         exit(0)
 
+    # Estilo de la interfaz con css
+
 
 if __name__ == "__main__":
-    # Estilo de la interfaz con css
-    css = '''
-                    
-        button { 
-        background:  #abd6f5;
-        padding: 5px 5px;
-        font-size: 15px;
-        text-decoration: none;
-        outline: none;
-        color: #fff;
-        border-style: hidden;
-        border-radius: 15px;
-        }
-        label {
-        font: 20px Courier-bold;
-        }
-
-                '''
-    cssProvider = Gtk.CssProvider()
-    cssProvider.load_from_data(bytes(css.encode()))
-    screen = Gdk.Screen.get_default()
-    styleContext = Gtk.StyleContext()
-    styleContext.add_provider_for_screen(screen, cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
-
-    GridWindow().show_all()
+    GridWindow()
     Gtk.main()

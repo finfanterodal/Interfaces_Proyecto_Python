@@ -1,28 +1,26 @@
-from setuptools import setup
-from codecs import open
-from os import path
+import setuptools
 
-here = path.abspath(path.dirname(__file__))
+descripcion_longa = open('Readme.txt').read()
 
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
-
-setup(
-    name='proyectoPython',
-    version='0.0.1',
-    description='Simulacion aplicacion de gestion de comercio...',
-    long_description=long_description,
-    url='https://pypi.python.org',
-    author='finfanterodal',
-    license='GNU GPLv3',
-    classifiers=[
-        'Development Status :: 4 - Beta',
-        'Intended Audience :: Developers',
-        'Intended Audience :: System Administrators',
-        'Topic :: Utilities',
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
-        'Programming Language :: Python :: 3',
-    ],
+setuptools.setup(
+    name="Proyecto python interfaces",
+    version="0.0.1",
+    author="finfanterodal",
+    author_email="finfanterodal@danielcastelao.org",
+    url="https://www.danielcastelao.org",
+    license="GLP",
+    platforms="Unix",
+    clasifiers=["Development Status :: 3 - Alpha",
+                "Environment :: Console",
+                "Topic :: Software Development :: Libraries",
+                "License :: OSI Aproved :: GNU General Public License",
+                "Programming Language :: Python :: 3.6.9",
+                "Operating System :: Linux Ubuntu"
+                ],
+    description="Base de datos implementada en interfaz",
+    long_description=descripcion_longa,
     keywords='proyectoPython',
-    packages=['App'],
+    packages=['App', 'App/Albaranes', 'App/GestionClientes', 'App/GestionProductos', 'App/Images', 'App/Pdfs',
+              'App/SQLiteBD'],
+    scripts=["App/lanzador"],
 )

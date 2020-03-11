@@ -6,10 +6,10 @@ def crear_conexion():
     """Crea una conexion a la base de datos SQLite.
 
     :param: No recibe ningún parámetro.
-    :return: Objeto Connection o null.
+    :return: Objeto Connection o null.o
 
     """
-    database = "tienda.db"
+    database = "./tienda.db"
     conn = None
     try:
         conn = sqlite3.connect(database)
@@ -43,6 +43,7 @@ def crearTabla(conn, crear_tabla_sql):
     try:
         c = conn.cursor()
         c.execute(crear_tabla_sql)
+        conn.commit()
     except Error as e:
         print(e)
 
@@ -337,3 +338,4 @@ def main():
     else:
         print("Fallo en la conexión.")
     cerrar_conexion(conn)
+
