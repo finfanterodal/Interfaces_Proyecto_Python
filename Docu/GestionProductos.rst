@@ -1,4 +1,4 @@
-Gestion de Productos
+Gestión de Productos
 ======================
 
 .. automodule:: App.GestionProductos.GestionProductos

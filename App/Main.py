@@ -28,7 +28,7 @@ class GridWindow(Gtk.Window):
         self.button1 = Gtk.Button(label="Gestión de clientes")
         self.button1.connect("clicked", self.on_button1_clicked)
         self.box.pack_start(self.button1, True, True, 0)
-        self.button2 = Gtk.Button(label="Productos")
+        self.button2 = Gtk.Button(label=" Gestión Productos")
         self.button2.connect("clicked", self.on_button2_clicked)
         self.box.pack_start(self.button2, True, True, 0)
         self.button4 = Gtk.Button(label="Albaranes")

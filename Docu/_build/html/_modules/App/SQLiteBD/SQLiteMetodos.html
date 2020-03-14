@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
@@ -44,10 +45,10 @@
     <span class="sd">&quot;&quot;&quot;Crea una conexion a la base de datos SQLite.</span>
 
 <span class="sd">    :param: No recibe ningún parámetro.</span>
-<span class="sd">    :return: Objeto Connection o null.</span>
+<span class="sd">    :return: Objeto Connection o null.o</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">database</span> <span class="o">=</span> <span class="s2">&quot;tienda.db&quot;</span>
+    <span class="n">database</span> <span class="o">=</span> <span class="s2">&quot;./tienda.db&quot;</span>
     <span class="n">conn</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span
@@ -94,6 +95,7 @@
             class="n">cursor</span><span class="p">()</span>
         <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span
             class="n">crear_tabla_sql</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
     <span class="k">except</span> <span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span
             class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
@@ -222,6 +224,47 @@
             class="p">)</span></div>
 
 
+<div class="viewcode-block" id="deleteTablaProductos"><a class="viewcode-back"
+                                                         href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.deleteTablaProductos">[documentos]</a><span
+        class="k">def</span> <span class="nf">deleteTablaProductos</span><span class="p">(</span><span
+        class="n">dni</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Elimina los productos asignados a un cliente dado su dni.</span>
+
+<span class="sd">    :param dni: Dni del cliente.</span>
+<span class="sd">    :return: Ningún parámetro es devuelto.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span class="p">()</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">cursor</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+
+        <span class="n">sql_DELETE</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM productos WHERE dni = &#39;&quot;</span> <span
+            class="o">+</span> <span class="n">dni</span> <span class="o">+</span> <span
+            class="s2">&quot;&#39;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span
+            class="n">sql_DELETE</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Eliminado&quot;</span><span
+            class="p">)</span>
+
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">OperationalError</span> <span class="k">as</span> <span class="n">err</span><span
+            class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error &quot;</span><span
+            class="p">)</span>
+
+    <span class="k">except</span> <span class="n">conn</span><span class="o">.</span><span
+            class="n">DatabaseError</span> <span class="k">as</span> <span class="n">err2</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span
+            class="p">)</span>
+
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
+            class="p">)</span></div>
+
+
 <div class="viewcode-block" id="updateTablaClientes"><a class="viewcode-back"
                                                         href="../../../SQLiteBD.html#App.SQLiteBD.SQLiteMetodos.updateTablaClientes">[documentos]</a><span
         class="k">def</span> <span class="nf">updateTablaClientes</span><span class="p">(</span><span
@@ -296,11 +339,12 @@
 <span class="sd">    :return: Ningún parámetro es devuelto.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">deleteTablaProductos</span><span class="p">(</span><span class="n">dni</span><span
+            class="p">)</span>
     <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span class="p">()</span>
     <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span
             class="n">cursor</span><span class="p">()</span>
     <span class="k">try</span><span class="p">:</span>
-
         <span class="n">sql_DELETE</span> <span class="o">=</span> <span class="s2">&quot;DELETE FROM clientes WHERE dni = &#39;&quot;</span> <span
             class="o">+</span> <span class="n">dni</span> <span class="o">+</span> <span
             class="s2">&quot;&#39;&quot;</span>
@@ -493,6 +537,7 @@
 <span class="s2">                                     cantidad integer NOT NULL</span>
 <span class="s2">                                     )</span>
 <span class="s2">    &quot;&quot;&quot;</span>
+
     <span class="c1"># Crear conexion con la base de datos</span>
     <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span class="p">()</span>
     <span class="c1"># Crear tablas</span>
@@ -507,6 +552,7 @@
             class="s2">&quot;Fallo en la conexión.&quot;</span><span class="p">)</span>
     <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
             class="p">)</span></div>
+
 </pre>
                 </div>
 
@@ -522,10 +568,10 @@
             <h3>Navegación</h3>
             <p class="caption"><span class="caption-text">Contents:</span></p>
             <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../../Inicio.html">Guia Usuario</a></li>
-                <li class="toctree-l1"><a class="reference internal" href="../../../GestionClientes.html">Gestion de
+                <li class="toctree-l1"><a class="reference internal" href="../../../Inicio.html">Guía Usuario</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../GestionClientes.html">Gestión de
                     Clientes</a></li>
-                <li class="toctree-l1"><a class="reference internal" href="../../../GestionProductos.html">Gestion de
+                <li class="toctree-l1"><a class="reference internal" href="../../../GestionProductos.html">Gestión de
                     Productos</a></li>
                 <li class="toctree-l1"><a class="reference internal" href="../../../Albaranes.html">Albaranes y
                     Listado</a></li>

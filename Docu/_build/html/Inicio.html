@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
 <head>
     <meta charset="utf-8"/>
-    <title>Guia Usuario &#8212; documentación de ProyectoPython - </title>
+    <title>Guía Usuario &#8212; documentación de ProyectoPython - </title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css"/>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css"/>
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,7 +15,7 @@
     <script src="_static/translations.js"></script>
     <link rel="index" title="Índice" href="genindex.html"/>
     <link rel="search" title="Búsqueda" href="search.html"/>
-    <link rel="next" title="Modulos Proyecto" href="Modules.html"/>
+    <link rel="next" title="Gestión de Clientes" href="GestionClientes.html"/>
     <link rel="prev" title="ProyectoPython’s documentation!" href="index.html"/>
 
     <link rel="stylesheet" href="_static/custom.css" type="text/css"/>
@@ -34,10 +35,10 @@
             <div class="body" role="main">
 
                 <div class="section" id="guia-usuario">
-                    <h1>Guia Usuario<a class="headerlink" href="#guia-usuario"
+                    <h1>Guía Usuario<a class="headerlink" href="#guia-usuario"
                                        title="Enlazar permanentemente con este título">¶</a></h1>
                     <p>Esta es una aplicación que funciona en un entorno gráfico ubuntu con Gtk3.
-                        La aplicación simula un programa de gestión de una tienda en general y dispone de las siguientes
+                        La aplicación simula un programa de gestión de una tienda y dispone de las siguientes
                         carácterístiacas:</p>
                     <ul>
                         <li><p>Varios formularios, entre ellos:</p>
@@ -51,22 +52,21 @@
                                                 </dt>
                                                 <dd>
                                                     <blockquote>
-                                                        <div><img alt="_images/inicio.jpg" src="_images/inicio.jpg"/>
+                                                        <div><img alt="_images/uno.jpg" src="_images/uno.jpg"/>
                                                         </div>
                                                     </blockquote>
                                                     <ul>
-                                                        <li><p>Gestion de clientes, crear, modificar o eliminar.</p>
+                                                        <li><p>Gestión de clientes, crear, modificar o eliminar.</p>
                                                             <blockquote>
-                                                                <div><img alt="_images/gestionClientes.jpg"
-                                                                          src="_images/gestionClientes.jpg"/>
+                                                                <div><img alt="_images/dos.jpg" src="_images/dos.jpg"/>
                                                                 </div>
                                                             </blockquote>
                                                         </li>
-                                                        <li><p>Gestion de productos, crear producto asignado a un
+                                                        <li><p>Gestión de productos, crear producto asignado a un
                                                             cliente.</p>
                                                             <blockquote>
-                                                                <div><img alt="_images/gestionProductos.jpg"
-                                                                          src="_images/gestionProductos.jpg"/>
+                                                                <div><img alt="_images/tres.jpg"
+                                                                          src="_images/tres.jpg"/>
                                                                 </div>
                                                             </blockquote>
                                                         </li>
@@ -74,8 +74,8 @@
                                                             a cada cliente mediante un treeview sensible a la selección
                                                             y generamos facturas o listaclientes.</p>
                                                             <blockquote>
-                                                                <div><img alt="_images/albaranes.jpg"
-                                                                          src="_images/albaranes.jpg"/>
+                                                                <div><img alt="_images/cuatro.jpg"
+                                                                          src="_images/cuatro.jpg"/>
                                                                 </div>
                                                             </blockquote>
                                                         </li>
@@ -99,14 +99,14 @@
                     </ul>
                     <p>Su funcionamiento es sencillo, al ejecutarse aparece un menu con 4 opciones para navegar a las
                         distintas funcionalidades.
-                        En la primera Gestión de clientes, se podrán añadir nuevos clientes, modificar clientes ya
-                        existentes escogiendo mediante un combo box su dni almacenado
-                        y lo mismo al eliminarlos. A continuación tenemos el Gestión de productos en la que podemos
-                        asignar productos a clientes ya existentes. Debajo está el botón de Albaranes en el que podemos
-                        listar clientes
-                        y productos asignados mediante un treview que recoge el cliente seleccionado y muestra los
-                        productos asignados a este y también crear factura para el cliente seleccionado o generar una
-                        lista de clientes.
+                        En la primera Gestión de clientes, se podrán añadir nuevos clientes, modificarlos escogiendo
+                        mediante un combo box su dni
+                        y eliminarlos. A continuación tenemos la Gestión de productos en la que podemos asignar
+                        productos a clientes.
+                        Y por último el botón para acceder a la ventana de Albaranes en el que podemos listar clientes y
+                        sus productos asignados mediante un treview que recoge el cliente seleccionado
+                        y a su vez también crear factura para el cliente seleccionado o generar una lista de clientes en
+                        general.
                         Por último tenemos un botón para salir de la app, aunque es posible salir en cualquier momento
                         utilizando la pestaña de cerrar y también es posible volver al inicio desde cluaquier
                         ventana.</p>
@@ -125,8 +125,13 @@
             <h3>Navegación</h3>
             <p class="caption"><span class="caption-text">Contents:</span></p>
             <ul class="current">
-                <li class="toctree-l1 current"><a class="current reference internal" href="#">Guia Usuario</a></li>
-                <li class="toctree-l1"><a class="reference internal" href="Modules.html">Modulos Proyecto</a></li>
+                <li class="toctree-l1 current"><a class="current reference internal" href="#">Guía Usuario</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="GestionClientes.html">Gestión de Clientes</a>
+                </li>
+                <li class="toctree-l1"><a class="reference internal" href="GestionProductos.html">Gestión de
+                    Productos</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="Albaranes.html">Albaranes y Listado</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="SQLiteBD.html">Gestion Base de Datos</a></li>
             </ul>
 
             <div class="relations">
@@ -136,7 +141,8 @@
                         <ul>
                             <li>Previous: <a href="index.html" title="capítulo anterior">ProyectoPython’s
                                 documentation!</a></li>
-                            <li>Next: <a href="Modules.html" title="próximo capítulo">Modulos Proyecto</a></li>
+                            <li>Next: <a href="GestionClientes.html" title="próximo capítulo">Gestión de Clientes</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

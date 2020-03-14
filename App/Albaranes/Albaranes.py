@@ -244,7 +244,7 @@ class GridWindow(Gtk.Window):
 
             # GENERAR PDF
             fileName = 'Factura' + dataC[1][1] + '.pdf'
-            pdf = SimpleDocTemplate(current_work_directory + "/" + + fileName, pagesize=letter)
+            pdf = SimpleDocTemplate(current_work_directory + "/" + fileName, pagesize=letter)
             # DATOS CLIENTE
 
             table = Table(dataC, colWidths=80, rowHeights=30)
@@ -280,7 +280,7 @@ class GridWindow(Gtk.Window):
             elementos.append(table)
             elementos.append(table2)
             pdf.build(elementos)
-            wb.open_new(current_work_directory + "/" + + fileName)
+            wb.open_new(current_work_directory + "/" + fileName)
 
         except IndexError as e:
             print('No hay productos para generar la factura.')

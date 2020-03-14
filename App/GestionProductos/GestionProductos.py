@@ -31,7 +31,7 @@ class GridWindow(Gtk.Window):
 
         """
         # Interfaz Principal
-        Gtk.Window.__init__(self, title="Productos")
+        Gtk.Window.__init__(self, title=" Gestión Productos")
         self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
         self.set_border_width(10)
         self.set_default_size(150, 300)
@@ -71,13 +71,13 @@ class GridWindow(Gtk.Window):
         self.labelNombre = Gtk.Label("Nombre:", halign=Gtk.Align.START)
         self.entryNombre = Gtk.Entry()
 
-        self.labelDescripcion = Gtk.Label("Descripcion", halign=Gtk.Align.START)
+        self.labelDescripcion = Gtk.Label("Descripcion:", halign=Gtk.Align.START)
         self.entryDescripcion = Gtk.Entry()
 
-        self.labelPrecio = Gtk.Label("Precio", halign=Gtk.Align.START)
+        self.labelPrecio = Gtk.Label("Precio(€):", halign=Gtk.Align.START)
         self.entryPrecio = Gtk.Entry()
 
-        self.labelCantidad = Gtk.Label("Cantidad", halign=Gtk.Align.START)
+        self.labelCantidad = Gtk.Label("Cantidad:", halign=Gtk.Align.START)
         self.entryCantidad = Gtk.Entry()
         self.cargarInterface()
 

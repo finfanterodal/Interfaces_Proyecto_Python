@@ -1,4 +1,4 @@
-Gestion de Clientes
+Gestión de Clientes
 ======================
 
 .. automodule:: App.GestionClientes.GestionClientes

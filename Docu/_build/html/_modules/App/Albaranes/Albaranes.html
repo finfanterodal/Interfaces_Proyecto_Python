@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es">
@@ -35,9 +36,19 @@
                 <h1>Código fuente para App.Albaranes.Albaranes</h1>
                 <div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">gi</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">from</span> <span class="nn">App</span> <span class="kn">import</span> <span class="n">Main</span>
 <span class="kn">from</span> <span class="nn">App.SQLiteBD</span> <span class="kn">import</span> <span class="n">SQLiteMetodos</span>
+<span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span class="n">SimpleDocTemplate</span>
+<span class="kn">from</span> <span class="nn">reportlab.lib.pagesizes</span> <span class="kn">import</span> <span
+                        class="n">letter</span>
+<span class="kn">from</span> <span class="nn">reportlab.lib</span> <span class="kn">import</span> <span
+                        class="n">colors</span>
+<span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span class="n">Table</span>
+<span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span class="n">TableStyle</span>
+<span class="kn">import</span> <span class="nn">webbrowser</span> <span class="k">as</span> <span class="nn">wb</span>
 
 <span class="n">gi</span><span class="o">.</span><span class="n">require_version</span><span class="p">(</span><span
                         class="s1">&#39;Gtk&#39;</span><span class="p">,</span> <span
@@ -257,6 +268,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">vista</span><span
             class="o">.</span><span class="n">append_column</span><span class="p">(</span><span
             class="bp">self</span><span class="o">.</span><span class="n">columna</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_all</span><span class="p">()</span>
 
 <div class="viewcode-block" id="GridWindow.on_celda_edited"><a class="viewcode-back"
                                                                href="../../../Albaranes.html#App.Albaranes.Albaranes.GridWindow.on_celda_edited">[documentos]</a>    <span
@@ -360,18 +372,6 @@
 <span class="sd">            :return: No devuelve ningún parámetro.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
-            class="n">SimpleDocTemplate</span>
-        <span class="kn">from</span> <span class="nn">reportlab.lib.pagesizes</span> <span
-            class="kn">import</span> <span class="n">letter</span>
-        <span class="kn">from</span> <span class="nn">reportlab.lib</span> <span class="kn">import</span> <span
-            class="n">colors</span>
-        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
-            class="n">Table</span>
-        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
-            class="n">TableStyle</span>
-        <span class="kn">import</span> <span class="nn">webbrowser</span> <span class="k">as</span> <span
-            class="nn">wb</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span
             class="s2">&quot;Dni&quot;</span><span class="p">,</span> <span class="s2">&quot;Nombre&quot;</span><span
@@ -392,10 +392,21 @@
             class="p">]])</span>
         <span class="c1"># Creacion pedf</span>
         <span class="n">fileName</span> <span class="o">=</span> <span class="s1">&#39;listaClientes.pdf&#39;</span>
+        <span class="n">current_work_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span
+            class="n">getcwd</span><span class="p">()</span>  <span class="c1"># Return a string representing the current working directory.</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Current work directory: </span><span
+            class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span
+            class="p">(</span><span class="n">current_work_directory</span><span class="p">))</span>
+        <span class="n">abs_work_directory</span> <span class="o">=</span> <span class="n">os</span><span
+            class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span
+            class="p">(</span><span class="n">current_work_directory</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span
+            class="n">pathsep</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">()</span>
         <span class="n">pdf</span> <span class="o">=</span> <span class="n">SimpleDocTemplate</span><span
-            class="p">(</span><span class="s2">&quot;./Pdfs/&quot;</span> <span class="o">+</span> <span class="n">fileName</span><span
-            class="p">,</span> <span class="n">pagesize</span><span class="o">=</span><span class="n">letter</span><span
-            class="p">)</span>
+            class="p">(</span><span class="n">current_work_directory</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span
+            class="o">+</span> <span class="n">fileName</span><span class="p">,</span> <span
+            class="n">pagesize</span><span class="o">=</span><span class="n">letter</span><span class="p">)</span>
         <span class="c1"># Creación de la tabla</span>
         <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span
             class="n">data</span><span class="p">)</span>
@@ -492,7 +503,8 @@
         <span class="n">pdf</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span
             class="n">elementos</span><span class="p">)</span>
         <span class="n">wb</span><span class="o">.</span><span class="n">open_new</span><span class="p">(</span><span
-            class="s1">&#39;./Pdfs/&#39;</span> <span class="o">+</span> <span class="n">fileName</span><span class="p">)</span></div>
+            class="n">current_work_directory</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span
+            class="o">+</span> <span class="n">fileName</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GridWindow.on_buttonFactura_clicked"><a class="viewcode-back"
                                                                         href="../../../Albaranes.html#App.Albaranes.Albaranes.GridWindow.on_buttonFactura_clicked">[documentos]</a>    <span
@@ -504,21 +516,9 @@
 <span class="sd">           :return: No devuelve ningún parámetro.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># IMPORTS</span>
-        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
-            class="n">SimpleDocTemplate</span>
-        <span class="kn">from</span> <span class="nn">reportlab.lib.pagesizes</span> <span
-            class="kn">import</span> <span class="n">letter</span>
-        <span class="kn">from</span> <span class="nn">reportlab.lib</span> <span class="kn">import</span> <span
-            class="n">colors</span>
-        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
-            class="n">TableStyle</span>
-        <span class="kn">from</span> <span class="nn">reportlab.platypus</span> <span class="kn">import</span> <span
-            class="n">Table</span>
-        <span class="kn">import</span> <span class="nn">webbrowser</span> <span class="k">as</span> <span
-            class="nn">wb</span>
-
         <span class="c1"># DATOS CLIENTE SELECCIONADO</span>
+        <span class="n">current_work_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span
+            class="n">getcwd</span><span class="p">()</span>  <span class="c1"># Return a string representing the current working directory.</span>
         <span class="n">dataC</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">clientes</span> <span class="o">=</span> <span class="n">SQLiteMetodos</span><span
             class="o">.</span><span class="n">selectTablaClientesDni</span><span class="p">(</span><span
@@ -612,9 +612,9 @@
             class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span
             class="s1">&#39;.pdf&#39;</span>
             <span class="n">pdf</span> <span class="o">=</span> <span class="n">SimpleDocTemplate</span><span class="p">(</span><span
-            class="s2">&quot;./Pdfs/&quot;</span> <span class="o">+</span> <span class="n">fileName</span><span
-            class="p">,</span> <span class="n">pagesize</span><span class="o">=</span><span class="n">letter</span><span
-            class="p">)</span>
+            class="n">current_work_directory</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span
+            class="o">+</span> <span class="n">fileName</span><span class="p">,</span> <span
+            class="n">pagesize</span><span class="o">=</span><span class="n">letter</span><span class="p">)</span>
             <span class="c1"># DATOS CLIENTE</span>
 
             <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span
@@ -704,8 +704,8 @@
             <span class="n">pdf</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span
             class="n">elementos</span><span class="p">)</span>
             <span class="n">wb</span><span class="o">.</span><span class="n">open_new</span><span
-            class="p">(</span><span class="s1">&#39;./Pdfs/&#39;</span> <span class="o">+</span> <span class="n">fileName</span><span
-            class="p">)</span>
+            class="p">(</span><span class="n">current_work_directory</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span
+            class="o">+</span> <span class="n">fileName</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">IndexError</span> <span class="k">as</span> <span
             class="n">e</span><span class="p">:</span>
@@ -726,10 +726,10 @@
             <h3>Navegación</h3>
             <p class="caption"><span class="caption-text">Contents:</span></p>
             <ul>
-                <li class="toctree-l1"><a class="reference internal" href="../../../Inicio.html">Guia Usuario</a></li>
-                <li class="toctree-l1"><a class="reference internal" href="../../../GestionClientes.html">Gestion de
+                <li class="toctree-l1"><a class="reference internal" href="../../../Inicio.html">Guía Usuario</a></li>
+                <li class="toctree-l1"><a class="reference internal" href="../../../GestionClientes.html">Gestión de
                     Clientes</a></li>
-                <li class="toctree-l1"><a class="reference internal" href="../../../GestionProductos.html">Gestion de
+                <li class="toctree-l1"><a class="reference internal" href="../../../GestionProductos.html">Gestión de
                     Productos</a></li>
                 <li class="toctree-l1"><a class="reference internal" href="../../../Albaranes.html">Albaranes y
                     Listado</a></li>
