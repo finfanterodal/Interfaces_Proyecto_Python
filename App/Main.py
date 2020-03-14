@@ -49,7 +49,7 @@ class GridWindow(Gtk.Window):
             outline: none;
             color: #fff;
             border-style: hidden;
-            border-radius: 15px;
+            border-radius: 5px;
             }
             label {
             font: 20px Courier-bold;

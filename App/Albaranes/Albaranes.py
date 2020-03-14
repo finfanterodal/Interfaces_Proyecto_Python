@@ -1,4 +1,6 @@
 import gi
+import sys
+import os
 
 from App import Main
 from App.SQLiteBD import SQLiteMetodos
@@ -160,7 +162,12 @@ class GridWindow(Gtk.Window):
             data.append([cliente[0], cliente[1], cliente[2], cliente[3], cliente[4], cliente[5]])
         # Creacion pedf
         fileName = 'listaClientes.pdf'
-        pdf = SimpleDocTemplate("./Pdfs/" + fileName, pagesize=letter)
+        current_work_directory = os.getcwd()  # Return a string representing the current working directory.
+        print("Current work directory: {}".format(current_work_directory))
+        abs_work_directory = os.path.abspath(current_work_directory)
+        print(os.pathsep)
+        print()
+        pdf = SimpleDocTemplate(current_work_directory + "/" + fileName, pagesize=letter)
         # Creación de la tabla
         table = Table(data)
         elementos = []
@@ -197,7 +204,7 @@ class GridWindow(Gtk.Window):
         )
         table.setStyle(ts2)
         pdf.build(elementos)
-        wb.open_new('./Pdfs/' + fileName)
+        wb.open_new(current_work_directory + "/" + fileName)
 
     def on_buttonFactura_clicked(self, widget):
         """Metodo que crea una factura del cliente seeccionado en el treeview.
@@ -207,6 +214,7 @@ class GridWindow(Gtk.Window):
 
         """
         # DATOS CLIENTE SELECCIONADO
+        current_work_directory = os.getcwd()  # Return a string representing the current working directory.
         dataC = []
         clientes = SQLiteMetodos.selectTablaClientesDni(self.model[self.iter][0])
         for cliente in clientes:
@@ -236,7 +244,7 @@ class GridWindow(Gtk.Window):
 
             # GENERAR PDF
             fileName = 'Factura' + dataC[1][1] + '.pdf'
-            pdf = SimpleDocTemplate("./Pdfs/" + fileName, pagesize=letter)
+            pdf = SimpleDocTemplate(current_work_directory + "/" + + fileName, pagesize=letter)
             # DATOS CLIENTE
 
             table = Table(dataC, colWidths=80, rowHeights=30)
@@ -272,8 +280,7 @@ class GridWindow(Gtk.Window):
             elementos.append(table)
             elementos.append(table2)
             pdf.build(elementos)
-            wb.open_new('./Pdfs/' + fileName)
+            wb.open_new(current_work_directory + "/" + + fileName)
 
         except IndexError as e:
             print('No hay productos para generar la factura.')
-
