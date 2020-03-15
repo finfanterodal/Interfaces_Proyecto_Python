@@ -20,7 +20,7 @@ setuptools.setup(
     description="Base de datos implementada en interfaz",
     long_description=descripcion_longa,
     keywords='proyectoPython',
-    packages=['App', 'App/Albaranes', 'App/GestionClientes', 'App/GestionProductos', 'App/Images', 'App/Pdfs',
+    packages=['App', 'App/Albaranes', 'App/GestionClientes', 'App/GestionProductos', 'App/Images',
               'App/SQLiteBD'],
     scripts=["App/lanzador"],
 )

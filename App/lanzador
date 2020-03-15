@@ -1,0 +1,8 @@
+#!usr/bin/python3.6
+
+from gi.repository import Gtk
+
+from App.Main import GridWindow
+
+GridWindow()
+Gtk.main()

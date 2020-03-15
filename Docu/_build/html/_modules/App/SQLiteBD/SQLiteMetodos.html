@@ -538,6 +538,13 @@
 <span class="s2">                                     )</span>
 <span class="s2">    &quot;&quot;&quot;</span>
 
+    <span class="n">sql_insert_tabla_clientes</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;INSERT INTO clientes (dni,nombre,apellidos,sexo,direccion,telefono)</span>
+<span class="s2">    VALUES </span>
+<span class="s2">   (&#39;12277673C&#39;,&#39;Juán&#39;,&#39;Gómez Jurado&#39;,&#39;H&#39;,&#39;C/Toledo nº88&#39;,&#39;675453455&#39;),</span>
+<span class="s2">   (&#39;34444502R&#39;,&#39;Rodrigo&#39;,&#39;Cortés Giráldez&#39;,&#39;H&#39;,&#39;C/Cantabria nº70&#39;,&#39;675453455&#39;),</span>
+<span class="s2">   (&#39;32579336C&#39;,&#39;Arturo&#39;,&#39;González-Campos&#39;,&#39;H&#39;,&#39;C/Aragón nº102&#39;,&#39;675453455&#39;)  </span>
+<span class="s2">    &quot;&quot;&quot;</span>
+
     <span class="c1"># Crear conexion con la base de datos</span>
     <span class="n">conn</span> <span class="o">=</span> <span class="n">crear_conexion</span><span class="p">()</span>
     <span class="c1"># Crear tablas</span>
@@ -552,7 +559,6 @@
             class="s2">&quot;Fallo en la conexión.&quot;</span><span class="p">)</span>
     <span class="n">cerrar_conexion</span><span class="p">(</span><span class="n">conn</span><span
             class="p">)</span></div>
-
 </pre>
                 </div>
 

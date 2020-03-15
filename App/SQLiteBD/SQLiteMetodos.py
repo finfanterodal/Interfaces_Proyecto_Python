@@ -329,6 +329,13 @@ def main():
                                      )
     """
 
+    sql_insert_tabla_clientes = """INSERT INTO clientes (dni,nombre,apellidos,sexo,direccion,telefono)
+    VALUES 
+   ('12277673C','Juán','Gómez Jurado','H','C/Toledo nº88','675453455'),
+   ('34444502R','Rodrigo','Cortés Giráldez','H','C/Cantabria nº70','675453455'),
+   ('32579336C','Arturo','González-Campos','H','C/Aragón nº102','675453455')  
+    """
+
     # Crear conexion con la base de datos
     conn = crear_conexion()
     # Crear tablas
@@ -338,4 +345,3 @@ def main():
     else:
         print("Fallo en la conexión.")
     cerrar_conexion(conn)
-
